@@ -7,7 +7,7 @@ const Hero = () => {
     <div className="w-full h-auto overflow-x-hidden z-10">
       {/* left part of hero section */}
       <div className=" w-[83%] mx-auto py-10 flex justify-center items-center gap-[10vw]">
-        <div className="flex flex-col justify-start w-auto gap-6">
+        <div className="flex flex-col justify-start items-start w-auto gap-6">
           <div className="flex flex-col gap-1">
             <div className="flex justify-start items-start text-4xl font-bold gap-3">
               <span className="text-white">Upscaling Made </span>
@@ -30,7 +30,7 @@ const Hero = () => {
             time and resources you invest, with job-ready courses &
             high-technology, available at the lowest cost.
           </p>
-          <button className="bg-[#cbab61] text-xl font-semibold w-[15vw] px-5 py-3 rounded-md hover:scale-95 transition-all text-white duration-200">
+          <button className="bg-[#cbab61] text-xl font-semibold px-5 py-3 rounded-md hover:scale-95 transition-all text-white duration-200">
             Explore courses
           </button>
         </div>
