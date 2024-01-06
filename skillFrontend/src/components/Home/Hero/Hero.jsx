@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className="w-full h-auto overflow-x-hidden z-10">
       {/* left part of hero section */}
-      <div className=" w-[83%] mx-auto py-10 flex justify-center items-center gap-[10vw]">
+      <div className=" w-[85%] mx-auto py-10 flex justify-center items-center gap-[10vw]">
         <div className="flex flex-col justify-start items-start w-auto gap-6">
           <div className="flex flex-col gap-1">
             <div className="flex justify-start items-start text-4xl font-bold gap-3">
@@ -34,7 +34,7 @@ const Hero = () => {
             Explore courses
           </button>
         </div>
-        <div className="w-[90%]">
+        <div className="w-[87%]">
           <img src={heroImg} alt="heroImg" className="w-full h-auto" />
         </div>
       </div>

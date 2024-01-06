@@ -7,8 +7,8 @@ import CourseList from './CourseList';
 
 const NavBar = () => {
   return (
-    <div className='h-auto w-[100vw] overflow-x-hidden px-7 py-4 flex flex-col gap-4 shadow-md shadow-black'>
-        <div className='flex justify-center items-center gap-[7vw]'>
+    <div className='h-auto w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black'>
+        <div className='flex justify-between items-center w-[85%] mx-auto'>
             <h1 className='text-3xl font-bold text-[#cbab61]'>Skill safari</h1>
             <div className='w-[50%] flex justify-center items-center  border-black bg-[#2c2d30] text-white rounded-xl'>
                 <IoSearch className='px-3 text-[2.6rem] bg-[#cbab61] rounded-l-xl'/>
@@ -19,7 +19,7 @@ const NavBar = () => {
                 <div className='text-base hover:cursor-pointer font-medium'>&nbsp;Signin</div>
             </div>
         </div>
-        <div className='flex justify-center items-center gap-[14.8vw] text-white font-normal text-base'>
+        <div className='flex justify-between items-center text-white font-normal text-base w-[85%] mx-auto'>
           <div className='flex justify-center items-center group cursor-pointer'><span>Courses</span><CourseList/> <FaAngleDown/> </div>
           <div className='flex justify-center items-center'>Home</div>
           <div className='flex justify-center items-center'>Job Portal</div>
