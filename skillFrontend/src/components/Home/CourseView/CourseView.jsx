@@ -11,8 +11,8 @@ const CourseView = () => {
   },[courseType])
   return (
     <div className='w-full py-10'>
-      <div className='w-[85%] mx-auto flex flex-col justify-start items-start gap-4 py-8'>
-        <h1 className='text-4xl font-semibold text-white'>Our Courses</h1>
+      <div className='w-[85%] mx-auto flex flex-col justify-start items-start gap-4 pb-8'>
+        <h1 className='text-4xl font-semibold text-white'>Our <span className='text-glod-color'>Courses.</span></h1>
         <div className='flex justify-start items-center gap-12 pl-8 text-white font-light w-full border-b border-white/60 '>
           <div onClick={()=>{setCourseType('Trending')}} className={courseType === 'Trending' ? `cursor-pointer border-b-2 py-4` : `cursor-pointer `}>Trending</div>
           <div onClick={()=>{setCourseType('Live')}} className={courseType === 'Live' ? `cursor-pointer border-b-2 py-4` : `cursor-pointer `}>Live</div>

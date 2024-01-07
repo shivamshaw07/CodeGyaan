@@ -35,7 +35,7 @@ const HomeDown = () => {
                     <div className='text-sm'>Carrer Transition</div>
                 </div>
             </div>
-            <div className='flex justify-start items-start w-[20%] gap-3 bg-[#2c2d30] px-4 py-2 rounded-lg text-white shadow-md shadow-black/40'>
+            <div className='flex justify-start items-start w-[20%] gap-3 bg-black-bg px-4 py-2 rounded-lg text-white shadow-md shadow-black/40'>
                 <div>
                     <img src={statistic4} alt="statistic1" />
                 </div>
