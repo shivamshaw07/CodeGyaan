@@ -16,7 +16,7 @@ const HomeSection5pages2 = () => {
             <div className='flex flex-col justify-start items-center '>
                 <img src={trophy} alt="trophy" className='mb-1'/>
                 <div className=' text-white'>500+ Hiring</div>
-                <div className='text-white -mt-1'>Hiring</div>
+                <div className='text-white -mt-1'>Partners</div>
             </div>
             <div className='flex flex-col justify-start items-center '>
                 <img src={location} alt="trophy" className='mb-1'/>
