@@ -5,6 +5,7 @@ import { LiaFreeCodeCamp } from "react-icons/lia";
 import { IoSearch } from "react-icons/io5";
 import { FaAngleDown } from "react-icons/fa";
 import CourseList from './CourseList';
+import Login from '../Login/Login';
 
 const NavBar = () => {
   return (
@@ -16,7 +17,9 @@ const NavBar = () => {
                 <input type="text" className='w-full allunset h-full border-none rounded-lg px-4' placeholder='Search by product title'/>
             </div>
             <div className='flex bg-[#cbab61] px-5 py-2 rounded hover:bg-[#b99b55] text-white'>
+              <Link to={'/login'}>
                 <div className='text-base hover:cursor-pointer font-medium'>Login /</div>
+              </Link>
                 <div className='text-base hover:cursor-pointer font-medium'>&nbsp;Signin</div>
             </div>
         </div>
