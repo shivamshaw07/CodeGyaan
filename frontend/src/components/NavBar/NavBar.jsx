@@ -26,11 +26,15 @@ const NavBar = () => {
             </div>
         </div>
         <div className='flex justify-between items-center text-white font-normal text-base w-[85%] mx-auto'>
-          <div className='flex justify-center items-center'>Home</div>
+          <Link to={'/'}>
+            <div className='flex justify-center items-center'>Home</div>
+          </Link>
           <div className='flex justify-center items-center group cursor-pointer'><span>Courses </span><CourseList/> <FaAngleDown className='ml-1'/> </div>
           <div className='flex justify-center items-center'>Job Portal</div>
+          <Link to={'/aboutus'}>
+            <div className='flex justify-center items-center'>About Us</div>
+          </Link>
           <div className='flex justify-center items-center'>Contact Us</div>
-          <div className='flex justify-center items-center'>About Us</div>
         </div>
     </div>
   )

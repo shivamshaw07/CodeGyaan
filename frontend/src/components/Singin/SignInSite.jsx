@@ -124,7 +124,7 @@ const SignInSite = () => {
               </div>
               <div>
               <button className="bg-glod-color w-full text-center py-2 font-semibold rounded-md text-[#fff] hover:bg-[#b99b55]">Sign In</button>
-                  <div className="w-full text-end text-white text-sm">New user? <Link to='/login'><span className="text-amber-300">Login</span></Link></div>
+                  <div className="w-full text-end text-white text-sm">Existing user? <Link to='/login'><span className="text-amber-300">Login</span></Link></div>
               </div>              <div className="w-full text-white text-lg font-light text-center">OR</div>
               <button className="bg-white w-full text-center py-2 font-semibold rounded-md text-black">Signin with Google</button>
             </form>

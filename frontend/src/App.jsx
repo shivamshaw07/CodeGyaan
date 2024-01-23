@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Login from './components/Login/Login'
 import SignInSite from './components/Singin/SignInSite'
+import About from './components/About/About'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
         <Route index path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signin' element={<SignInSite/>}/>
+        <Route path='/aboutus' element={<About/>}/>
       </Routes>
     </div>
   )
