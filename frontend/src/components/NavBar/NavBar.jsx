@@ -20,7 +20,9 @@ const NavBar = () => {
               <Link to={'/login'}>
                 <div className='text-base hover:cursor-pointer font-medium'>Login /</div>
               </Link>
+              <Link to={'/signin'}>
                 <div className='text-base hover:cursor-pointer font-medium'>&nbsp;Signin</div>
+              </Link>
             </div>
         </div>
         <div className='flex justify-between items-center text-white font-normal text-base w-[85%] mx-auto'>

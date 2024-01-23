@@ -2,6 +2,7 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Login from './components/Login/Login'
+import SignInSite from './components/Singin/SignInSite'
 
 function App() {
 
@@ -10,7 +11,7 @@ function App() {
       <Routes>
         <Route index path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
-        <Route path='/signin' element={<Home/>}/>
+        <Route path='/signin' element={<SignInSite/>}/>
       </Routes>
     </div>
   )
