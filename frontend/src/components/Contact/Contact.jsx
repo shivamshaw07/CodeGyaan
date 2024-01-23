@@ -42,12 +42,12 @@ const Contact = () => {
             <div className="flex flex-col gap-3 ">
               <div className="flex flex-col gap-1 h-[8vh] justify-end">
                 
-                  <label
+                  {nameActive && <label
                     htmlFor="name"
                     className="text-xs text-white/80 transition-all duration-400"
                   >
                     Full Name
-                  </label>
+                  </label>}
                 
                 <input
                   type="text"
