@@ -15,15 +15,15 @@ const Contact = () => {
       <NavBar />
       <div className="w-[85vw] mx-auto flex justify-between items-start py-[10vh] gap-[8vw] h-full">
         <div className="flex flex-col justify-start items-start gap-2 w-[50%]">
-          <h1 className="text-white text-4xl font-bold">Contact Us</h1>
+          <h1 className="text-white text-4xl font-bold">Contact <span className="text-glod-color">Us</span>.</h1>
           <p className="text-white text-lg font-light">
             For any queries, Please reach out to us. Our Support team will get
             back to you within 24 hours.
           </p>
-          <p className="flex items-center text-white/80">
+          <p className="flex justify-center gap-2 items-center text-white/80">
             <MdMail /> <span>support@codegyaan.com</span>
           </p>
-          <p className="flex items-center text-white/80">
+          <p className="flex justify-center gap-2 items-center text-white/80">
             <MdCall />
             <span>+91 8867917516</span>
           </p>
@@ -34,7 +34,7 @@ const Contact = () => {
         <div className="w-[50%] shadow-black shadow-lg p-10 h-full">
           <form className="w-full flex flex-col gap-4 justify-start  h-full">
             <h1 className="text-4xl text-white font-semibold">
-              Got an Idea? We've got the skills. Let's team up
+              Got an <span className="text-glod-color">Idea</span>? We've got the skills. Let's team up
             </h1>
             <p className="text-white/80">
               Tell us more about yourself and what you're got in mind.
@@ -99,7 +99,7 @@ const Contact = () => {
                 <textarea
                   id="number"
                   placeholder="Enter your message.."
-                  className=" border-2 border-white px-2 py-1 rounded text-white"
+                  className=" border-2 border-white px-2 py-1 rounded text-white bg-transparent"
                   style={{ borderBottom: "1px solid white" }}
                   onFocus={() => setMessageActive(true)}
                   onBlur={() => setMessageActive(false)}
