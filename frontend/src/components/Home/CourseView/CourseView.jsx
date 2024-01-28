@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 import {coursesList} from '../../../data/courseListData.js'
@@ -9,6 +9,29 @@ const CourseView = () => {
   useEffect(()=>{
     console.log('hii');
   },[courseType])
+
+  const myCardRef = useRef();
+
+  const rightScroll = () => {
+    const scrollLength = 400;
+    const myElement = myCardRef.current;
+    if (myElement) {
+      myElement.scrollTo({
+        left: myElement.scrollLeft + scrollLength,
+        behavior: 'smooth',
+      });
+    }
+  };
+  const leftScroll = () => {
+    const scrollLength = 400;
+    const myElement = myCardRef.current;
+    if (myElement) {
+      myElement.scrollTo({
+        left: myElement.scrollLeft - scrollLength,
+        behavior: 'smooth',
+      });
+    }
+  };
   return (
     <div className='w-full py-10'>
       <div className='w-[85%] mx-auto flex flex-col justify-start items-start gap-4 pb-8'>
@@ -19,7 +42,7 @@ const CourseView = () => {
           <div onClick={()=>{setCourseType('Community')}} className={courseType === 'Community' ? `cursor-pointer border-b-2 py-4` : `cursor-pointer `}>Community</div>
         </div>
       </div>
-        <div className='max-w-[85%] mx-auto flex overflow-x-scroll gap-12'>
+        <div className='max-w-[85%] mx-auto flex overflow-x-scroll gap-12 px-2' ref={myCardRef}>
 
             {
                 coursesList.map((card,index) => {
@@ -33,8 +56,8 @@ const CourseView = () => {
             }
         </div>
             <div className='w-[85%] mx-auto flex justify-center items-center py-10 gap-9'>
-              <button className='text-3xl text-[#fff]'><FaChevronCircleLeft/></button>
-              <button className='text-3xl text-[#fff]'><FaChevronCircleRight/></button>
+              <button className='text-3xl text-[#fff]' onClick={leftScroll}><FaChevronCircleLeft/></button>
+              <button className='text-3xl text-[#fff]' onClick={rightScroll}><FaChevronCircleRight/></button>
             </div>
     </div>
   )

@@ -6,12 +6,12 @@ const Hero = () => {
   return (
     <div className="w-full h-auto overflow-x-hidden z-10">
       {/* left part of hero section */}
-      <div className=" w-[95%] md:w-[95%] lg:w-[85%] xl:w-[85%] mx-auto py-10 flex flex-col md:flex-col lg:flex-row xl:flex-row justify-center items-center gap-[0vw] md:gap-0 lg:gap-[10vw] xl:gap-[10vw]">
+      <div className=" w-[95%] md:w-[95%] lg:w-[85%] xl:w-[85%] mx-auto py-10 flex flex-col-reverse md:flex-col-reverse lg:flex-row xl:flex-row justify-center items-center gap-[6vh] md:gap-0 lg:gap-[10vw] xl:gap-[10vw]">
         <div className="flex flex-col justify-start items-center md:items-center lg:items-start xl:items-start w-auto gap-6">
           <div className="flex flex-col gap-1">
-            <div className="flex justify-start items-start text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold gap-3">
+            <div className="flex flex-col md:flex-col lg:flow-row xl:flex-row justify-start items-start text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold gap-3">
               <span className="text-white">Upscaling Made </span>
-              <span className="flex justify-center items-center text-glod-color">
+              <span className="flex justify-center items-center text-glod-color w-full md:w-full lg:w-auto xl:w-auto">
                 {"<"}
                 <Typewriter
                   options={{
