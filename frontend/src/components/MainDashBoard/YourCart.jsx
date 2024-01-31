@@ -1,6 +1,6 @@
 import React from 'react'
 import wishList from '../../data/wishList'
-import CourseCard from './courseCard'
+import CourseCardd from './CourseCardd'
 
 const YourCart = () => {
   return (
@@ -10,7 +10,7 @@ const YourCart = () => {
             <div className='flex flex-wrap gap-6 w-full mx-auto items-center justify-start'>
                 {
                     wishList.map((item,index) => (
-                        <CourseCard key={index} image={item.img} title={item.title}/>
+                        <CourseCardd key={index} image={item.img} title={item.title}/>
                     ))
                 }
             </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import enrolledCourse from '../../data/enrolledCourses'
- import CourseCard from './CourseCard.jsx'
+import CourseCardd from './CourseCardd.jsx'
 const EnrolledCourses = () => {
   return (
     <div className="w-[80%] h-[81vh] overflow-hidden hover:overflow-y-scroll profile pb-[10vh] pt-[5vh] mt-1">
@@ -9,7 +9,7 @@ const EnrolledCourses = () => {
             <div className='flex flex-wrap gap-6 w-full mx-auto items-center justify-start'>
                 {
                     enrolledCourse.map((item,index) => (
-                        <CourseCard key={index} image={item.img} title={item.title}/>
+                        <CourseCardd key={index} image={item.img} title={item.title}/>
                     ))
                 }
             </div>
