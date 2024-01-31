@@ -1,10 +1,10 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home/Home'
-import Login from './components/Login/Login'
-import SignInSite from './components/Singin/SignInSite'
-import About from './components/About/About'
-import Contact from './components/Contact/Contact'
+import Abouts from './pages/Abouts/Abouts'
+import Contacts from './pages/Contacts/Contacts'
+import LoginPage from './pages/LoginPage/LoginPage'
+import SignPage from './pages/SignPage/SignPage'
 
 function App() {
 
@@ -12,10 +12,10 @@ function App() {
     <div className='w-[100vw] h-[100vh] overflow-x-hidden box-border relative z-10 bg-blue-bg'>
       <Routes>
         <Route index path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/signin' element={<SignInSite/>}/>
-        <Route path='/aboutus' element={<About/>}/>
-        <Route path='//contact-us' element={<Contact/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/signin' element={<SignPage/>}/>
+        <Route path='/aboutus' element={<Abouts/>}/>
+        <Route path='//contact-us' element={<Contacts/>}/>
       </Routes>
     </div>
   )
