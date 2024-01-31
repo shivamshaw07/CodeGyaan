@@ -1,7 +1,6 @@
 import React from 'react'
 import enrolledCourse from '../../data/enrolledCourses'
-import CourseCard from './courseCard'
- 
+ import CourseCard from './CourseCard.jsx'
 const EnrolledCourses = () => {
   return (
     <div className="w-[80%] h-[81vh] overflow-hidden hover:overflow-y-scroll profile pb-[10vh] pt-[5vh] mt-1">
