@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NavBar.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { LiaFreeCodeCamp } from "react-icons/lia";
 import { BsCart4 } from "react-icons/bs";
 import { IoSearch } from "react-icons/io5";
@@ -41,7 +41,8 @@ const NavBar = () => {
             </div>
           </Link>
         </div>}
-        <div className="flex justify-center items-center gap-1 text-white py-1">
+        {
+          logged && <div className="flex justify-center items-center gap-1 text-white py-1">
           <BsCart4 style={{ fontSize: '20px' }} />
           <div className="flex justify-center items-center cursor-pointer group">
             <div className="bg-glod-color px-2 py-1 rounded-full">
@@ -49,17 +50,20 @@ const NavBar = () => {
             </div>
             <TiArrowSortedDown style={{ fontSize: '15px' }} />
           <div className="bg-[#2c2d30] absolute top-[9vh] right-[6vw] hidden group-hover:block hover:block  rounded-md">
-            <div className="flex justify-start items-center px-3 hover:bg-slate-700 font-light py-2 rounded-md gap-1">
-              <RiDashboard2Line/>
-              <div>Dashboard</div>
-            </div>
+            <NavLink to={'/dashboard/profile'}>
+              <div className="flex justify-start items-center px-3 hover:bg-slate-700 font-light py-2 rounded-md gap-1">
+                <RiDashboard2Line/>
+                <div>Dashboard</div>
+              </div>
+            </NavLink>
             <div className="flex justify-start items-center px-3  hover:bg-slate-700 font-light py-2 rounded-md gap-1">
               <IoMdLogOut/>
-              <div>Logout</div>
+              <div onClick={()=>setLogged(false)}>Logout</div>
             </div>
           </div>
           </div>
         </div>
+        }
       </div>
       <div className="flex justify-between items-center text-white font-normal text-base w-[85%] mx-auto">
         <Link to={"/"}>

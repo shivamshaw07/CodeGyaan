@@ -1,0 +1,12 @@
+.profile::-webkit-scrollbar{
+    width: 6px;
+}
+.profile::-webkit-scrollbar-thumb{
+    background: #dbd9d9;
+    border-radius: 10px;
+}
+
+.sidebar .active{
+    background-color: #5f6168;
+    border-radius: 30px;
+}

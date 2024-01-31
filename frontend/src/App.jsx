@@ -6,6 +6,10 @@ import Contacts from './pages/Contacts/Contacts'
 import LoginPage from './pages/LoginPage/LoginPage'
 import SignPage from './pages/SignPage/SignPage'
 import MainDashBoard from './components/MainDashBoard/MainDashBoard'
+import Profile from './components/MainDashBoard/Profile'
+import YourCart from './components/MainDashBoard/YourCart'
+import EnrolledCourses from './components/MainDashBoard/EnrolledCourses'
+import Settings from './components/MainDashBoard/Settings'
 
 function App() {
 
@@ -17,7 +21,12 @@ function App() {
         <Route path='/signin' element={<SignPage/>}/>
         <Route path='/aboutus' element={<Abouts/>}/>
         <Route path='/contact-us' element={<Contacts/>}/>
-        <Route path='/dashboard' element={<MainDashBoard/>}/>
+        <Route element={<MainDashBoard/>}>
+          <Route path='/dashboard/profile' element={<Profile/>}/>
+          <Route path='/dashboard/enrolled-courses' element={<EnrolledCourses/>}/>
+          <Route path='/dashboard/your-cart' element={<YourCart/>}/>
+          <Route path='/dashboard/setting' element={<Settings/>}/>
+        </Route>
       </Routes>
     </div>
   )
