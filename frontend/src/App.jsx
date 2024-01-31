@@ -5,6 +5,7 @@ import Abouts from './pages/Abouts/Abouts'
 import Contacts from './pages/Contacts/Contacts'
 import LoginPage from './pages/LoginPage/LoginPage'
 import SignPage from './pages/SignPage/SignPage'
+import MainDashBoard from './components/MainDashBoard/MainDashBoard'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='/signin' element={<SignPage/>}/>
         <Route path='/aboutus' element={<Abouts/>}/>
         <Route path='/contact-us' element={<Contacts/>}/>
+        <Route path='/dashboard' element={<MainDashBoard/>}/>
       </Routes>
     </div>
   )

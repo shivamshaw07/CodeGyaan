@@ -12,13 +12,13 @@ import { IoMdLogOut } from "react-icons/io";
 const NavBar = () => {
   const [logged, setLogged] = useState(true)
   return (
-    <div className="h-auto w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
+    <div className="h-[19vh] w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
       <div className="flex justify-between items-center w-[85%] mx-auto">
         <Link to={"/"}>
           {" "}
           <h1 className="text-3xl font-bold text-white flex justify-start items-center">
             <LiaFreeCodeCamp className="text-[44px] mr-1" />
-            Code<span className="text-glod-color">Gyaan.</span>
+            Code<span className="text-glod-color">Gyaan</span>.
           </h1>
         </Link>
         <div className="w-[50%] relative flex justify-center items-center  border-black bg-black-bg text-white rounded-xl">
