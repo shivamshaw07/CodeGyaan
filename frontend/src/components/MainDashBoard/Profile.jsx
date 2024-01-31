@@ -1,6 +1,7 @@
 import React from "react";
 import "../../App.css";
 import { FiEdit } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -19,26 +20,34 @@ const Profile = () => {
               <p className="text-white/40">shivamshaw9005@gmail.com</p>
             </div>
           </div>
-          <button className="py-2 px-6 bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55]">
-            Edit <FiEdit style={{ display: "inline", margin: "0 0 5px 5px" }} />
-          </button>
+          <Link to={'/dashboard/setting'}>
+                <button className="py-2 px-6 bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55]">
+                Edit{" "}
+                <FiEdit style={{ display: "inline", margin: "0 0 5px 5px" }} />
+                </button>
+            </Link>
         </div>
         <div className="flex w-full justify-between items-center bg-black-bg px-[3rem] py-[2rem] rounded-lg shadow border border-[#898989]">
           <div className="flex flex-col justify-start items-start gap-2 text-white">
             <h1 className="font-semibold text-xl">About</h1>
             <p className="text-white/40">Write something about yourself</p>
           </div>
-          <button className="py-2 px-6 bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55]">
-            Edit <FiEdit style={{ display: "inline", margin: "0 0 5px 5px" }} />
-          </button>
+          <Link to={'/dashboard/setting'}>
+                <button className="py-2 px-6 bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55]">
+                Edit{" "}
+                <FiEdit style={{ display: "inline", margin: "0 0 5px 5px" }} />
+                </button>
+            </Link>
         </div>
         <div className="flex flex-col w-full justify-start items-start gap-[4vh] bg-black-bg px-[3rem] py-[2rem] rounded-lg shadow border border-[#898989]">
           <div className="flex justify-between items-center gap-2 text-white w-full">
             <h1 className="font-semibold text-xl">Personal Details</h1>
-            <button className="py-2 px-6 bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55]">
-              Edit{" "}
-              <FiEdit style={{ display: "inline", margin: "0 0 5px 5px" }} />
-            </button>
+            <Link to={'/dashboard/setting'}>
+                <button className="py-2 px-6 bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55]">
+                Edit{" "}
+                <FiEdit style={{ display: "inline", margin: "0 0 5px 5px" }} />
+                </button>
+            </Link>
           </div>
           <div className="w-full flex text-white gap-[10vw]">
                 <div className="flex flex-col gap-2">

@@ -27,7 +27,7 @@ const Sidebar = () => {
             <NavLink to={'/dashboard/your-cart'}>
                 <div className=' w-full flex justify-start items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
                     <BsCart4/>
-                    <div>Your Cart</div>
+                    <div>Your Collections</div>
                 </div>
             </NavLink>
         </div>
