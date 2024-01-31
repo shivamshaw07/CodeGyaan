@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
 import { LiaFreeCodeCamp } from "react-icons/lia";
+import { BsCart4 } from "react-icons/bs";
 import { IoSearch } from "react-icons/io5";
-import { FaAngleDown } from "react-icons/fa";
+import { FaAngleDown, FaIdCardAlt } from "react-icons/fa";
 import CourseList from "./CourseList";
-
+import { TiArrowSortedDown } from "react-icons/ti";
+import { RiDashboard2Line } from "react-icons/ri";
+import { IoMdLogOut } from "react-icons/io";
 const NavBar = () => {
+  const [logged, setLogged] = useState(true)
   return (
     <div className="h-auto w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
       <div className="flex justify-between items-center w-[85%] mx-auto">
@@ -17,7 +21,7 @@ const NavBar = () => {
             Code<span className="text-glod-color">Gyaan.</span>
           </h1>
         </Link>
-        <div className="w-[50%] flex justify-center items-center  border-black bg-black-bg text-white rounded-xl">
+        <div className="w-[50%] relative flex justify-center items-center  border-black bg-black-bg text-white rounded-xl">
           <IoSearch className="px-3 text-[2.6rem] bg-glod-color rounded-l-xl group hover:bg-[#b99b55] cursor-pointer " />
           <input
             type="text"
@@ -25,7 +29,7 @@ const NavBar = () => {
             placeholder="Search by product title"
           />
         </div>
-        <div className="flex bg-[#cbab61] px-5 py-2 rounded hover:bg-[#b99b55] text-white">
+        {!logged && <div className="flex bg-[#cbab61] px-5 py-2 rounded hover:bg-[#b99b55] text-white">
           <Link to={"/login"}>
             <div className="text-base hover:cursor-pointer font-medium">
               Login /
@@ -36,6 +40,25 @@ const NavBar = () => {
               &nbsp;Signin
             </div>
           </Link>
+        </div>}
+        <div className="flex justify-center items-center gap-1 text-white py-1">
+          <BsCart4 style={{ fontSize: '20px' }} />
+          <div className="flex justify-center items-center cursor-pointer group">
+            <div className="bg-glod-color px-2 py-1 rounded-full">
+              SS
+            </div>
+            <TiArrowSortedDown style={{ fontSize: '15px' }} />
+          <div className="bg-[#2c2d30] absolute top-[9vh] right-[6vw] hidden group-hover:block hover:block  rounded-md">
+            <div className="flex justify-start items-center px-3 hover:bg-slate-700 font-light py-2 rounded-md gap-1">
+              <RiDashboard2Line/>
+              <div>Dashboard</div>
+            </div>
+            <div className="flex justify-start items-center px-3  hover:bg-slate-700 font-light py-2 rounded-md gap-1">
+              <IoMdLogOut/>
+              <div>Logout</div>
+            </div>
+          </div>
+          </div>
         </div>
       </div>
       <div className="flex justify-between items-center text-white font-normal text-base w-[85%] mx-auto">

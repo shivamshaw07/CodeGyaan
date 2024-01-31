@@ -9,13 +9,13 @@ import SignPage from './pages/SignPage/SignPage'
 function App() {
 
   return (
-    <div className='w-[100vw] h-[100vh] overflow-x-hidden box-border relative z-10 bg-blue-bg'>
+    <div className='w-[100vw] h-auto overflow-x-hidden box-border relative z-10 bg-blue-bg'>
       <Routes>
         <Route index path='/' element={<Home/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signin' element={<SignPage/>}/>
         <Route path='/aboutus' element={<Abouts/>}/>
-        <Route path='//contact-us' element={<Contacts/>}/>
+        <Route path='/contact-us' element={<Contacts/>}/>
       </Routes>
     </div>
   )
