@@ -6,7 +6,7 @@ import mig3 from '../../assets/aboutus/aboutus3.f5cfba861877ea03735d.png'
 const HeroSection = () => {
   return (
     <>
-        <div className='w-[85vw] mx-auto flex flex-col justify-center items-center gap-7 py-[10vh]'>
+        <div className='max-w-[85vw] mx-auto flex flex-col justify-center items-center gap-7 py-[10vh]'>
             <h1 className='text-white text-3xl font-bold w-full text-center'>Driving Innovation in Online Education for a <br /> <span className='text-glod-color'>Brighter Future</span>.</h1>
             <p className='text-white/70  w-full text-center'>CodeGyaan is at the forefront of driving innovation in online education. We're passionate about creating a brighter future <br /> by offering cutting-edge courses, leveraging emerging technologies, and nurturing a vibrant learning community.</p>
             <div className='flex justify-between items-center w-full'>

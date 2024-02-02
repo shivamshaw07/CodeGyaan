@@ -1,5 +1,6 @@
 import React from "react";
 import { FiEdit, FiUpload } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 const Settings = () => {
@@ -108,8 +109,8 @@ const Settings = () => {
                 </button>
           </div>
         </form>
-        <div className="flex flex-col w-full justify-start items-start bg-[#a62d2dbb] px-[3rem] py-[2rem] gap-[2vh] rounded-lg shadow border border-[#898989]">
-
+        <div className="flex flex-col w-full justify-start items-start bg-[#ff2a2a91] px-[3rem] py-[2rem] gap-[2vh] rounded-lg shadow border border-[#898989]">
+            <RiDeleteBin6Line style={{fontSize:"40px", padding:"5px", backgroundColor:"cb6b6b91"}}/>
         </div>
       </div>
     </div>

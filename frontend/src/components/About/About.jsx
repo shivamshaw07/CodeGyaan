@@ -9,7 +9,7 @@ import Review from './Review'
 
 const About = () => {
   return (
-    <div className='w-full h-auto'>
+    <div className='max-w-[100vw] h-auto overflow-x-hidden'>
         <NavBar/>
         <HeroSection/>
         <FoundingStory/>

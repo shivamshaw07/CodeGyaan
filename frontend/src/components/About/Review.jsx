@@ -3,7 +3,7 @@ import { courseReviwe } from "../../data/courseReviwe";
 
 const Review = () => {
   return (
-    <div className="w-full flex flex-col justify-center items-center gap-5 my-[10vh]">
+    <div className="max-w-[100vw] flex flex-col justify-center items-center gap-5 my-[10vh]">
         <h1 className="text-4xl font-bold text-white">Reviews from other <span className="text-glod-color">Learners</span>.</h1>
         <div className="w-[85vw] mx-auto overflow-x-scroll flex gap-6">
         {courseReviwe.map((item, index) => (

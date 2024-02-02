@@ -3,7 +3,7 @@ import founding from "../../assets/aboutus/FoundingStory.84f2828a5f4a9c08a802.pn
 
 const FoundingStory = () => {
   return (
-    <div className="w-[100vw]  h-auto py-[10vh] border-y\t-[1px] border-white">
+    <div className="max-w-[100vw]  h-auto py-[10vh] border-y\t-[1px] border-white">
       <div className="w-[85vw] mx-auto ">
         <div className="flex justify-between items-center gap-[5vw]">
           <div className="flex flex-col justify-start items-start gap-4">

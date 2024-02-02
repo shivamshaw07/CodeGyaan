@@ -2,7 +2,7 @@ import React from 'react'
 
 const WorldClass = () => {
   return (
-    <div className='grid grid-cols-4 grid-rows-2 w-[85vw] mx-auto my-[15vh]'>
+    <div className='grid grid-cols-4 grid-rows-2 max-w-[85vw] mx-auto my-[15vh]'>
         <div className='col-span-2 flex flex-col gap-4 pb-6'>
             <h1 className='text-4xl text-white font-bold'>World-Class Learning for <span className='text-glod-color'>Anyone, Anywhere</span></h1>
             <p className='text-white/80'>CodeGyann partners with more than 275+ leading universities and companies to bring flexible, affordable, job-relevant online learning to individuals and organizations worldwide.</p>

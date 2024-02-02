@@ -12,7 +12,7 @@ import { IoMdLogOut } from "react-icons/io";
 const NavBar = () => {
   const [logged, setLogged] = useState(true)
   return (
-    <div className="h-[19vh] w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
+    <div className="h-[19vh] max-w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
       <div className="flex justify-between items-center w-[85%] mx-auto">
         <Link to={"/"}>
           {" "}
