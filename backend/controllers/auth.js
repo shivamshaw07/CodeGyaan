@@ -45,7 +45,7 @@ export const sendOtp = async (req,res) =>{
 
         console.log("OTP generated successfully : ",otp);
         const otpResult = await OTP.create({email,otp})
-
+        mailSender(email,"Verification code",otp)
         return res.status(200).json({
             sucess : true,
             message : "otp sent successfully",
@@ -78,7 +78,7 @@ export const signup = async (req,res) =>{
         } = req.body;
 
         //all fields must be filled
-        if(!firstName || !lastName || !password || !confirmPassword || !email ){
+        if(!firstName || !lastName || !password || !password || !email || !accountType || !contactNumber ){
             return res.status(401).json({
                 success : false,
                 message : "Please fill all the feilds"
@@ -101,28 +101,28 @@ export const signup = async (req,res) =>{
                 message : "password not matched"
             })
         }
-
+        // await sendOtp(email)
         //find most recent otp
-        const recentOtp = await OTP.find({email}).sort({createdAt}).limit(1)
-        console.log(recentOtp);
+        const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+		console.log(response);
 
         //validate otp
-        if(recentOtp.length == 0){
-            //otp not found
-            return res.status(401).json({
-                success : false,
-                message : "otp not recived"
-            })
-        }else if (otp !== recentOtp) {
-            //invalid otp
-            return res.status(401).json({
-                success : false,
-                message : "otp not matched"
-            })
-        }
-
+        if (response.length === 0) {
+			// OTP not found for the email
+			return res.status(400).json({
+				success: false,
+				message: "The OTP is not valid",
+			});
+		} else if (otp !== response[0].otp) {
+			// Invalid OTP
+			return res.status(400).json({
+				success: false,
+				message: "The OTP is not valid",
+			});
+		}
         //hash password
         const hashedPassword = bcrypt.hash(password,10)
+        const finalPass = toString(hashedPassword)
 
         //create entry in db
         const profileDetails = await Profile.create({
@@ -136,7 +136,7 @@ export const signup = async (req,res) =>{
             firstName,
             lastName,
             email,
-            password:hashedPassword,
+            password : finalPass,
             contactNumber,
             accountType,
             additionalDetails:profileDetails._id,
@@ -152,7 +152,7 @@ export const signup = async (req,res) =>{
     } catch (error) {
         console.log("Error while registerinf user : ",error);
         return res.status(500).json({
-            success:true,
+            success:false,
             message:"user not registered successfully",
             
         })

@@ -21,7 +21,7 @@ export const createSubSection = async (req,res) =>{
         }
 
         //upload video to cloudinary
-        const videoDetails = uploadImageToCloudinary.uploader.upload(video,process.env.FOLDER_NAME)
+        const videoDetails = uploadImageToCloudinary.uploader.upload(video, process.env.FOLDER_NAME)
 
         //create a subsection
         const subsection = await SubSection.create(

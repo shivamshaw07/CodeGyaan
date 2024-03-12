@@ -3,22 +3,22 @@ import mongoose from "mongoose";
 const ProfileSchema = mongoose.Schema({
     gender:{
         type:String,
-        required:true,
+        // required:true,
         trim:true
     },
     dateOfBirth : {
         type:String,
-        required:true,
+        // required:true,
         trim:true
     },
     about:{
         type:String,
-        required:true,
+        // required:true,
         trim:true
     },
     contactNumber:{
         type:String,
-        requied:true,
+        // requied:true,
         trim:true
     }
 })
