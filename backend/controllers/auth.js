@@ -122,7 +122,7 @@ export const signup = async (req,res) =>{
 		}
         //hash password
         const hashedPassword = bcrypt.hash(password,10)
-        const finalPass = toString(hashedPassword)
+        const finalPass = (await hashedPassword).toString()
 
         //create entry in db
         const profileDetails = await Profile.create({
@@ -176,6 +176,7 @@ export const login = async (req,res) =>{
 
         //check that user exist or not
         const user = await User.findOne({email})
+        console.log(user);
         if(!user){
             return res.status(400).json({
                 success:false,
@@ -208,7 +209,7 @@ export const login = async (req,res) =>{
             //send cookie
             res.cookie("token",jwtToken,options).status(200).json({
                 success : true,
-                token,
+                jwtToken,
                 user,
                 message:"User loged in successfully"
             })
