@@ -2,39 +2,50 @@ import jwt from 'jsonwebtoken'
 import {config as configDotenv} from 'dotenv'
 configDotenv()
 
-export const auth = async (req,res,next) => {
+export const auth = async (req, res, next) => {
     try {
-        const {token} = req.body.token || req.cookies.token || req.header("Authorisation").replace("Bearer ","");
-
-        //see that token is present or not
-        if(!token){
-            return res.status(403).json({
-                success:false,
-                message:"Token not found"
-            })
+        let token;
+        console.log(req.body.cookies);
+        // Check for the token in different sources
+        if (req.body && req.body.token) {
+            token = req.body.token;
+        } else if (req.cookies && req.cookies.token) {
+            token = req.cookies.token;
+        } else if (req.headers && req.headers.authorization) {
+            token = req.headers.authorization.replace("Bearer ", "");
         }
-    
-        //verify the token
+
+        console.log(token);
+
+        // Check if token is present
+        if (!token) {
+            return res.status(403).json({
+                success: false,
+                message: "Token not found",
+            });
+        }
+
+        // Verify the token
         try {
-            const decode = jwt.verify(token,process.env.JWT_SECRET);
+            const decode = jwt.verify(token, process.env.JWT_SECRET);
             console.log(decode);
-            req.user = decode
+            req.user = decode;
+            next();
         } catch (error) {
             return res.status(403).json({
-                success:false,
-                message:"Token is invalid"
-            })
+                success: false,
+                message: "Token is invalid",
+            });
         }
-        next();
     } catch (error) {
         console.log(error);
         return res.status(403).json({
-            success:false,
-            message:"Token validation unsuccessful"
-        })
+            success: false,
+            message: "Token validation unsuccessful",
+        });
     }
+};
 
-}
 
 export const isStudent = async (req,res,next) => {
     try {
