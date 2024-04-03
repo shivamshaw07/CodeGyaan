@@ -1,5 +1,6 @@
 import course from "../models/course.js";
 import section from "../models/section.js";
+import SubSection from "../models/SubSection.js";
 
 //Create section
 export const createSection = async (req, res) => {
@@ -33,7 +34,8 @@ export const createSection = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      data: updatedeatails,
+      courseData: updatedeatails,
+      sectionData: newSection,
       message: "course updates successfully",
     });
   } catch (error) {
@@ -83,7 +85,12 @@ export const updateSection = async (req, res) => {
 export const deleteSection = async (req, res) => {
   try {
     const { sectionId } = req.body;
-    const deleteSection = await section.findByIdAndUpdate(sectionId);
+    const allSubsection = await section.findById(sectionId)
+    for(let i = 0; i < allSubsection.subSection.length; i++){
+        const subsectionId = allSubsection.subSection[i]
+        await SubSection.findByIdAndDelete(subsectionId)
+    }
+    const deleteSection = await section.findByIdAndDelete(sectionId);
 
     return res.status(200).json({
       success: true,

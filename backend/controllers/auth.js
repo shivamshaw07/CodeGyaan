@@ -167,7 +167,6 @@ export const login = async (req,res) =>{
         //fetch data
         const {email,password} = req.body;
 
-        console.log(req.headers);
         //check that filled or not
         if(!email || !password){
             return res.status(400).json({
@@ -178,7 +177,6 @@ export const login = async (req,res) =>{
 
         //check that user exist or not
         const user = await User.findOne({email})
-        console.log(user);
         if(!user){
             return res.status(400).json({
                 success:false,
@@ -196,7 +194,7 @@ export const login = async (req,res) =>{
 
             //create jwt token
             const jwtToken = jwt.sign(payload,process.env.JWT_SECRET,{
-                expiresIn:"2h"
+                expiresIn:"3d"
             })
 
             user.token = jwtToken

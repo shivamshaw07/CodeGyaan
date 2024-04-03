@@ -13,7 +13,7 @@ export const createSubSection = async (req,res) =>{
         const video = req.files.videoFile
 
         //validate the enteries
-        if(!title || !description || !duration || video){
+        if(!title || !description || !duration || !video){
             return res.status(400).json({
                 success : false,
                 message:"All fileds are mandatory"
@@ -21,7 +21,7 @@ export const createSubSection = async (req,res) =>{
         }
 
         //upload video to cloudinary
-        const videoDetails = uploadImageToCloudinary.uploader.upload(video, process.env.FOLDER_NAME)
+        const videoDetails = await uploadImageToCloudinary(video,process.env.FOLDER_NAME)
 
         //create a subsection
         const subsection = await SubSection.create(
@@ -34,13 +34,19 @@ export const createSubSection = async (req,res) =>{
         )
 
         //update section with subsection
-        const updateSection = await section.findByIdAndUpdate({_id:sectionId},{
+        const updateSection = await section.findByIdAndUpdate(sectionId,{
             $push:{
                 subSection:subsection._id
             }
         },{new:true})
+        if(!updateSection){
+            return res.status(400).json({
+                success:false,
+                message:"Unable to update section"
+            })
+        }
         //HW: add populate here to log updated section
-
+        console.log(updateSection);
         return res.status(200).json({
             success:true,
             message:"SubSection Added successfully",
@@ -50,7 +56,7 @@ export const createSubSection = async (req,res) =>{
         console.log(error.message);
         return res.status(200).json({
             success:false,
-            message:"SubSection Added successfully",
+            message:"SubSection Added unsuccessfully",
         })
     }
 
@@ -74,7 +80,7 @@ export const updateSubSection = async (req,res) => {
                     }
             
                     //upload video to cloudinary
-                    const videoDetails = uploadImageToCloudinary.uploader.upload(video,process.env.FOLDER_NAME)
+                    const videoDetails = await uploadImageToCloudinary(video,process.env.FOLDER_NAME)
 
                     //update subsection
                     const updateSubSectionDetails = await SubSection.findByIdAndUpdate({_id:subSectionId},
@@ -83,7 +89,8 @@ export const updateSubSection = async (req,res) => {
                             duration,
                             description,
                             videoUrl:videoDetails.secure_url
-                        }
+                        },
+                        {new:true}
                     )
 
                     return res.status(200).json({
@@ -115,7 +122,7 @@ export const deleteSubsection = async (req,res) =>{
             })
        }
 
-       const deleteDetails = await section.findByIdAndDelete({_id:subSectionId})
+       const deleteDetails = await SubSection.findByIdAndDelete(subSectionId)
        return res.status(200).json({
             success:true,
             message:"Subsection deleted successfully",
