@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken'
 import {config as configDotenv} from 'dotenv'
+import user from '../models/user.js';
 configDotenv()
 
 export const auth = async (req, res, next) => {
     try {
         let token;
-        console.log(req.body.cookies);
         // Check for the token in different sources
         if (req.body && req.body.token) {
             token = req.body.token;
@@ -15,7 +15,6 @@ export const auth = async (req, res, next) => {
             token = req.headers.authorization.replace("Bearer ", "");
         }
 
-        console.log(token);
 
         // Check if token is present
         if (!token) {
@@ -28,8 +27,6 @@ export const auth = async (req, res, next) => {
         // Verify the token
         try {
             const decode = jwt.verify(token, process.env.JWT_SECRET);
-            console.log(decode);
-            req.user = decode;
             next();
         } catch (error) {
             return res.status(403).json({
@@ -49,8 +46,10 @@ export const auth = async (req, res, next) => {
 
 export const isStudent = async (req,res,next) => {
     try {
-        const {accountType} = req.body.accountType;
-        if(accountType !== "Student"){
+        const userId = req.body.id;
+        const userType = await user.findById(userId,'accountType');
+        if(userType !== "Student"){
+            req["user"] = userId;
             return res.status(400).json({
                 success:false,
                 message:"This is protected route for student"
@@ -70,8 +69,9 @@ export const isStudent = async (req,res,next) => {
 
 export const isInstructor = async (req,res,next) => {
     try {
-        const {accountType} = req.body.accountType;
-        if(accountType !== "Instructor"){
+        const userId = req.body.id;
+        const userType = await user.findById(userId,'accountType');
+        if(userType.accountType !== "Instructor"){
             return res.status(400).json({
                 success:false,
                 message:"This is protected route for Instructor"
@@ -91,8 +91,9 @@ export const isInstructor = async (req,res,next) => {
 
 export const isAdmin = async (req,res,next) => {
     try {
-        const {accountType} = req.body.accountType;
-        if(accountType !== "Admin"){
+        const userId = req.user.id;
+        const userType = await user.findById(userId,'accountType');
+        if(userType !== "Admin"){
             return res.status(400).json({
                 success:false,
                 message:"This is protected route for Admin"

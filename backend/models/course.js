@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const courseSchema = new  mongoose.Schema({
     courseName:{
         type:String,
-        requied:true
+        required:true
     },
     courseDescription:{
         type:String,
-        requied:true
+        required:true
     },
     instructor:{
         type:String,
@@ -30,15 +30,16 @@ const courseSchema = new  mongoose.Schema({
         }
     ],
     prize:{
-        type:Number
+        type:Number,
+        required:true
     },
     thumbnail:{
         type:String,
         required:true
     },
     tag:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Tag"
+        type :[String],
+        default:[]
     },
     studentsEnrolled:[
         {

@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { config as configDotenv } from "dotenv";
 import mailSender from "../utils/mailSender.js";
+import multer from 'multer'
 configDotenv()
 
 // send otp
@@ -166,6 +167,7 @@ export const login = async (req,res) =>{
         //fetch data
         const {email,password} = req.body;
 
+        console.log(req.headers);
         //check that filled or not
         if(!email || !password){
             return res.status(400).json({

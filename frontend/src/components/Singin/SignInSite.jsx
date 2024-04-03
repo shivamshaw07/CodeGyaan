@@ -7,6 +7,7 @@ const SignInSite = () => {
   const formSubmitHandler = () => {
     console.log("Form submitted");
   };
+  const [accountType, setAccountType] = useState("Student");
 
   return (
     <div className="w-screen h-screen flex justify-center items-start">
@@ -23,13 +24,17 @@ const SignInSite = () => {
             Get Onboard and jumpstart your career!
           </h1>
           <p className="text-sm text-white/80">
-            Please enter your details to signIn
+            Please enter your details to signIn 
           </p>
           <div>
             <form
               onSubmit={formSubmitHandler}
-              className="flex flex-col gap-[3vh]"
+              className="flex flex-col gap-[3vh] w-full"
             >
+              <div className="flex gap-[1vw] bg-black-bg items-center justify-start w-[49%] p-2 rounded-3xl">
+                <div onClick={()=>setAccountType("Student")} className =  {accountType === 'Student' ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold":"text-lg cursor-pointer text-white px-3 py-1 rounded-3xl font-semibold"}>Student</div>
+                <div  onClick={()=>setAccountType("Instructor")} className = {accountType === 'Instructor' ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold":"text-lg cursor-pointer  text-white px-3 py-1 rounded-3xl font-semibold"}>Instructor</div>
+              </div>
               <div className="flex gap-[1.45vw]">
                 <div className="flex flex-col">
                   <label htmlFor="first" className="text-white font-medium ">
@@ -60,8 +65,8 @@ const SignInSite = () => {
                   />
                 </div>
               </div>
-              <div className="flex gap-[1.45vw]">
-                <div className="flex flex-col">
+              <div className="flex gap-[1.45vw] w-full ">
+                <div className="flex flex-col w-full">
                   <label htmlFor="email" className="text-white font-medium ">
                     Email
                   </label>
@@ -75,7 +80,7 @@ const SignInSite = () => {
                     placeholder="Enter your email"
                   />
                 </div>
-                <div className="flex flex-col">
+                {/* <div className="flex flex-col">
                   <label htmlFor="num" className="text-white font-medium ">
                     Phone no.
                   </label>
@@ -88,7 +93,7 @@ const SignInSite = () => {
                     }}
                     placeholder="Enter your Phone no."
                   />
-                </div>
+                </div> */}
               </div>
               <div className="flex gap-[1.45vw]">
                 <div className="flex flex-col">

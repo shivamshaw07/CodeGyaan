@@ -8,10 +8,9 @@ configDotenv();
 export const createCourse = async (req,res) =>{
     try {
         const {courseName,courseDescription,whatYouWillLearn,prize,tag} = req.body
-        const thumbnail = req.files.thumbnail
-    
+        const thumbnailrec = req.files.thumbnailimg  
         //validate the datas
-        if(!courseName || !courseDescription || !whatYouWillLearn || !prize || !thumbnail || tag){
+        if(!courseName || !courseDescription || !whatYouWillLearn || !prize || !thumbnailrec || !tag){
             return res.status(500).json({
                 status:false,
                 message : "All field are mandatory"
@@ -19,11 +18,10 @@ export const createCourse = async (req,res) =>{
         }
     
         //check for instructor
-        const userId = req.user.id
+        const userId = req.body.id
         const instructorDetails = await user.findById(userId)
-        console.log("instructorDetails : ",instructorDetails);
     
-        if(!instructorDetails){
+        if(!instructorDetails && instructorDetails.accountType !== "Instructor"){
             return res.status(404).json({
                 status:false,
                 message : "Instructor details not found"
@@ -31,17 +29,16 @@ export const createCourse = async (req,res) =>{
         }
     
         //validate tag
-        const tagDetails = await Tag.findById(tag)
-        if(!tagDetails){
-            return res.status(404).json({
-                status:false,
-                message : "Tag details not found"
-            })
-        }
+        // const tagDetails = await Tag.findById(tag)
+        // if(!tagDetails){
+        //     return res.status(404).json({
+        //         status:false,
+        //         message : "Tag details not found"
+        //     })
+        // }
     
         //upload image to cloudinary
-        const thumbNailImage = uploadImageToCloudinary(thumbnail,process.env.FOLDER_NAME)
-    
+        const thumbNailImage = await uploadImageToCloudinary(thumbnailrec,process.env.FOLDER_NAME)
         //create new course
         const newCourse = await course.create({
             instructor:instructorDetails._id,
@@ -49,8 +46,8 @@ export const createCourse = async (req,res) =>{
             whatYouWillLearn:whatYouWillLearn,
             courseDescription:courseDescription,
             prize:prize,
-            tag:tagDetails._id,
-            thumbnail:thumbnail.secure_url
+            tag:tag,
+            thumbnail : thumbNailImage.secure_url
         })
         console.log(newCourse);
     
@@ -71,7 +68,7 @@ export const createCourse = async (req,res) =>{
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            success : fasle,
+            success : false,
             message : "Course created Unsuccessfully",
             
         })

@@ -15,4 +15,4 @@ const tagSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model("Tag",tagSchema)
+export default mongoose.model("Tag",tagSchema)  

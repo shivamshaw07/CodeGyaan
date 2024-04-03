@@ -31,16 +31,16 @@ const Login = () => {
           <div>
             <form onSubmit={formSubmitHandler} className="flex flex-col gap-[3vh]">
               <div className="flex flex-col">
-                <label htmlFor="email" className="text-white font-medium ">
+              {isEmailFocused && <label htmlFor="email" className="text-white font-medium ">
                   Email
-                </label>
+                </label>}
                 <input
                   type="email"
                   id="email"
                   className="text-white rounded-lg px-4 py-1"
                   style={{
-                    border: `${
-                      isEmailFocused ? "2px solid white" : "1px solid white"
+                    borderBottom:`${
+                      isEmailFocused ? "2px solid white " : "1px solid white"
                     }`,
                   }}
                   onFocus={() => setIsEmailFocused(true)}
@@ -49,15 +49,15 @@ const Login = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <label htmlFor="pass" className="text-white font-medium ">
+                { isPasswordFocused && <label htmlFor="pass" className="text-white font-medium ">
                   Password
-                </label>
+                </label>}
                 <input
                   type="password"
                   id="pass"
                   className="text-white rounded-lg px-4 py-1"
                   style={{
-                    border: `${
+                    borderBottom: `${
                       isPasswordFocused ? "2px solid white" : "1px solid white"
                     }`,
                   }}
