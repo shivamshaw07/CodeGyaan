@@ -13,7 +13,7 @@ import cloud from '../assets/courseListBanner/cloud-computing (1).png'
 export const coursesList = [
   {
     title: "Java Programming Masterclass",
-    instructor: "Sophia Lee",
+    instructor: "Sophia Lee✅",
     start_date: "15 Mar 2024",
     img: java,
     mode:"live",

@@ -10,7 +10,7 @@ export const createCourse = async (req,res) =>{
         const {courseName,courseDescription,whatYouWillLearn,prize,tag} = req.body
         const thumbnailrec = req.files.thumbnailimg  
         //validate the datas
-        if(!courseName || !courseDescription || !whatYouWillLearn || !prize || !thumbnailrec || !tag){
+        if(!courseName || !courseDescription || !whatYouWillLearn || !prize || !thumbnailrec || !tag ||!startDate || !mode){
             return res.status(500).json({
                 status:false,
                 message : "All field are mandatory"
@@ -47,7 +47,9 @@ export const createCourse = async (req,res) =>{
             courseDescription:courseDescription,
             prize:prize,
             tag:tag,
-            thumbnail : thumbNailImage.secure_url
+            thumbnail : thumbNailImage.secure_url,
+            startDate:startDate,
+            mode:mode
         })
         console.log(newCourse);
     

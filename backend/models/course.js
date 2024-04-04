@@ -9,6 +9,14 @@ const courseSchema = new  mongoose.Schema({
         type:String,
         required:true
     },
+    startDate : {
+        type:String,
+        required:true
+    },
+    mode:{
+        type:String,
+        required:true
+    },
     instructor:{
         type:String,
         required:true
