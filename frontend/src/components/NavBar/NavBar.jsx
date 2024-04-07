@@ -57,7 +57,10 @@ const NavBar = () => {
         )}
         {token && (
           <div className="flex justify-center items-center gap-1 text-white py-1">
-            <BsCart4 style={{ fontSize: "20px" }} />
+            <NavLink to={'/dashboard/your-cart'}>
+              <BsCart4 style={{ fontSize: "20px" }} />
+            </NavLink>
+            
             <div onClick={
                   dashboardActive
                     ? () => setDashboardActive(false)

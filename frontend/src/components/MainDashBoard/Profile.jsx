@@ -20,7 +20,7 @@ const Profile = () => {
             <img src={user?.image} alt="profile" className="h-[10vh] rounded-full"/>
             <div>
               <h1 className="font-semibold text-xl">{user?.firstName} {user?.lastName}</h1>
-              <p className="text-white/40">{user.email}</p>
+              <p className="text-white/40">{user?.email}</p>
             </div>
           </div>
           <Link to={'/dashboard/setting'}>

@@ -4,11 +4,14 @@ import {CgLogOut, CgProfile} from 'react-icons/cg'
 import { FaGraduationCap } from "react-icons/fa6";
 import { IoMdLogOut } from "react-icons/io";
 import { MdSettings } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+import { logout } from '../../servies/operations/authOpertaion';
 
 
 
 const Sidebar = () => {
+    const dispatch = useDispatch();
   return (
     <div className='sidebar w-[20%] bg-black-bg h-[82vh] mt-1 flex items-start flex-col justify-center gap-[13vh] overflow-hidden'>
         <div className='flex flex-col w-full gap-1 ml-[4vw]'>
@@ -39,7 +42,7 @@ const Sidebar = () => {
                     <div>Settings</div>
                 </div>
             </NavLink>
-            <div className='w-full flex justify-start items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
+            <div onClick={()=>dispatch(logout())} className='w-full flex justify-start cursor-pointer items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
                 <IoMdLogOut/>
                 <div>Logout</div>
             </div>
