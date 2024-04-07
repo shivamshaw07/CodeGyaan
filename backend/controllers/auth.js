@@ -19,7 +19,7 @@ export const sendOtp = async (req,res) =>{
 
         if(user){
             return res.status(400).json({
-                sucess: false,
+                success: false,
                 message: "User already exists"
             })
         }
@@ -48,15 +48,14 @@ export const sendOtp = async (req,res) =>{
         const otpResult = await OTP.create({email,otp})
         mailSender(email,"Verification code",otp)
         return res.status(200).json({
-            sucess : true,
-            message : "otp sent successfully",
+            success : true,
+            message : "OTP sent successfully",
             data : otpResult
         })
     } catch (error) {
-        console.log("Error while sending otp : ",error);
         return res.status(400).json({
-            sucess : false,
-            message : "otp not sent successfully",
+            success : false,
+            message : "OTP not sent successfully",
         })
     }
 }
@@ -77,9 +76,9 @@ export const signup = async (req,res) =>{
             contactNumber,
             otp
         } = req.body;
-
+        console.log(req.body);
         //all fields must be filled
-        if(!firstName || !lastName || !password || !password || !email || !accountType || !contactNumber ){
+        if(!firstName || !lastName || !password || !confirmPassword || !email || !accountType  ){
             return res.status(401).json({
                 success : false,
                 message : "Please fill all the feilds"
@@ -193,11 +192,11 @@ export const login = async (req,res) =>{
             }
 
             //create jwt token
-            const jwtToken = jwt.sign(payload,process.env.JWT_SECRET,{
+            const Token = jwt.sign(payload,process.env.JWT_SECRET,{
                 expiresIn:"3d"
             })
 
-            user.token = jwtToken
+            user.token = Token
             user.password = undefined
 
             //create cookie and then send response
@@ -207,10 +206,10 @@ export const login = async (req,res) =>{
             }
 
             //send cookie
-            res.cookie("token",jwtToken,options).status(200).json({
+            res.cookie("token",Token,options).status(200).json({
                 success : true,
-                jwtToken,
-                user,
+                token:Token,
+                user : user,
                 message:"User loged in successfully"
             })
         }

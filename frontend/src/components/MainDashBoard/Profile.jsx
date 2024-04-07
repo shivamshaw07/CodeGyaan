@@ -2,8 +2,10 @@ import React from "react";
 import "../../App.css";
 import { FiEdit } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import {useSelector} from 'react-redux'
 
 const Profile = () => {
+  const {user} = useSelector(state => state.profile)
   return (
     <div className="w-[80%] h-[81vh] overflow-hidden hover:overflow-y-scroll profile pb-[10vh] pt-[5vh] mt-1">
       <div className="w-[90%] mx-auto flex flex-col gap-[10vh]">
@@ -12,12 +14,13 @@ const Profile = () => {
         </h1>
         <div className="flex w-full justify-between items-center bg-black-bg px-[3rem] py-[2rem] rounded-lg shadow border border-[#898989]">
           <div className="flex justify-start items-center gap-2 text-white">
-            <div className="bg-red-600  rounded-full w-[76px] py-[22px] text-center font-semibold text-2xl">
+            {/* <div className="bg-red-600  rounded-full w-[76px] py-[22px] text-center font-semibold text-2xl">
               SS
-            </div>
+            </div> */}
+            <img src={user?.image} alt="profile" className="h-[10vh] rounded-full"/>
             <div>
-              <h1 className="font-semibold text-xl">Shivam shaw</h1>
-              <p className="text-white/40">shivamshaw9005@gmail.com</p>
+              <h1 className="font-semibold text-xl">{user?.firstName} {user?.lastName}</h1>
+              <p className="text-white/40">{user.email}</p>
             </div>
           </div>
           <Link to={'/dashboard/setting'}>
@@ -53,11 +56,11 @@ const Profile = () => {
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-white/20">First Name</div>
-                        <div className="font-semibold">Shivam </div>
+                        <div className="font-semibold">{user?.firstName} </div>
                     </div>
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-white/20">Email</div>
-                        <div className="font-semibold">shivamshaw9005@gmail.com</div>
+                        <div className="font-semibold">{user?.email}</div>
                     </div>
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-white/20">Gender</div>
@@ -67,15 +70,15 @@ const Profile = () => {
                 <div className="flex flex-col gap-2">
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-white/20">Last Name</div>
-                        <div className="font-semibold">Shaw</div>
+                        <div className="font-semibold">{user?.lastName}</div>
                     </div>
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-white/20">Phone Number</div>
-                        <div className="font-semibold">+91 9142574541</div>
+                        <div className="font-semibold">{user?.phone ? user.phone : "phone"}</div>
                     </div>
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-white/20">Gender</div>
-                        <div className="font-semibold">April 1, 2004</div>
+                        <div className="font-semibold">{user?.dob ? user.dob.slice(0,10) : "dob"}</div>
                     </div>
                 </div>
           </div>

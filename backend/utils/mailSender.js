@@ -20,7 +20,6 @@ const mailSender = async (email,title,body) => {
             subject:`${title}`,
             html:`Your OTP : ${body}`
         })
-        console.log(info);
         return info
         
     } catch (error) {

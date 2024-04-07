@@ -21,6 +21,20 @@ const userSchema =  mongoose.Schema({
         required:true,
         trim : true
     },
+    gender:{
+        type:String,
+        enum:["Male","Female","Other"]
+    },
+    dob:{
+        type:Date
+    },
+    contactNumber:{
+        type:Number
+    },
+    about:{
+        type:String
+    },
+    
     token:{
         type:String
     },

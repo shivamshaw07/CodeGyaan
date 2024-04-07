@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import { LiaFreeCodeCamp } from "react-icons/lia";
 import authImage from "../../assets/signin-banner-removebg-preview.png";
 import { Link } from "react-router-dom";
+import {useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import { login } from "../../servies/operations/authOpertaion";
 
 const Login = () => {
   const [isEmailFocused, setIsEmailFocused] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [email,setEmail] = useState("");
+  const [password,setIsPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    dispatch(login(email,password,navigate))
 
-  const formSubmitHandler = () => {
-    console.log("Form submitted");
   };
 
   return (
@@ -46,6 +55,7 @@ const Login = () => {
                   onFocus={() => setIsEmailFocused(true)}
                   onBlur={() => setIsEmailFocused(false)}
                   placeholder="Enter your email"
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
               </div>
               <div className="flex flex-col">
@@ -64,6 +74,7 @@ const Login = () => {
                   onFocus={() => setIsPasswordFocused(true)}
                   onBlur={() => setIsPasswordFocused(false)}
                   placeholder="Enter your password"
+                  onChange={(e)=>setIsPassword(e.target.value)}
                 />
               </div>
               <div>

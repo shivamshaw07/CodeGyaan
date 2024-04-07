@@ -2,8 +2,10 @@ import React from "react";
 import { FiEdit, FiUpload } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import {useSelector} from 'react-redux'
 
 const Settings = () => {
+  const {user} = useSelector(state => state.profile)
   return (
     <div className="w-[80%] h-[81vh] overflow-hidden hover:overflow-y-scroll profile pb-[10vh] pt-[5vh] mt-1">
       <div className="w-[90%] mx-auto flex flex-col gap-[5vh]">
@@ -12,14 +14,16 @@ const Settings = () => {
         </h1>
         <div className="flex w-full justify-between items-center bg-black-bg px-[3rem] py-[2rem] rounded-lg shadow border border-[#898989]">
           <div className="flex justify-start items-center gap-2 text-white">
-            <div className="bg-red-600  rounded-full w-[76px] py-[22px] text-center font-semibold text-2xl">
+            {/* <div className="bg-red-600  rounded-full w-[76px] py-[22px] text-center font-semibold text-2xl">
               SS
-            </div>
+            </div> */}
+            <img src={user?.image} alt="profile" className="h-[10vh] rounded-full"/>
             <div className="flex flex-col gap-1">
               <h1 className="font-semibold text-xl">Change Your Profile</h1>
               <div className="flex gap-3">
                 <input
                   type="file"
+                  accept=".jpeg, .png, .jpg"
                   className="py-[3px] bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55] w-[250px]"
                   placeholder="select"
                 />
@@ -45,7 +49,7 @@ const Settings = () => {
                 <label htmlFor="first">First name</label>
                 <input
                   type="text"
-                  placeholder="Shivam"
+                  placeholder={user?.firstName}
                   className="w-full bg-[#41454a] p-2 rounded-lg"
                   style={{ borderBottom: "1.5px solid white" }}
                 />
@@ -74,19 +78,18 @@ const Settings = () => {
                 <label htmlFor="first">Last name</label>
                 <input
                   type="text"
-                  placeholder="Shaw"
+                  placeholder={user?.lastName}
                   className="w-full bg-[#41454a] p-2 rounded-lg"
                   style={{ borderBottom: "1.5px solid white" }}
                 />
               </div>
               <div className="flex flex-col text-white">
-                <label htmlFor="first">Gender</label>
-                <input
-                  type="text"
-                  placeholder="Male"
-                  className="w-full bg-[#41454a] p-2 rounded-lg"
-                  style={{ borderBottom: "1.5px solid white" }}
-                />
+                <label htmlFor="gender">Gender</label>
+                <select id="gender" className="w-full bg-[#41454a] p-2 rounded-lg">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
               <div className="flex flex-col text-white">
                 <label htmlFor="about">About</label>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NavBar.css";
 import { Link, NavLink } from "react-router-dom";
 import { LiaFreeCodeCamp } from "react-icons/lia";
@@ -9,8 +9,20 @@ import CourseList from "./CourseList";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { RiDashboard2Line } from "react-icons/ri";
 import { IoMdLogOut } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import {useSelector} from 'react-redux'
+import { setToken } from "../../slices/authSlice";
+import { logout } from "../../servies/operations/authOpertaion";
+
 const NavBar = () => {
-  const [logged, setLogged] = useState(true)
+  const [dashboardActive, setDashboardActive] = useState(false);
+  const dispatch = useDispatch();
+  const {token} = useSelector(state => state.auth)
+  useEffect(() => {
+    if(token){
+      dispatch(setToken(token))
+    }
+  },[token])
   return (
     <div className="h-[19vh] max-w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
       <div className="flex justify-between items-center w-[85%] mx-auto">
@@ -29,41 +41,47 @@ const NavBar = () => {
             placeholder="Search by product title"
           />
         </div>
-        {!logged && <div className="flex bg-[#cbab61] px-5 py-2 rounded hover:bg-[#b99b55] text-white">
-          <Link to={"/login"}>
-            <div className="text-base hover:cursor-pointer font-medium">
-              Login /
-            </div>
-          </Link>
-          <Link to={"/signin"}>
-            <div className="text-base hover:cursor-pointer font-medium">
-              &nbsp;Signin
-            </div>
-          </Link>
-        </div>}
-        {
-          logged && <div className="flex justify-center items-center gap-1 text-white py-1">
-          <BsCart4 style={{ fontSize: '20px' }} />
-          <div className="flex justify-center items-center cursor-pointer group">
-            <div className="bg-glod-color px-2 py-1 rounded-full">
-              SS
-            </div>
-            <TiArrowSortedDown style={{ fontSize: '15px' }} />
-          <div className="bg-[#2c2d30] absolute top-[9vh] right-[6vw] hidden group-hover:block hover:block  rounded-md">
-            <NavLink to={'/dashboard/profile'}>
-              <div className="flex justify-start items-center px-3 hover:bg-slate-700 font-light py-2 rounded-md gap-1">
-                <RiDashboard2Line/>
-                <div>Dashboard</div>
+        {!token && (
+          <div className="flex bg-[#cbab61] px-5 py-2 rounded hover:bg-[#b99b55] text-white">
+            <Link to={"/login"}>
+              <div className="text-base hover:cursor-pointer font-medium">
+                Login /
               </div>
-            </NavLink>
-            <div className="flex justify-start items-center px-3  hover:bg-slate-700 font-light py-2 rounded-md gap-1">
-              <IoMdLogOut/>
-              <div onClick={()=>setLogged(false)}>Logout</div>
+            </Link>
+            <Link to={"/signin"}>
+              <div className="text-base hover:cursor-pointer font-medium">
+                &nbsp;Signin
+              </div>
+            </Link>
+          </div>
+        )}
+        {token && (
+          <div className="flex justify-center items-center gap-1 text-white py-1">
+            <BsCart4 style={{ fontSize: "20px" }} />
+            <div onClick={
+                  dashboardActive
+                    ? () => setDashboardActive(false)
+                    : () => setDashboardActive(true)
+                } className="flex justify-center items-center cursor-pointer group">
+              <div className="bg-glod-color px-2 py-1 rounded-full">SS</div>
+              <TiArrowSortedDown style={{ fontSize: "15px" }} />
+              <div
+                className={dashboardActive ? "bg-[#2c2d30] absolute top-[9vh] right-[6vw] block group-hover:block hover:block  rounded-md" : "bg-[#2c2d30] absolute top-[9vh] right-[6vw] hidden group-hover:block hover:block  rounded-md"}
+              >
+                <NavLink to={"/dashboard/profile"}>
+                  <div className="flex justify-start items-center px-3 hover:bg-slate-700 font-light py-2 rounded-md gap-1">
+                    <RiDashboard2Line />
+                    <div>Dashboard</div>
+                  </div>
+                </NavLink>
+                <div className="flex justify-start items-center px-3  hover:bg-slate-700 font-light py-2 rounded-md gap-1">
+                  <IoMdLogOut />
+                  <div onClick={()=>dispatch(logout())}>Logout</div>
+                </div>
+              </div>
             </div>
           </div>
-          </div>
-        </div>
-        }
+        )}
       </div>
       <div className="flex justify-between items-center text-white font-normal text-base w-[85%] mx-auto">
         <Link to={"/"}>

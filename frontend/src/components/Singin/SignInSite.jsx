@@ -2,12 +2,53 @@ import React, { useState } from "react";
 import { LiaFreeCodeCamp } from "react-icons/lia";
 import authImage from "../../assets/signin-banner-removebg-preview.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSignupData, setLoading } from "../../slices/authSlice";
+import { toast } from "react-hot-toast";
+import { sendOtp } from "../../servies/operations/authOpertaion";
 
 const SignInSite = () => {
-  const formSubmitHandler = () => {
-    console.log("Form submitted");
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const [accountType, setAccountType] = useState("Student");
+  const [firstName, setFirstName] = useState(false);
+  const [lastName, setLastName] = useState(false);
+  const [email, setEmail] = useState(false);
+  const [pass, setPass] = useState(false);
+  const [conPass, setConPass] = useState(false);
+
+  const [changeFiled, setChangeFiled] = useState({
+    accountType: accountType,
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const changeHandler = (e) => {
+    setChangeFiled({
+      ...changeFiled,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    if (
+      changeFiled.firstName === "" ||
+      changeFiled.lastName === "" ||
+      changeFiled.email === "" ||
+      changeFiled.password === "" ||
+      changeFiled.confirmPassword === ""
+    ) {
+      toast.error("Please fill all the fields");
+      return;
+    }
+    dispatch(sendOtp(changeFiled.email, navigate, changeFiled));
+  };
 
   return (
     <div className="w-screen h-screen flex justify-center items-start">
@@ -24,7 +65,7 @@ const SignInSite = () => {
             Get Onboard and jumpstart your career!
           </h1>
           <p className="text-sm text-white/80">
-            Please enter your details to signIn 
+            Please enter your details to signIn
           </p>
           <div>
             <form
@@ -32,52 +73,106 @@ const SignInSite = () => {
               className="flex flex-col gap-[3vh] w-full"
             >
               <div className="flex gap-[1vw] bg-black-bg items-center justify-start w-[49%] p-2 rounded-3xl">
-                <div onClick={()=>setAccountType("Student")} className =  {accountType === 'Student' ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold":"text-lg cursor-pointer text-white px-3 py-1 rounded-3xl font-semibold"}>Student</div>
-                <div  onClick={()=>setAccountType("Instructor")} className = {accountType === 'Instructor' ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold":"text-lg cursor-pointer  text-white px-3 py-1 rounded-3xl font-semibold"}>Instructor</div>
+                <div
+                  onClick={() => setAccountType("Student")}
+                  className={
+                    accountType === "Student"
+                      ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold"
+                      : "text-lg cursor-pointer text-white px-3 py-1 rounded-3xl font-semibold"
+                  }
+                >
+                  Student
+                </div>
+                <div
+                  onClick={() => setAccountType("Instructor")}
+                  className={
+                    accountType === "Instructor"
+                      ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold"
+                      : "text-lg cursor-pointer  text-white px-3 py-1 rounded-3xl font-semibold"
+                  }
+                >
+                  Instructor
+                </div>
               </div>
               <div className="flex gap-[1.45vw]">
-                <div className="flex flex-col">
-                  <label htmlFor="first" className="text-white font-medium ">
+                <div className="flex flex-col h-[7vh] justify-end ">
+                  <label
+                    htmlFor="first"
+                    className={
+                      firstName
+                        ? "text-white font-medium text-sm block"
+                        : "text-white font-medium text-sm hidden"
+                    }
+                  >
                     First name
                   </label>
                   <input
                     type="text"
                     id="first"
+                    name="firstName"
+                    value={changeFiled.firstName}
                     className="text-white rounded-lg px-4 py-1"
                     style={{
-                      border: "2px solid white",
+                      borderBottom: "1px solid white",
                     }}
                     placeholder="Enter your Fisrt name"
+                    onFocus={() => setFirstName(true)}
+                    onBlur={() => setFirstName(false)}
+                    onChange={(e) => changeHandler(e)}
                   />
                 </div>
-                <div className="flex flex-col">
-                  <label htmlFor="last" className="text-white font-medium ">
+                <div className="flex flex-col h-[7vh] justify-end ">
+                  <label
+                    htmlFor="last"
+                    className={
+                      lastName
+                        ? "text-white font-medium text-sm block"
+                        : "text-white font-medium text-sm hidden"
+                    }
+                  >
                     Last name
                   </label>
                   <input
                     type="text"
                     id="last"
+                    name="lastName"
+                    value={changeFiled.lastName}
+                    onChange={(e) => changeHandler(e)}
                     className="text-white rounded-lg px-4 py-1"
                     style={{
-                      border: "2px solid white",
+                      borderBottom: "1px solid white",
                     }}
                     placeholder="Enter your Last name"
+                    onFocus={() => setLastName(true)}
+                    onBlur={() => setLastName(false)}
                   />
                 </div>
               </div>
               <div className="flex gap-[1.45vw] w-full ">
-                <div className="flex flex-col w-full">
-                  <label htmlFor="email" className="text-white font-medium ">
+                <div className="flex flex-col w-full h-[7vh] justify-end ">
+                  <label
+                    htmlFor="email"
+                    className={
+                      email
+                        ? "text-white font-medium text-sm block"
+                        : "text-white font-medium text-sm hidden"
+                    }
+                  >
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
+                    name="email"
+                    value={changeFiled.email}
+                    onChange={(e) => changeHandler(e)}
                     className="text-white rounded-lg px-4 py-1"
                     style={{
-                      border: "2px solid white",
+                      borderBottom: "1px solid white",
                     }}
                     placeholder="Enter your email"
+                    onFocus={() => setEmail(true)}
+                    onBlur={() => setEmail(false)}
                   />
                 </div>
                 {/* <div className="flex flex-col">
@@ -89,44 +184,71 @@ const SignInSite = () => {
                     id="num"
                     className="text-white rounded-lg px-4 py-1"
                     style={{
-                      border: "2px solid white",
+                      borderBottom: "1px solid white",
                     }}
                     placeholder="Enter your Phone no."
                   />
                 </div> */}
               </div>
-              <div className="flex gap-[1.45vw]">
-                <div className="flex flex-col">
-                  <label htmlFor="pass" className="text-white font-medium ">
+              <div className="flex gap-[1.45vw] ">
+                <div className="flex flex-col h-[7vh] justify-end items-start">
+                  <label
+                    htmlFor="pass"
+                    className={
+                      pass
+                        ? "text-white font-medium text-sm block"
+                        : "text-white font-medium text-sm hidden"
+                    }
+                  >
                     Password
                   </label>
                   <input
-                    type="pass"
+                    type="password"
                     id="pass"
+                    name="password"
+                    value={changeFiled.password}
+                    onChange={(e) => changeHandler(e)}
                     className="text-white rounded-lg px-4 py-1"
                     style={{
-                      border: "2px solid white",
+                      borderBottom: "1px solid white",
                     }}
                     placeholder="Enter your Password"
+                    onFocus={() => setPass(true)}
+                    onBlur={() => setPass(false)}
                   />
                 </div>
-                <div className="flex flex-col">
-                  <label htmlFor="conpass" className="text-white font-medium ">
+                <div className="flex flex-col h-[7vh] justify-end items-start ">
+                  <label
+                    htmlFor="conpass"
+                    className={
+                      conPass
+                        ? "text-white font-medium text-sm block"
+                        : "text-white font-medium text-sm hidden"
+                    }
+                  >
                     Confirm Password
                   </label>
                   <input
                     type="password"
                     id="conpass"
-                    className="text-white rounded-lg px-4 py-1"
+                    name="confirmPassword"
+                    value={changeFiled.confirmPassword}
+                    onChange={(e) => changeHandler(e)}
+                    className="text-white rounded-lg px-4 py-1 "
                     style={{
-                      border: "2px solid white",
+                      borderBottom: "1px solid white",
                     }}
                     placeholder="Confirm your password"
+                    onFocus={() => setConPass(true)}
+                    onBlur={() => setConPass(false)}
                   />
                 </div>
               </div>
               <div>
-                <button className="bg-glod-color w-full text-center py-2 font-semibold rounded-md text-[#fff] hover:bg-[#b99b55]">
+                <button
+                  type="submit"
+                  className="bg-glod-color w-full text-center py-2 font-semibold rounded-md text-[#fff] hover:bg-[#b99b55]"
+                >
                   Sign In
                 </button>
                 <div className="w-full text-end text-white text-sm">

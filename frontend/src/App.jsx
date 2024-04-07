@@ -10,6 +10,8 @@ import Profile from './components/MainDashBoard/Profile'
 import YourCart from './components/MainDashBoard/YourCart'
 import EnrolledCourses from './components/MainDashBoard/EnrolledCourses'
 import Settings from './components/MainDashBoard/Settings'
+import {Toaster} from 'react-hot-toast'
+import SendOTP from './components/SendOTP/SendOTP'
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
         <Route index path='/' element={<Home/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signin' element={<SignPage/>}/>
+        <Route path='/verify-email' element={<SendOTP/>}/>
         <Route path='/aboutus' element={<Abouts/>}/>
         <Route path='/contact-us' element={<Contacts/>}/>
         <Route element={<MainDashBoard/>}>
@@ -28,6 +31,7 @@ function App() {
           <Route path='/dashboard/setting' element={<Settings/>}/>
         </Route>
       </Routes>
+      <Toaster/>
     </div>
   )
 }

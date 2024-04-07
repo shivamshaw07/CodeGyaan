@@ -107,3 +107,54 @@ export const getAllCourses = async (req,res) => {
         
     }
 }
+
+export const courseDetails = async (req,res) => {
+    try {
+        const {courseId} = req.body
+        const courseDetails = await course.findById(courseId)
+        .populate('ratingsAndReview')
+        .populate('section')
+        .exec()
+
+        return res.status(200).json({
+            success : true,
+            message : "Course details fetched successfully",
+            data:{
+                courseName:courseDetails.courseName,
+                courseDescription:courseDetails.courseDescription,
+                whatYouWillLearn:courseDetails.whatYouWillLearn,
+                thumbnail:courseDetails.thumbnail,
+                tag:courseDetails.tag,
+                startDate:courseDetails.startDate,
+                mode:courseDetails.mode,
+                instructor:courseDetails.instructor,
+                ratingsAndReview:courseDetails.ratingsAndReview,
+                courseContent:courseDetails.courseContent,
+                student:courseDetails.studentsEnrolled,
+                prize:courseDetails.prize
+            }
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success : false,
+            message : "Course details fetched Unsuccessfully",
+        })
+    }
+}
+
+export const deleteCourse = async (req,res) => {
+    try {
+        const {courseId} = req.body
+        const deletedCourse = await course.findByIdAndDelete(courseId)
+        return res.status(200).json({
+            success : true,
+            message : "Course deleted successfully",
+            data:deletedCourse
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success : false,
+            message : "Course deleted Unsuccessfully",
+        })
+    }
+}
