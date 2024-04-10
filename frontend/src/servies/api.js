@@ -15,6 +15,7 @@ export const authEndPoints = {
 export const profileEndPoints = {
     profile : `${BASE_URL}/user/profile`,
     updatePic : `${BASE_URL}/user/updatePic`,
+    updatePofile : `${BASE_URL}/user/updateProfile`,
 }
 
 //course builder endpoints

@@ -38,3 +38,24 @@ export const updatePic = (image) => {
         
     }
 }
+
+export const updateProfile = (uploading) => {
+    return async(dispatch) => {
+        dispatch(setLoading(true));
+        try {
+            const token = localStorage.getItem("token");
+            const {_id} = JSON.parse(localStorage.getItem("user"));
+            const id = _id;
+            const res = await apiConneector("post",profileEndPoints.updatePofile,{ ...uploading,token,id},{new:true});
+            if(res?.data?.success){
+                toast.success(res?.data?.message);
+                dispatch(setUser(res?.data?.user))
+                dispatch(setLoading(false));
+                return true
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message)
+            dispatch(setLoading(false));
+        }
+    }
+}

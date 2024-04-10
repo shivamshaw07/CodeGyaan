@@ -33,7 +33,7 @@ const Profile = () => {
         <div className="flex w-full justify-between items-center bg-black-bg px-[3rem] py-[2rem] rounded-lg shadow border border-[#898989]">
           <div className="flex flex-col justify-start items-start gap-2 text-white">
             <h1 className="font-semibold text-xl">About</h1>
-            <p className="text-white/40">Write something about yourself</p>
+            <p className="text-white/40">{user.about ? user.about : "Write something about yourself"}</p>
           </div>
           <Link to={'/dashboard/setting'}>
                 <button className="py-2 px-6 bg-[#cbab61] rounded font-semibold text-white hover:bg-[#b99b55]">
@@ -74,10 +74,10 @@ const Profile = () => {
                     </div>
                     <div className="flex flex-col gap-1">
                         <div className="text-sm text-white/20">Phone Number</div>
-                        <div className="font-semibold">{user?.phone ? user.phone : "phone"}</div>
+                        <div className="font-semibold">{user?.contactNumber ? user.contactNumber : "phone"}</div>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <div className="text-sm text-white/20">Gender</div>
+                        <div className="text-sm text-white/20">Date of Birth</div>
                         <div className="font-semibold">{user?.dob ? user.dob.slice(0,10) : "dob"}</div>
                     </div>
                 </div>
