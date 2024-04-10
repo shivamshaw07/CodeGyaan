@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./NavBar.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { LiaFreeCodeCamp } from "react-icons/lia";
 import { BsCart4 } from "react-icons/bs";
 import { IoSearch } from "react-icons/io5";
@@ -18,11 +18,17 @@ const NavBar = () => {
   const [dashboardActive, setDashboardActive] = useState(false);
   const dispatch = useDispatch();
   const {token} = useSelector(state => state.auth)
+  const navigate = useNavigate();
   useEffect(() => {
     if(token){
       dispatch(setToken(token))
     }
   },[token])
+
+  const logoutHandler = () =>{
+    dispatch(logout());
+    navigate('/login');
+  }
   return (
     <div className="h-[19vh] max-w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
       <div className="flex justify-between items-center w-[85%] mx-auto">
@@ -79,7 +85,7 @@ const NavBar = () => {
                 </NavLink>
                 <div className="flex justify-start items-center px-3  hover:bg-slate-700 font-light py-2 rounded-md gap-1">
                   <IoMdLogOut />
-                  <div onClick={()=>dispatch(logout())}>Logout</div>
+                  <div onClick={logoutHandler}>Logout</div>
                 </div>
               </div>
             </div>
