@@ -12,11 +12,15 @@ import EnrolledCourses from './components/MainDashBoard/EnrolledCourses'
 import Settings from './components/MainDashBoard/Settings'
 import {Toaster} from 'react-hot-toast'
 import SendOTP from './components/SendOTP/SendOTP'
+import Loader from './components/Loader/Loader'
+import { useSelector } from 'react-redux'
 
 function App() {
+  const {loading} = useSelector(state => state.ui)
 
   return (
     <div className='w-[100vw] h-auto overflow-x-hidden box-border relative z-10 bg-blue-bg'>
+      {loading && <Loader/>}
       <Routes>
         <Route index path='/' element={<Home/>}/>
         <Route path='/login' element={<LoginPage/>}/>

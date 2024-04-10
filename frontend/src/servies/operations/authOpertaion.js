@@ -1,10 +1,9 @@
 import { apiConneector } from "../apiConnector";
 import { authEndPoints } from "../api";
 import {toast} from 'react-hot-toast'
-import { setLoading, setSignupData, setToken } from "../../slices/authSlice";
+import {setSignupData, setToken } from "../../slices/authSlice";
 import { setUser } from "../../slices/profileSlice";
-import { useSelector } from "react-redux";
-import { FaAccessibleIcon } from "react-icons/fa";
+import { setLoading } from "../../slices/UIslice";
 
 export const login = (email, password,navigate) => {
     return async (dispatch) => {
@@ -12,7 +11,8 @@ export const login = (email, password,navigate) => {
         
             await apiConneector("post",authEndPoints.login, { email, password })
                 .then((res) => {
-                    localStorage.setItem("token", res.data.user);
+                    localStorage.setItem("token", res.data.token);
+                    localStorage.setItem("user", res.data.user);
                     dispatch(setToken(res?.data?.token));
                     dispatch(setUser(res?.data?.user))
                     toast.success("Login Successful");

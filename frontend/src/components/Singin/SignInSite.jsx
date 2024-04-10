@@ -4,7 +4,6 @@ import authImage from "../../assets/signin-banner-removebg-preview.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setSignupData, setLoading } from "../../slices/authSlice";
 import { toast } from "react-hot-toast";
 import { sendOtp } from "../../servies/operations/authOpertaion";
 

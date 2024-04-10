@@ -1,3 +1,5 @@
+import { updatePic } from "./operations/updateProfile"
+
 const BASE_URL = "http://localhost:3000"
 
 //authentication endpoints
@@ -11,7 +13,8 @@ export const authEndPoints = {
 
 //user endpoints
 export const profileEndPoints = {
-    profile : `${BASE_URL}/user/profile`
+    profile : `${BASE_URL}/user/profile`,
+    updatePic : `${BASE_URL}/user/updatePic`,
 }
 
 //course builder endpoints

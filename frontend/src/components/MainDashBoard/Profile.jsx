@@ -17,7 +17,7 @@ const Profile = () => {
             {/* <div className="bg-red-600  rounded-full w-[76px] py-[22px] text-center font-semibold text-2xl">
               SS
             </div> */}
-            <img src={user?.image} alt="profile" className="h-[10vh] rounded-full"/>
+            <img src={user?.image} alt="profile" className="h-[13vh] w-[13vh] rounded-full"/>
             <div>
               <h1 className="font-semibold text-xl">{user?.firstName} {user?.lastName}</h1>
               <p className="text-white/40">{user?.email}</p>
