@@ -7,8 +7,8 @@ import statistic4 from '../../assets/homeDown/statistics4.png'
 const HomeDown = () => {
   return (
     <div className='w-full py-5'>
-        <div className='w-[85%] mx-auto flex justify-between items-center'>
-            <div className='flex justify-start items-start gap-3 bg-[#2c2d30] px-4 py-2 rounded-lg text-white w-[20%] shadow-md shadow-black/40'>
+        <div className='w-[95%] md:w-[95%] lg:w-[85%] xl:w-[85%] mx-auto flex flex-col md:flex-row lg:flex-row xl:flex-row gap-4 justify-between items-center'>
+            <div className='flex w-full lg:w-[20%] md:w-[20%] xl:w-[20%]  justify-start items-start gap-3 bg-[#2c2d30] px-4 py-4 md:py-2 lg:py-2 xl:py-2 rounded-lg text-white shadow-md shadow-black/40'>
                 <div>
                     <img src={statistic1} alt="statistic1" />
                 </div>
@@ -17,7 +17,7 @@ const HomeDown = () => {
                     <div className='text-sm'>Average Salary Hike</div>
                 </div>
             </div>
-            <div className='flex justify-start items-start w-[20%] gap-3 bg-[#2c2d30] px-4 py-2 rounded-lg text-white shadow-md shadow-black/40'>
+            <div className='flex justify-start items-start  w-full lg:w-[20%] md:w-[20%] xl:w-[20%]  gap-3 bg-[#2c2d30] px-4 py-4 md:py-2 lg:py-2 xl:py-2  rounded-lg text-white shadow-md shadow-black/40'>
                 <div>
                     <img src={statistic2} alt="statistic1" />
                 </div>
@@ -26,7 +26,7 @@ const HomeDown = () => {
                     <div className='text-sm'>Different Courses</div>
                 </div>
             </div>
-            <div className='flex justify-start items-start w-[20%] gap-3 bg-[#2c2d30] px-4 py-2 rounded-lg text-white shadow-md shadow-black/40'>
+            <div className='flex justify-start items-start  w-full lg:w-[20%] md:w-[20%] xl:w-[20%]  gap-3 bg-[#2c2d30] px-4 py-4 md:py-2 lg:py-2 xl:py-2  rounded-lg text-white shadow-md shadow-black/40'>
                 <div>
                     <img src={statistic3} alt="statistic1" />
                 </div>
@@ -35,7 +35,7 @@ const HomeDown = () => {
                     <div className='text-sm'>Carrer Transition</div>
                 </div>
             </div>
-            <div className='flex justify-start items-start w-[20%] gap-3 bg-black-bg px-4 py-2 rounded-lg text-white shadow-md shadow-black/40'>
+            <div className='flex justify-start items-start  w-full lg:w-[20%] md:w-[20%] xl:w-[20%]  gap-3 bg-black-bg px-4 py-4 md:py-2 lg:py-2 xl:py-2  rounded-lg text-white shadow-md shadow-black/40'>
                 <div>
                     <img src={statistic4} alt="statistic1" />
                 </div>

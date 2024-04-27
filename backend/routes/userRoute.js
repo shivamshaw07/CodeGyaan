@@ -41,7 +41,7 @@ userRoute.post('/updateProfile',auth,async(req,res)=>{
         const {firstName,lastName,contactNumber,about,image,gender,id} = req.body
         let dob = req.body.dob
          dob = new Date(dob)
-        const userDetail = await user.findByIdAndUpdate(id,{firstName,lastName,contactNumber,about,image,dob,gender})
+        const userDetail = await user.findByIdAndUpdate(id,{firstName,lastName,contactNumber,about,image,dob,gender},{new:true})
         if(!userDetail){
             return res.status(404).json({
                 message : "User not found",
@@ -65,8 +65,7 @@ userRoute.post('/updateProfile',auth,async(req,res)=>{
 userRoute.post('/updatePic',auth,async(req,res)=>{
     try {
         const {image} = req.files
-        console.log(image);
-        const userId = req.body.id
+            const userId = req.body.id
         if(!image){
             return res.status(500).json({
                 message : "Please upload an image",

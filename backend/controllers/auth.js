@@ -179,7 +179,7 @@ export const login = async (req,res) =>{
         if(!user){
             return res.status(400).json({
                 success:false,
-                message:"User not exist please sign in",
+                message:"User not found",
             })
         }
 

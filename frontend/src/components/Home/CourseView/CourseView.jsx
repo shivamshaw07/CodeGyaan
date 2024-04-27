@@ -34,15 +34,15 @@ const CourseView = () => {
   };
   return (
     <div className='w-full py-10'>
-      <div className='w-[85%] mx-auto flex flex-col justify-start items-start gap-4 pb-8'>
-        <h1 className='text-4xl font-semibold text-white'>Our <span className='text-glod-color'>Courses.</span></h1>
+      <div className='w-[95%] md:w-[85%] lg:w-[85%] xl:w-[85%]  mx-auto flex flex-col justify-start items-start gap-4 pb-8'>
+        <h1 className='text-4xl w-full text-center md:text-start lg:text-start xl:text-start font-semibold text-white'>Our <span className='text-glod-color'>Courses.</span></h1>
         <div className='flex justify-start items-center gap-12 pl-8 text-white font-light w-full border-b border-white/60 '>
           <div onClick={()=>{setCourseType('Trending')}} className={courseType === 'Trending' ? `cursor-pointer border-b-2 py-4` : `cursor-pointer `}>Trending</div>
           <div onClick={()=>{setCourseType('Live')}} className={courseType === 'Live' ? `cursor-pointer border-b-2 py-4` : `cursor-pointer `}>Live</div>
           <div onClick={()=>{setCourseType('Community')}} className={courseType === 'Community' ? `cursor-pointer border-b-2 py-4` : `cursor-pointer `}>Community</div>
         </div>
       </div>
-        <div className='max-w-[85%] mx-auto flex overflow-x-scroll gap-12 px-2' ref={myCardRef}>
+        <div className='max-w-[95%] md:max-w-[85%] lg:max-w-[85%] xl:max-w-[85%] mx-auto flex overflow-x-scroll gap-12 px-2' ref={myCardRef}>
 
             {
                 coursesList.map((card,index) => {

@@ -1,17 +1,18 @@
 import React from 'react'
 import NavBar from '../NavBar/NavBar'
 import Sidebar from './Sidebar'
-import Profile from './Profile'
 import { Outlet } from 'react-router-dom'
+import Footer from '../Footer/Footer'
 
 const MainDashBoard = () => {
   return (
-    <div className='w-full h-screen overflow-hidden'>
+    <div className='max-w-full h-auto overflow-x-hidden'>
         <NavBar/>
         <div className='flex '>
         <Sidebar/>
         <Outlet/>
         </div>
+        <Footer/>
     </div>
   )
 }

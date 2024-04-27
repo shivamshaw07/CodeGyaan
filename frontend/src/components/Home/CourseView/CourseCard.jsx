@@ -15,7 +15,7 @@ const CourseCard = ({
   discount_percentage,
 }) => {
   return (
-    <div className="min-w-[350px] flex flex-col justify-start items-start bg-black-bg rounded-2xl border-[1px] border-blue-bg shadow-md shadow-black gap-3">
+    <div className="min-w-full md:min-w-[350px] lg:min-w-[350px] xl:min-w-[350px] flex flex-col justify-start items-start bg-black-bg rounded-2xl border-[1px] border-blue-bg shadow-md shadow-black gap-3">
       <img
         src={img}
         alt={img}

@@ -16,15 +16,20 @@ import Loader from "./components/Loader/Loader";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import OpenRoute from "./components/OpenRoute/OpenRoute";
+import Dashboard from "./components/MainDashBoard/Instructor/Dashboard/Dashboard";
+import MyCourses from "./components/MainDashBoard/Instructor/MyCourses/MyCourses";
+import MainAddCourse from "./components/MainDashBoard/Instructor/AddCourse/MainAddCourse";
 
 function App() {
   const { loading } = useSelector((state) => state.ui);
+  const { accountType } = useSelector((state) => state.profile);
 
   return (
-    <div className="w-[100vw] h-auto overflow-x-hidden box-border relative z-10 bg-blue-bg">
+    <div className="max-w-[100vw] h-auto overflow-x-hidden box-border relative z-10 bg-blue-bg">
       {loading && <Loader />}
       <Routes>
         <Route index path="/" element={<Home />} />
+        <Route path="*" element={<Home/>} />
         <Route
           path="/login"
           element={
@@ -60,12 +65,26 @@ function App() {
           }
         >
           <Route path="/dashboard/profile" element={<Profile />} />
-          <Route
-            path="/dashboard/enrolled-courses"
-            element={<EnrolledCourses />}
-          />
-          <Route path="/dashboard/your-cart" element={<YourCart />} />
           <Route path="/dashboard/setting" element={<Settings />} />
+          {accountType === "Student" && (
+            <>
+              <Route
+                path="/dashboard/enrolled-courses"
+                element={<EnrolledCourses />}
+              />
+              <Route path="/dashboard/your-cart" element={<YourCart />} />{" "}
+            </>
+          )}
+          {accountType === "Instructor" && (
+            <>
+              <Route
+                path="/dashboard/add-courses"
+                element={<MainAddCourse />}
+              />
+              <Route path="/dashboard/dashboard" element={<Dashboard />} />{" "}
+              <Route path="/dashboard/my-courses" element={<MyCourses />} />{" "}
+            </>
+          )}
         </Route>
       </Routes>
       <Toaster />

@@ -1,10 +1,10 @@
 import React from 'react'
-import { BsCart4 } from 'react-icons/bs';
+import { BsCart4, BsPlus } from 'react-icons/bs';
 import {CgLogOut, CgProfile} from 'react-icons/cg'
-import { FaGraduationCap } from "react-icons/fa6";
+import { FaGraduationCap, FaPlus } from "react-icons/fa6";
 import { IoMdLogOut } from "react-icons/io";
 import { MdSettings } from 'react-icons/md';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { logout } from '../../servies/operations/authOpertaion';
 
@@ -13,6 +13,7 @@ import { logout } from '../../servies/operations/authOpertaion';
 const Sidebar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {accountType} = useSelector(state => state.profile)
     const logoutHandler = () =>{
         dispatch(logout());
         navigate('/login');
@@ -26,18 +27,36 @@ const Sidebar = () => {
                     <div>Profile</div>
                 </div>
             </NavLink>
-            <NavLink to={'/dashboard/enrolled-courses'}>
+            {accountType === 'Student' && <NavLink to={'/dashboard/enrolled-courses'}>
                 <div className=' w-full flex justify-start items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
                     <FaGraduationCap/>
                     <div>Enrolled Courses</div>
                 </div>
-            </NavLink>
-            <NavLink to={'/dashboard/your-cart'}>
+            </NavLink>}
+            {accountType === 'Student' && <NavLink to={'/dashboard/your-cart'}>
                 <div className=' w-full flex justify-start items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
                     <BsCart4/>
                     <div>Your Collections</div>
                 </div>
-            </NavLink>
+            </NavLink>}
+            {accountType === 'Instructor' && <NavLink to={'/dashboard/dashboard'}>
+                <div className=' w-full flex justify-start items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
+                <FaGraduationCap/>
+                    <div>Dashboard</div>
+                </div>
+            </NavLink>}
+            {accountType === 'Instructor' && <NavLink to={'/dashboard/my-courses'}>
+                <div className=' w-full flex justify-start items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
+                <BsCart4/>
+                    <div>My Courses</div>
+                </div>
+            </NavLink>}
+            {accountType === 'Instructor' && <NavLink to={'/dashboard/add-courses'}>
+                <div className=' w-full flex justify-start items-center gap-1 text-xl text-glod-color py-2 px-4 rounded-l-3xl'>
+                    <FaPlus/>
+                    <div>Add Courses</div>
+                </div>
+            </NavLink>}
         </div>
         <div className='w-full h-[0.2px] bg-white'></div>
         <div className='flex flex-col w-full gap-1 ml-[4vw]'>

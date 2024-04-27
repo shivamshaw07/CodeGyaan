@@ -3,6 +3,7 @@ import { profileEndPoints } from "../api";
 import toast from "react-hot-toast";
 import { setUser } from "../../slices/profileSlice";
 import { setLoading } from "../../slices/UIslice";
+import { logout } from "./authOpertaion";
 
 export const updatePic = (image) => {
     return async(dispatch) =>{
@@ -31,6 +32,12 @@ export const updatePic = (image) => {
             }
 
         } catch (error) {
+            if(error.response?.data?.success === 'Token is invalid' || error.response?.data?.success === 'Token not found'){
+                toast.error(error?.response?.data?.message);
+                dispatch(setLoading(false));
+                logout();
+                return false
+            }
             toast.error(error?.response?.data?.message);
             dispatch(setLoading(false));
             return false
@@ -54,6 +61,12 @@ export const updateProfile = (uploading) => {
                 return true
             }
         } catch (error) {
+            if(error.response?.data?.success === 'Token is invalid' || error.response?.data?.success === 'Token not found'){
+                toast.error(error?.response?.data?.message);
+                dispatch(setLoading(false));
+                sidpatch(logout())
+                return false
+            }
             toast.error(error?.response?.data?.message)
             dispatch(setLoading(false));
         }
