@@ -1,5 +1,5 @@
 import React from 'react'
-import CourseIntro from './CourseIntro'
+import CourseInformationForm from './courseInformation/CourseInformationForm'
 
 const MainAddCourse = () => {
   return (
@@ -9,8 +9,9 @@ const MainAddCourse = () => {
           Add <span className="text-glod-color">Course</span>.
         </h1>
        
-            <CourseIntro/>
-        
+            {/* <CourseIntro/>
+             */}
+            <CourseInformationForm/>
       </div>
     </div>
   )
