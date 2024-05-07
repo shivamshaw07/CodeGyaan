@@ -31,3 +31,10 @@ export const courseEndpoints = {
     deleteSubSection : `${BASE_URL}/instructor/deleteSubSection`,
     deleteCourse : `${BASE_URL}/instructor/deleteCourse`
 }
+
+//category endpoints
+export const categoryEndpoints = {
+    createCategory : `${BASE_URL}/instructor/createCategory`,
+    showAllCategories : `${BASE_URL}/instructor/showAllCategories`,
+    getCategoryPageDetails : `${BASE_URL}/instructor/getCategoryPageDetails`
+}

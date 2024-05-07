@@ -40,8 +40,8 @@ export default function RequirementsField({
   }
 
   return (
-    <div className="flex flex-col space-y-2">
-      <label className="text-richblack-100" htmlFor={name}>
+    <div className="flex flex-col ">
+      <label className="text-white/90 flex flex-col " htmlFor={name}>
         {label} <sup className="text-pink-200">*</sup>
       </label>
       <div className="flex flex-col items-start space-y-2">
@@ -50,8 +50,9 @@ export default function RequirementsField({
           id={name}
           value={requirement}
           onChange={(e) => setRequirement(e.target.value)}
-          className="w-full px-3 py-2 rounded-md bg-richblack-700 text-richblack-100"
-        />
+          placeholder="Enter Requirement"
+          className=" border-2 border-white px-2 py-[10px] w-full rounded-lg bg-blue-bg text-white transition-all duration-400"
+          style={{ borderBottom: "1px solid white" }}        />
         <button
           type="button"
           onClick={handleAddRequirement}
@@ -63,7 +64,7 @@ export default function RequirementsField({
       {requirementsList.length > 0 && (
         <ul className="mt-2 list-inside list-disc">
           {requirementsList.map((requirement, index) => (
-            <li key={index} className="flex items-center text-richblack-5">
+            <li key={index} className="flex items-center text-white/90">
               <span>{requirement}</span>
               <button
                 type="button"
@@ -77,7 +78,7 @@ export default function RequirementsField({
         </ul>
       )}
       {errors[name] && (
-        <span className="ml-2 text-xs tracking-wide text-pink-200">
+        <span className="text-red-400 text-xs mt-1">
           {label} is required
         </span>
       )}

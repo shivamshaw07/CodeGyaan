@@ -14,7 +14,7 @@ export const auth = async (req, res, next) => {
         } else if (req.headers && req.headers.authorization) {
             token = req.headers.authorization.replace("Bearer ", "");
         }
-
+        console.log(token);
 
         // Check if token is present
         if (!token) {

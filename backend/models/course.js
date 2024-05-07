@@ -18,7 +18,7 @@ const courseSchema = new  mongoose.Schema({
         required:true
     },
     instructor:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         required:true
     },
     whatYouWillLearn:{
@@ -26,8 +26,8 @@ const courseSchema = new  mongoose.Schema({
         required:true
     },
     category :{
-        type:String,
-        required:true
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"category"
     },
     courseContent:[
         {

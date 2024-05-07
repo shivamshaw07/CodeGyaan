@@ -7,7 +7,7 @@ configDotenv();
 
 export const createCourse = async (req,res) =>{
     try {
-        const {courseName,courseDescription,whatYouWillLearn,prize,tag} = req.body
+        const {courseName,courseDescription,whatYouWillLearn,prize,tag,startDate,mode} = req.body
         const thumbnailrec = req.files.thumbnailimg  
         //validate the datas
         if(!courseName || !courseDescription || !whatYouWillLearn || !prize || !thumbnailrec || !tag ||!startDate || !mode){

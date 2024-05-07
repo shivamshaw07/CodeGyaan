@@ -127,7 +127,7 @@ export default function Upload({
         )}
       </div>
       {errors[name] && (
-        <span className="ml-2 text-xs tracking-wide text-pink-200">
+        <span className="text-red-400 text-xs mt-1">
           {label} is required
         </span>
       )}

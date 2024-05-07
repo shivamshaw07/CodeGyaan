@@ -63,8 +63,8 @@ export default function ChipInput({
   return (
     <div className="flex flex-col space-y-2">
       {/* Render the label for the input */}
-      <label className="text-sm text-richblack-5" htmlFor={name}>
-        {label} <sup className="text-pink-200">*</sup>
+      <label className="text-sm text-white/90" htmlFor={name}>
+        {label} <sup className="text-red-500"> *</sup>
       </label>
       {/* Render the chips and input */}
       <div className="flex w-full flex-wrap gap-y-2">
@@ -72,7 +72,7 @@ export default function ChipInput({
         {chips.map((chip, index) => (
           <div
             key={index}
-            className="m-1 flex items-center rounded-full bg-yellow-400 px-2 py-1 text-sm text-richblack-5"
+            className="m-1 flex items-center rounded-full bg-glod-color text-white font-semibold px-2 py-1 text-sm text-richblack-5"
           >
             {/* Render the chip value */}
             {chip}
@@ -93,12 +93,12 @@ export default function ChipInput({
           type="text"
           placeholder={placeholder}
           onKeyDown={handleKeyDown}
-          className="w-full px-3 py-2 rounded-md bg-richblack-700 text-richblack-100"
-        />
+          className=" border-2 border-white px-2 py-[10px] rounded-lg w-full bg-blue-bg text-white transition-all duration-400"
+          style={{ borderBottom: "1px solid white" }}        />
       </div>
       {/* Render an error message if the input is required and not filled */}
       {errors[name] && (
-        <span className="ml-2 text-xs tracking-wide text-pink-200">
+        <span className="text-red-400 text-xs mt-1">
           {label} is required
         </span>
       )}
