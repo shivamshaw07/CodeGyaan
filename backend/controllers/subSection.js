@@ -9,11 +9,11 @@ configDotenv()
 export const createSubSection = async (req,res) =>{
     try {
             //fetch data
-        const {title,description,duration,sectionId} = req.body
+        const {title,description,sectionId} = req.body
         const video = req.files.videoFile
 
         //validate the enteries
-        if(!title || !description || !duration || !video){
+        if(!title || !description || !video){
             return res.status(400).json({
                 success : false,
                 message:"All fileds are mandatory"
@@ -26,10 +26,10 @@ export const createSubSection = async (req,res) =>{
         //create a subsection
         const subsection = await SubSection.create(
             {
-                duration:duration,
                 description:description,
                 title:title,
-                videoUrl:videoDetails.secure_url
+                videoUrl:videoDetails.secure_url,
+                duration : videoDetails.duration
             }
         )
 
@@ -38,15 +38,13 @@ export const createSubSection = async (req,res) =>{
             $push:{
                 subSection:subsection._id
             }
-        },{new:true})
+        },{new:true}).populate("subSection")
         if(!updateSection){
             return res.status(400).json({
                 success:false,
                 message:"Unable to update section"
             })
         }
-        //HW: add populate here to log updated section
-        console.log(updateSection);
         return res.status(200).json({
             success:true,
             message:"SubSection Added successfully",

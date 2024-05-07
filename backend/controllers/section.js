@@ -18,23 +18,30 @@ export const createSection = async (req, res) => {
 
     //create section and insert in course
     const newSection = await section.create({ sectionName });
-    const updatedeatails = await course.findByIdAndUpdate(
+    const updatedDetails = await course.findByIdAndUpdate(
       courseId,
       {
-        $push: {
-          courseContent: newSection._id,
-        },
+          $push: {
+              courseContent: newSection._id,
+          },
       },
-      {
-        new: true,
-      }
-    );
+      { new: true }
+  )
+  .populate({
+      path: "courseContent",
+      populate: {
+          path: "subSection",
+      },
+  })
+  .exec();
+  
+  
 
     //hw popullate section and subsection
 
     return res.status(200).json({
       success: true,
-      courseData: updatedeatails,
+      courseData: updatedDetails,
       sectionData: newSection,
       message: "course updates successfully",
     });
@@ -85,10 +92,10 @@ export const updateSection = async (req, res) => {
 export const deleteSection = async (req, res) => {
   try {
     const { sectionId } = req.body;
-    const allSubsection = await section.findById(sectionId)
-    for(let i = 0; i < allSubsection.subSection.length; i++){
-        const subsectionId = allSubsection.subSection[i]
-        await SubSection.findByIdAndDelete(subsectionId)
+    const allSubsection = await section.findById(sectionId);
+    for (let i = 0; i < allSubsection.subSection.length; i++) {
+      const subsectionId = allSubsection.subSection[i];
+      await SubSection.findByIdAndDelete(subsectionId);
     }
     const deleteSection = await section.findByIdAndDelete(sectionId);
 

@@ -63,7 +63,7 @@ export default function ChipInput({
   return (
     <div className="flex flex-col space-y-2">
       {/* Render the label for the input */}
-      <label className="text-sm text-white/90" htmlFor={name}>
+      <label className="text-sm text-white capitalize" htmlFor={name}>
         {label} <sup className="text-red-500"> *</sup>
       </label>
       {/* Render the chips and input */}

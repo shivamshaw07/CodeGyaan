@@ -35,19 +35,27 @@ const courseSchema = new  mongoose.Schema({
             ref:"Section"
         }
     ],
-    ratingsAndReview:[
+    ratingAndReviews:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"RatingAndReviews"
         }
     ],
-    prize:{
+	status: {
+		type: String,
+		enum: ["Draft", "Published"],
+    },
+    price:{
         type:Number,
         required:true
     },
     thumbnail:{
         type:String,
         required:true
+    },
+    instruction :{
+        type:[String],
+        default:[]
     },
     tag:{
         type :[String],

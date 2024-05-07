@@ -17,15 +17,55 @@ export const fetchCourseCategories = () => {
       if (!response?.data?.success) {
         throw new Error("Could Not Fetch Course Categories");
       }
+      sessionStorage.setItem("category", JSON.stringify(response?.data?.data));
       result = response?.data?.data;
     } catch (error) {
       // console.log("COURSE_CATEGORY_API API ERROR............", error)
       toast.error(error.message);
     }
-    dispatch(setLoading(false));  
+    dispatch(setLoading(false));
     return result;
   };
 };
+
+export const fetchInstructorCourses = async (token) => {
+  let result = null;
+  try {
+    const id = localStorage.getItem("id");
+    console.log(id);
+    const response = await apiConneector(
+      "post",
+      courseEndpoints.getInstructorCourses,
+      {id,token},
+    );
+    if (!response?.data?.success) {
+      throw new Error("Could Not Fetch Course Details");
+    }
+    return (result = response?.data?.data);
+  } catch (error) {
+    console.log("COURSE_DETAILS_API API ERROR............", error);
+    toast.error(error.message);
+  }
+};
+
+// fetching the course details
+export const getFullDetailsOfCourse = async(id) =>{
+    let result = null
+    try {
+        const response = await apiConneector(
+            "post",
+            courseEndpoints.getCourseDetails,
+            {id},
+          );
+          if (!response?.data?.success) {
+            throw new Error("Could Not Fetch Course Details");
+          }
+          return (result = response?.data?.data);
+    } catch (error) {
+        console.log("COURSE_DETAILS_API API ERROR............", error);
+        toast.error(error.message);
+    }
+}
 
 // add the course details
 export const addCourseDetails = async (data, token) => {
@@ -62,7 +102,7 @@ export const editCourseDetails = async (data, token) => {
   try {
     const response = await apiConneector(
       "POST",
-      courseEndpoints.createCourse,
+      courseEndpoints.updateCourse,
       data,
       {
         "Content-Type": "multipart/form-data",
@@ -86,6 +126,7 @@ export const editCourseDetails = async (data, token) => {
 export const createSection = async (data, token) => {
   let result = null;
   const toastId = toast.loading("Loading...");
+  console.log(data);
   try {
     const response = await apiConneector(
       "POST",
@@ -100,7 +141,7 @@ export const createSection = async (data, token) => {
       throw new Error("Could Not Create Section");
     }
     toast.success("Course Section Created");
-    result = response?.data?.updatedCourse;
+    result = response?.data?.courseData;
   } catch (error) {
     console.log("CREATE SECTION API ERROR............", error);
     toast.error(error.message);
@@ -122,7 +163,7 @@ export const createSubSection = async (data, token) => {
         Authorization: `Bearer ${token}`,
       }
     );
-    console.log("CREATE SUB-SECTION API RESPONSE............", response);
+    // console.log("CREATE SUB-SECTION API RESPONSE............", response);
     if (!response?.data?.success) {
       throw new Error("Could Not Add Lecture");
     }
@@ -144,7 +185,7 @@ export const updateSection = async (data, token) => {
     const response = await apiConneector(
       "POST",
       courseEndpoints.updateSection,
-      data,
+      ...data,
       {
         Authorization: `Bearer ${token}`,
       }
@@ -188,6 +229,31 @@ export const updateSubSection = async (data, token) => {
   }
   toast.dismiss(toastId);
   return result;
+};
+
+// delete course
+export const deleteCourse = async (data, token) => {
+  const toastId = toast.loading("Loading...");
+  try {
+    const response = await apiConneector(
+      "Delete",
+      courseEndpoints.deleteCourse,
+      data,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    console.log("DELETE COURSE API RESPONSE............", response);
+    if (!response?.data?.success) {
+      throw new Error("Could Not Delete Course");
+    }
+  } catch {
+    return res.status(200).json({
+      success: fasle,
+      message: "Course Deleted Unsuccessfully",
+    });
+  }
+  toast.dismiss(toastId);
 };
 
 // delete a section

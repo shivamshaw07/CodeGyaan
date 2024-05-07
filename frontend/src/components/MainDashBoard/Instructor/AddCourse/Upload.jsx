@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { FiUploadCloud } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react"
+import { useDropzone } from "react-dropzone"
+import { FiUploadCloud } from "react-icons/fi"
+import { useSelector } from "react-redux"
 
-import "video-react/dist/video-react.css";
-import { Player } from "video-react";
+import "video-react/dist/video-react.css"
+import { Player } from "video-react"
 
 export default function Upload({
   name,
@@ -16,65 +16,56 @@ export default function Upload({
   viewData = null,
   editData = null,
 }) {
-  const { course } = useSelector((state) => state.course);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const { course } = useSelector((state) => state.course)
+  const [selectedFile, setSelectedFile] = useState(null)
   const [previewSource, setPreviewSource] = useState(
     viewData ? viewData : editData ? editData : ""
-  );
-  const inputRef = useRef(null);
+  )
+  const inputRef = useRef(null)
 
   const onDrop = (acceptedFiles) => {
-    const file = acceptedFiles[0];
+    const file = acceptedFiles[0]
     if (file) {
-      if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg") {
-        previewFile(file);
-        setSelectedFile(file);
-      } else {
-        // Show error message or handle invalid file type
-        console.log("Invalid file type. Please select a JPEG, PNG, or JPG image.");
-      }
+      previewFile(file)
+      setSelectedFile(file)
     }
-  };
-  
+  }
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/jpeg, image/png, image/jpg",
+    accept: !video
+      ? { "image/*": [".jpeg", ".jpg", ".png"] }
+      : { "video/*": [".mp4"] },
     onDrop,
-  });
+  })
 
   const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+    // console.log(file)
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
     reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    };
-  };
+      setPreviewSource(reader.result)
+    }
+  }
 
   useEffect(() => {
-    register(name, { required: true });
-  }, [register]);
+    register(name, { required: true })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [register])
 
   useEffect(() => {
-    setValue(name, selectedFile);
-  }, [selectedFile, setValue]);
-
-  const handleBrowseClick = () => {
-    inputRef.current.click();
-  };
+    setValue(name, selectedFile)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFile, setValue])
 
   return (
-    <div className="flex flex-col space-y-2 text-white">
-      <label className="text-sm text-white/80 font-semibold transition-all duration-400" htmlFor={name}>
-        {label} {!viewData && <sup className="text-red-700 text-lg">*</sup>}
+    <div className="flex flex-col space-y-2">
+      <label className="text-sm capitalize text-white" htmlFor={name}>
+        {label} {!viewData && <sup className="text-pink-200">*</sup>}
       </label>
       <div
         className={`${
-          isDragActive ? "bg-blue-bg" : "bg-blue-bg"
+          isDragActive ? "bg-richblack-600" : "bg-richblack-700"
         } flex min-h-[250px] cursor-pointer items-center justify-center rounded-md border-2 border-dotted border-richblack-500`}
-        onClick={(event) => {
-          if (!event.target.tagName.toLowerCase() === "input") {
-            event.stopPropagation();
-          }
-        }}
       >
         {previewSource ? (
           <div className="flex w-full flex-col p-6">
@@ -91,9 +82,9 @@ export default function Upload({
               <button
                 type="button"
                 onClick={() => {
-                  setPreviewSource("");
-                  setSelectedFile(null);
-                  setValue(name, null);
+                  setPreviewSource("")
+                  setSelectedFile(null)
+                  setValue(name, null)
                 }}
                 className="mt-3 text-richblack-400 underline"
               >
@@ -106,12 +97,8 @@ export default function Upload({
             className="flex w-full flex-col items-center p-6"
             {...getRootProps()}
           >
-                <input {...getInputProps({ accept: ".jpeg, .png, .jpg" })} ref={inputRef} />
-
-            <div
-              className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800"
-              onClick={handleBrowseClick}
-            >
+            <input {...getInputProps()} ref={inputRef} />
+            <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
               <FiUploadCloud className="text-2xl text-yellow-50" />
             </div>
             <p className="mt-2 max-w-[200px] text-center text-sm text-richblack-200">
@@ -127,10 +114,10 @@ export default function Upload({
         )}
       </div>
       {errors[name] && (
-        <span className="text-red-400 text-xs mt-1">
+        <span className="ml-2 text-xs tracking-wide text-pink-200">
           {label} is required
         </span>
       )}
     </div>
-  );
+  )
 }

@@ -42,7 +42,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
     if (result) {
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
-        section._id === sectionId ? result : section
+        section._id === sectionId ? {sectionName: section.sectionName,...result} : section
       )
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
       dispatch(setCourse(updatedCourse))
@@ -98,7 +98,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
             </summary>
             <div className="px-6 pb-4">
               {/* Render All Sub Sections Within a Section */}
-              {section.subSection.map((data) => (
+              {section?.subSection?.map((data) => (
                 <div
                   key={data?._id}
                   onClick={() => setViewSubSection(data)}

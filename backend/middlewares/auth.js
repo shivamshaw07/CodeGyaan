@@ -14,8 +14,6 @@ export const auth = async (req, res, next) => {
         } else if (req.headers && req.headers.authorization) {
             token = req.headers.authorization.replace("Bearer ", "");
         }
-        console.log(token);
-
         // Check if token is present
         if (!token) {
             return res.status(403).json({
@@ -69,8 +67,8 @@ export const isStudent = async (req,res,next) => {
 
 export const isInstructor = async (req,res,next) => {
     try {
-        const userId = req.body.id;
-        const userType = await user.findById(userId,'accountType');
+        const {id} = req.body;
+        const userType = await user.findById(id,'accountType');
         if(userType.accountType !== "Instructor"){
             return res.status(400).json({
                 success:false,

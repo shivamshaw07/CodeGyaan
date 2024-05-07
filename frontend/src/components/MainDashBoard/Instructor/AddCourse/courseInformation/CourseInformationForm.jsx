@@ -33,9 +33,10 @@ const CourseInformationForm = () => {
   const [courseCategories, setCourseCategories] = useState([]);
 
   useEffect(() => {
+    
     const getCategories = async () => {
       setLoading(true);
-      const categories = await dispatch(fetchCourseCategories());
+       const categories = await dispatch(fetchCourseCategories());
       if (categories.length > 0) {
         setCourseCategories(categories);
       }
@@ -43,33 +44,33 @@ const CourseInformationForm = () => {
     };
 
     if (editCourse) {
-      setValue("courseTitle", course.courseName);
-      setValue("courseShortDesc", course.courseDescription);
-      setValue("coursePrice", course.price);
-      setValue("cousrseStartDate", course.startDate);
-      setValue("cousrseMode", course.mode);
-      setValue("courseTags", course.tag);
-      setValue("courseBenefits", course.whatYouWillLearn);
-      setValue("courseCategory", course.category);
-      setValue("courseRequirements", course.instructions);
-      setValue("courseImage", course.thumbnail);
+      setValue("courseName", course.courseName);
+      setValue("courseDescription", course.courseDescription);
+      setValue("price", course.price);
+      setValue("startDate", course.startDate);
+      setValue("mode", course.mode);
+      setValue("tag", course.tag);
+      setValue("whatYouWillLearn", course.whatYouWillLearn);
+      setValue("category", course.category);
+      setValue("instruction", course.instruction);
+      setValue("thumbnail", course.thumbnail);
     }
-
-    getCategories();
+    if(!sessionStorage.getItem('category')) getCategories();
+    else setCourseCategories( JSON.parse(sessionStorage.getItem('category')))
   }, []);
 
   const isFormUpdated = () => {
     const currentValues = getValues();
     if (
-      currentValues.courseTitle !== course.courseName ||
-      currentValues.courseShortDesc !== course.courseDescription ||
-      currentValues.coursePrice !== course.price ||
-      currentValues.courseTags.toString() !== course.tag.toString() ||
-      currentValues.courseBenefits !== course.whatYouWillLearn ||
-      currentValues.courseCategory._id !== course.category._id ||
-      currentValues.courseImage !== course.thumbnail ||
-      currentValues.courseRequirements.toString() !==
-        course.instructions.toString()
+      currentValues.courseName !== course.courseName ||
+      currentValues.courseDescription !== course.courseDescription ||
+      currentValues.price !== course.price ||
+      currentValues.tag.toString() !== course.tag.toString() ||
+      currentValues.whatYouWillLearn !== course.whatYouWillLearn ||
+      currentValues.category._id !== course.category._id ||
+      currentValues.thumbnail !== course.thumbnail ||
+      currentValues.instruction.toString() !==
+        course.instruction.toString()
     )
       return true;
     else return false;
@@ -81,18 +82,19 @@ const CourseInformationForm = () => {
       if (isFormUpdated()) {
         const currentValues = getValues();
         const formData = new FormData();
+        formData.append("id", localStorage.getItem("id"));
 
         formData.append("courseId", course._id);
-        if (currentValues.courseTitle !== course.courseName) {
-          formData.append("courseName", data.courseTitle);
+        if (currentValues.courseName !== course.courseName) {
+          formData.append("courseName", data.courseName);
         }
 
-        if (currentValues.courseShortDesc !== course.courseDescription) {
-          formData.append("courseDescription", data.courseShortDesc);
+        if (currentValues.courseDescription !== course.courseDescription) {
+          formData.append("courseDescription", data.courseDescription);
         }
 
-        if (currentValues.coursePrice !== course.price) {
-          formData.append("price", data.coursePrice);
+        if (currentValues.price !== course.price) {
+          formData.append("price", data.price);
         }
 
         if (currentValues.startDate !== course.startDate) {
@@ -103,37 +105,38 @@ const CourseInformationForm = () => {
           formData.append("mode", data.mode);
         }
 
-        if (currentValues.courseTags.toString() !== course.tag.toString()) {
-          formData.append("tag", JSON.stringify(data.courseTags));
+        if (currentValues.tag.toString() !== course.tag.toString()) {
+          formData.append("tag", JSON.stringify(data.tag));
         }
 
-        if (currentValues.courseBenefits !== course.whatYouWillLearn) {
-          formData.append("whatYouWillLearn", data.courseBenefits);
+        if (currentValues.whatYouWillLearn !== course.whatYouWillLearn) {
+          formData.append("whatYouWillLearn", data.whatYouWillLearn);
         }
 
-        if (currentValues.courseCategory._id !== course.category._id) {
-          formData.append("category", data.courseCategory);
+        if (currentValues.category._id !== course.category._id) {
+          formData.append("category", data.category);
         }
 
         if (
-          currentValues.courseRequirements.toString() !==
-          course.instructions.toString()
+          currentValues.instruction.toString() !==
+          course.instruction.toString()
         ) {
           formData.append(
-            "instructions",
-            JSON.stringify(data.courseRequirements)
+            "instruction",
+            JSON.stringify(data.instruction)
           );
         }
 
-        if (currentValues.courseImage !== course.thumbnail) {
-          formData.append("thumbnailImage", data.courseImage);
+        if (currentValues.thumbnail !== course.thumbnail) {
+          formData.append("thumbnail", data.thumbnail);
         }
+        
 
         setLoading(true);
         const result = await editCourseDetails(formData, token);
         setLoading(false);
         if (result) {
-          setStep(2);
+          dispatch(setStep(2));
           dispatch(setCourse(result));
         }
       } else {
@@ -147,19 +150,19 @@ const CourseInformationForm = () => {
 
     //create a new course
     const formData = new FormData();
-    formData.append("courseName", data.courseTitle);
-    formData.append("courseDescription", data.courseShortDesc);
-    formData.append("price", data.coursePrice);
+    formData.append("courseName", data.courseName);
+    formData.append("courseDescription", data.courseDescription);
+    formData.append("price", data.price);
     formData.append("startDate", data.startDate);
     formData.append("mode", data.mode);
-    formData.append("whatYouWillLearn", data.courseBenefits);
-    formData.append("category", data.courseCategory);
-    formData.append("instructions", JSON.stringify(data.courseRequirements));
+    formData.append("whatYouWillLearn", data.whatYouWillLearn);
+    formData.append("category", data.category);
+    formData.append("instruction", JSON.stringify(data.instruction));
     formData.append("status", COURSE_STATUS.DRAFT);
-    formData.append("tag", JSON.stringify(data.courseTags));
-    formData.append("thumbnailImage", data.courseImage);
+    formData.append("tag", JSON.stringify(data.tag));
+    formData.append("thumbnail", data.thumbnail);
     formData.append("token",localStorage.getItem("token"));
-    formData.append("id",localStorage.getItem("id"));
+    formData.append("id", localStorage.getItem("id"));
     setLoading(true);
     // console.log("BEFORE add course API call");
     // console.log("PRINTING FORMDATAiii", formData);
@@ -168,6 +171,7 @@ const CourseInformationForm = () => {
     if (result) {
       //console.log(setCourse(result));
       dispatch(setStep(2));
+      console.log(result);
       dispatch(setCourse(result));
     }
     setLoading(false);
@@ -178,64 +182,63 @@ const CourseInformationForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-md border-richblack-700 bg-richblack-800 p-6 space-y-8 w-[60%]"
+      className="rounded-xl border-richblack-700 bg-richblack-800 p-6 space-y-8 w-full shadow-2xl"
     >
       <div className="text-white/90 flex flex-col">
         <label htmlFor="courseTitle">
           Course Title<sup className="text-red-500">{" * "}</sup>
         </label>
         <input
-          id="courseTitle"
+          id="courseName"
           placeholder="Enter Course Title"
-          {...register("courseTitle", { required: true })}
+          {...register("courseName", { required: true })}
           className=" border-2 border-white px-2 py-[10px] rounded-lg bg-blue-bg text-white transition-all duration-400"
             style={{ borderBottom: "1px solid white" }}
         />
-        {errors.courseTitle && <span className="text-red-400 text-xs mt-1">Course Title is Required**</span>}
+        {errors.courseName && <span className="text-red-400 text-xs mt-1">Course Title is Required**</span>}
       </div>
 
       <div className="text-white/90 flex flex-col gap-2">
-        <label htmlFor="courseShortDesc">
+        <label htmlFor="courseDescription">
           Course Short Description<sup className="text-red-500"> * </sup>
         </label>
         <textarea
-          id="courseShortDesc"
+          id="courseDescription"
           placeholder="Enter Description"
-          {...register("courseShortDesc", { required: true })}
+          {...register("courseDescription", { required: true })}
           className=" border-2 h-[20vh] border-white placeholder-gray-100 px-2 py-[10px] rounded-lg bg-white/30 text-white transition-all duration-400"
           style={{ borderBottom: "1px solid white" }}        />
-        {errors.courseShortDesc && (
+        {errors.courseDescription && (
           <span className="text-red-400 text-xs mt-1">Course Description is required**</span>
         )}
       </div>
 
       <div className="text-white/90 flex flex-col  relative">
-        <label htmlFor="coursePrice">
+        <label htmlFor="price">
           Course Price<sup className="text-red-500"> *</sup>
         </label>
         <input
-          id="coursePrice"
+          id="price"
           placeholder="Enter Course Price"
-          {...register("coursePrice", {
+          {...register("price", {
             required: true,
             valueAsNumber: true,
           })}
           className=" border-2 pl-6 border-white px-2 py-[10px] rounded-lg bg-blue-bg text-white transition-all duration-400"
           style={{ borderBottom: "1px solid white" }}          />
         <HiOutlineCurrencyRupee className="absolute top-[55%] left-1 text-richblack-400" />
-        {errors.coursePrice && <span className="text-red-400 text-xs mt-1">Course Price is Required**</span>}
+        {errors.price && <span className="text-red-400 text-xs mt-1">Course Price is Required**</span>}
       </div>
       <div className="text-white/90 flex flex-col  relative">
-        <label htmlFor="cousrseStartDate">
+        <label htmlFor="startDate">
           Course Start Date<sup className="text-red-500"> *</sup>
         </label>
         <input
-          id="cousrseStartDate"
+          id="startDate"
           type="date"
           placeholder="Enter Course Start Date"
           {...register("startDate", {
             required: true,
-            valueAsNumber: true,
           })}
           className=" border-2 border-white px-2 py-[10px] rounded-lg bg-blue-bg text-white transition-all duration-400"
           style={{ borderBottom: "1px solid white" }}          />
@@ -243,11 +246,11 @@ const CourseInformationForm = () => {
       </div>
 
       <div className="text-white/90 flex flex-col ">
-        <label htmlFor="cousrseMode">
+        <label htmlFor="mode">
           Course Mode<sup className="text-red-500"> *</sup>
         </label>
         <select
-          id="cousrseMode"
+          id="mode"
           className=" border-2 border-white px-2 py-[10px] rounded-lg bg-blue-bg text-white transition-all duration-400"
           style={{ borderBottom: "1px solid white" }}           defaultValue=""
           {...register("mode", { required: true })}
@@ -268,14 +271,14 @@ const CourseInformationForm = () => {
         {errors.mode && <span className="text-red-400 text-xs mt-1">Course Mode is Required</span>}
       </div>
       <div className="text-white/90 flex flex-col ">
-        <label htmlFor="courseCategory">
+        <label htmlFor="category">
           Course Category<sup className="text-red-500"> *</sup>
         </label>
         <select
-          id="courseCategory"
+          id="category"
           className=" border-2 border-white px-2 py-[10px] rounded-lg bg-blue-bg text-white transition-all duration-400"
           style={{ borderBottom: "1px solid white" }}           defaultValue=""
-          {...register("courseCategory", { required: true })}
+          {...register("category", { required: true })}
         >
           <option value="" disabled>
             Choose a Category
@@ -288,13 +291,13 @@ const CourseInformationForm = () => {
               </option>
             ))}
         </select>
-        {errors.courseCategory && <span className="text-red-400 text-xs mt-1">Course Category is Required</span>}
+        {errors.category && <span className="text-red-400 text-xs mt-1">Course Category is Required</span>}
       </div>
 
       {/* create a custom component for handling tags input */}
       <ChipInput
-            label="Tags"
-            name="courseTags"
+            label="tag"
+            name="tag"
             placeholder="Enter Tags and press Enter"
             register={register}
             errors={errors}
@@ -304,8 +307,8 @@ const CourseInformationForm = () => {
 
       {/* create a component for uploading and showing preview of media */}
       <Upload
-        name="courseImage"
-        label="Course Thumbnail"
+        name="thumbnail"
+        label="thumbnail"
         register={register}
         setValue={setValue}
         errors={errors}
@@ -314,23 +317,23 @@ const CourseInformationForm = () => {
 
       {/*     Benefits of the Course */}
       <div className="text-white/90 flex flex-col ">
-        <label>
+        <label htmlFor="whatYouWillLearn">
           Benefits of the course<sup  className="text-red-500"> *</sup>
         </label>
         <textarea
-          id="coursebenefits"
+          id="whatYouWillLearn"
           placeholder="Enter Benefits of the course"
-          {...register("courseBenefits", { required: true })}
+          {...register("whatYouWillLearn", { required: true })}
           className=" border-2 h-[20vh] border-white px-2  placeholder-slate-50 py-[10px] rounded-lg bg-white/30 text-white transition-all duration-400"
           style={{ borderBottom: "1px solid white" }}           />
-        {errors.courseBenefits && (
+        {errors.whatYouWillLearn && (
           <span className="text-red-400 text-xs mt-1">Benefits of the course are required**</span>
         )}
       </div>
 
       <RequirementField
-        name="courseRequirements"
-        label="Requirements/Instructions"
+        name="instruction"
+        label="instruction"
         register={register}
         errors={errors}
         setValue={setValue}
@@ -340,20 +343,20 @@ const CourseInformationForm = () => {
         {editCourse && (
           <button
             onClick={() => dispatch(setStep(2))}
-            className="flex items-center gap-x-2 text-black bg-richblack-300 rounded-md px-3 py-1"
+            className="flex items-center gap-x-2 text-white rounded-md px-3 py-1"
           >
             Continue Without Saving
           </button>
         )}
 
-        <div className="flex text-richblack-900 rounded-md px-3 py-1 font-medium items-center text-md bg-glod-color to-white w-fit">
-          <button className="text-white">
+        <button type="submit" className="cursor-pointer text-white flex juxtify-center items-center bg-richblack-300 rounded-md px-3 py-1 font-medium text-md bg-glod-color to-white w-fit">
+          
             {
-              !editCourse?"Next" : "Save Changes"
+              !editCourse? "Next" : "Save Changes"
             }
-          </button>
+          
           <MdNavigateNext />
-        </div>
+        </button>
       </div>
     </form>
   );

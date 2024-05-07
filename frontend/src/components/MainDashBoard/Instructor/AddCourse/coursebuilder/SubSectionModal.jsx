@@ -82,7 +82,7 @@ export default function SubSectionModal({
       // console.log("result", result)
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
-        section._id === modalData.sectionId ? result : section
+        section._id === modalData.sectionId ? {sectionName : section.sectionName,subeSection : [...section.subSection,result],_id: section._id} : section
       )
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
       dispatch(setCourse(updatedCourse))
@@ -108,15 +108,18 @@ export default function SubSectionModal({
     formData.append("sectionId", modalData)
     formData.append("title", data.lectureTitle)
     formData.append("description", data.lectureDesc)
-    formData.append("video", data.lectureVideo)
+    formData.append("videoFile", data.lectureVideo)
+    formData.append("id", localStorage.getItem("id"))
     setLoading(true)
     const result = await createSubSection(formData, token)
     if (result) {
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
-        section._id === modalData ? result : section
+        section._id === modalData ? {sectionName : section.sectionName,subeSection : [...section.subSection,result],_id: section._id} : section
       )
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
+      console.log("updatedCourse ", updatedCourse);
+
       dispatch(setCourse(updatedCourse))
     }
     setModalData(null)
@@ -194,7 +197,7 @@ export default function SubSectionModal({
                 disabled={loading}
                 text={loading ? "Loading.." : edit ? "Save Changes" : "Save"}
               /> */}
-              <button>
+              <button type="Submit">
               {loading ? "Loading.." : edit ? "Save Changes" : "Save"}
               </button>
             </div>

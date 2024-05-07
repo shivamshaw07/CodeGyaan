@@ -9,9 +9,13 @@ const CourseList = () => {
     const getCategories = async () => {
       const categories = await dispatch(fetchCourseCategories());
       dispatch(setCategories(categories));
+    } 
+    if(!sessionStorage.getItem("category")){
+      getCategories()
     }
-
-    getCategories()
+    else{
+      setCategories(JSON.parse(sessionStorage.getItem("category")))
+    }
   }, [])
   
   return (

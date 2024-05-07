@@ -20,16 +20,19 @@ export const profileEndPoints = {
 
 //course builder endpoints
 export const courseEndpoints = {
+    getInstructorCourses : `${BASE_URL}/instructor/getInstructorCourses`,
     getAllCourses : `${BASE_URL}/instructor/getAllCourses`,
     getCourseDetails : `${BASE_URL}/instructor/getCourse`,
     createCourse : `${BASE_URL}/instructor/createCourse`,
     addSection : `${BASE_URL}/instructor/createSection`,
     addSubSection : `${BASE_URL}/instructor/createSubSection`,
+    updateCourse : `${BASE_URL}/instructor/updateCourse`,
     updateSection : `${BASE_URL}/instructor/updateSection`,
     updateSubSection : `${BASE_URL}/instructor/updateSubSection`,
     deleteSection : `${BASE_URL}/instructor/deleteSection`,
     deleteSubSection : `${BASE_URL}/instructor/deleteSubSection`,
     deleteCourse : `${BASE_URL}/instructor/deleteCourse`
+
 }
 
 //category endpoints

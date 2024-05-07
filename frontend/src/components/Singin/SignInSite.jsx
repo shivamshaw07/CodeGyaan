@@ -11,7 +11,6 @@ const SignInSite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  const [accountType, setAccountType] = useState("Student");
   const [firstName, setFirstName] = useState(false);
   const [lastName, setLastName] = useState(false);
   const [email, setEmail] = useState(false);
@@ -19,7 +18,7 @@ const SignInSite = () => {
   const [conPass, setConPass] = useState(false);
 
   const [changeFiled, setChangeFiled] = useState({
-    accountType: accountType,
+    accountType: "" || "Student",
     firstName: "",
     lastName: "",
     email: "",
@@ -41,7 +40,8 @@ const SignInSite = () => {
       changeFiled.lastName === "" ||
       changeFiled.email === "" ||
       changeFiled.password === "" ||
-      changeFiled.confirmPassword === ""
+      changeFiled.confirmPassword === "" ||
+      changeFiled.accountType === ""
     ) {
       toast.error("Please fill all the fields");
       return;
@@ -73,9 +73,9 @@ const SignInSite = () => {
             >
               <div className="flex gap-[1vw] bg-black-bg items-center justify-start w-[49%] p-2 rounded-3xl">
                 <div
-                  onClick={() => setAccountType("Student")}
+                  onClick={() => setChangeFiled({ ...changeFiled, accountType: "Student" })}
                   className={
-                    accountType === "Student"
+                    changeFiled.accountType === "Student"
                       ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold"
                       : "text-lg cursor-pointer text-white px-3 py-1 rounded-3xl font-semibold"
                   }
@@ -83,9 +83,9 @@ const SignInSite = () => {
                   Student
                 </div>
                 <div
-                  onClick={() => setAccountType("Instructor")}
+                  onClick={() => setChangeFiled({...changeFiled,accountType: "Instructor"})}
                   className={
-                    accountType === "Instructor"
+                    changeFiled.accountType === "Instructor"
                       ? "cursor-pointer text-lg bg-glod-color text-white px-3 py-1 rounded-3xl font-semibold"
                       : "text-lg cursor-pointer  text-white px-3 py-1 rounded-3xl font-semibold"
                   }

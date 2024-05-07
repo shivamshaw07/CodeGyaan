@@ -7,10 +7,11 @@ configDotenv();
 
 export const createCourse = async (req,res) =>{
     try {
-        const {courseName,courseDescription,whatYouWillLearn,prize,tag,startDate,mode} = req.body
-        const thumbnailrec = req.files.thumbnailimg  
+        const {courseName,courseDescription,whatYouWillLearn,price,tag,startDate,mode,instruction,category} = req.body
+        const thumbnailrec = req.files.thumbnail
+        console.log("whats ", whatYouWillLearn);
         //validate the datas
-        if(!courseName || !courseDescription || !whatYouWillLearn || !prize || !thumbnailrec || !tag ||!startDate || !mode){
+        if(!courseName || !courseDescription || !whatYouWillLearn || !price || !thumbnailrec || !tag ||!startDate || !mode || !category || !instruction){
             return res.status(500).json({
                 status:false,
                 message : "All field are mandatory"
@@ -45,13 +46,14 @@ export const createCourse = async (req,res) =>{
             courseName,
             whatYouWillLearn:whatYouWillLearn,
             courseDescription:courseDescription,
-            prize:prize,
+            price:price,
             tag:tag,
             thumbnail : thumbNailImage.secure_url,
             startDate:startDate,
-            mode:mode
+            mode:mode,
+            instruction:instruction,
+            category:category
         })
-        console.log(newCourse);
     
         //update couse section of user
         await user.findByIdAndUpdate(
@@ -77,6 +79,99 @@ export const createCourse = async (req,res) =>{
     }
 } 
 
+
+// Edit Course Details
+export const editCourse = async (req, res) => {
+    try {
+      const { courseId } = req.body
+      const updates = req.body
+      const courseDetail = await course.findById(courseId)
+  
+      if (!courseDetail) {
+        return res.status(404).json({ error: "Course not found" })
+      }
+  
+      // If Thumbnail Image is found, update it
+      if (req.files) {
+        console.log("thumbnail update")
+        const thumbnail = req.files.thumbnail
+        const thumbnailImage = await uploadImageToCloudinary(
+          thumbnail,
+          process.env.FOLDER_NAME
+        )
+        courseDetail.thumbnail = thumbnailImage.secure_url
+      }
+  
+      // Update only the fields that are present in the request body
+      for (const key in updates) {
+        if (updates.hasOwnProperty(key)) {
+          if (key === "tag" || key === "instruction") {
+            courseDetail[key] = JSON.parse(updates[key])
+          } else {
+            courseDetail[key] = updates[key]
+          }
+        }
+      }
+  
+      await courseDetail.save()
+  
+      const updatedCourse = await course.findOne({
+        _id: courseId,
+      })
+        .populate({
+          path: "instructor",
+          populate: {
+            path: "additionalDetails",
+          },
+        })
+        .populate("category")
+        // .populate("ratingAndReviews")
+        .populate({
+          path: "courseContent",
+          populate: {
+            path: "subSection",
+          },
+        })
+        .exec()
+  
+      res.json({
+        success: true,
+        message: "Course updated successfully",
+        data: updatedCourse,
+      })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+        error: error.message,
+      })
+    }
+  }
+
+export const fetchInstructorCourses = async (req,res) => {
+  try {
+    const {id} = req.body;
+    const courses = await course.find({instructor:id})
+    if(!courses){
+      return res.status(404).json({
+        success : false,
+        message : "No courses found"
+      })
+    }
+    return res.status(200).json({
+      success : true,
+      message : "Courses fetched successfully",
+      data : courses
+    })
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success : false,
+      message : "Courses fetched Unsuccessfully",
+    })
+  }
+}
 
 export const getAllCourses = async (req,res) => {
     try {
@@ -110,12 +205,25 @@ export const getAllCourses = async (req,res) => {
 
 export const courseDetails = async (req,res) => {
     try {
-        const {courseId} = req.body
-        const courseDetails = await course.findById(courseId)
-        .populate('ratingsAndReview')
-        .populate('section')
+        const {id} = req.body
+        console.log(id);
+        const courseDetails = await course.findById(id)
+        .populate("category")
+        // .populate("ratingAndReviews")
+        .populate({
+          path: "courseContent",
+          populate: {
+            path: "subSection",
+          },
+        })
         .exec()
-
+        console.log(courseDetails);
+        if(!courseDetails){
+            return res.status(404).json({
+                success : false,
+                message : "Course not found"
+            })
+          }
         return res.status(200).json({
             success : true,
             message : "Course details fetched successfully",
@@ -128,13 +236,14 @@ export const courseDetails = async (req,res) => {
                 startDate:courseDetails.startDate,
                 mode:courseDetails.mode,
                 instructor:courseDetails.instructor,
-                ratingsAndReview:courseDetails.ratingsAndReview,
+                ratingsAndReview:courseDetails.ratingAndReviews,
                 courseContent:courseDetails.courseContent,
                 student:courseDetails.studentsEnrolled,
-                prize:courseDetails.prize
+                price:courseDetails.price
             }
         })
     } catch (error) {
+      console.log(error);
         return res.status(500).json({
             success : false,
             message : "Course details fetched Unsuccessfully",

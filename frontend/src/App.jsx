@@ -19,6 +19,7 @@ import OpenRoute from "./components/OpenRoute/OpenRoute";
 import Dashboard from "./components/MainDashBoard/Instructor/Dashboard/Dashboard";
 import MyCourses from "./components/MainDashBoard/Instructor/MyCourses/MyCourses";
 import MainAddCourse from "./components/MainDashBoard/Instructor/AddCourse/MainAddCourse";
+import EditCourse from "./components/MainDashBoard/Instructor/EditCourses/EditCourse";
 
 function App() {
   const { loading } = useSelector((state) => state.ui);
@@ -77,10 +78,8 @@ function App() {
           )}
           {accountType === "Instructor" && (
             <>
-              <Route
-                path="/dashboard/add-courses"
-                element={<MainAddCourse />}
-              />
+              <Route path="/dashboard/add-courses" element={<MainAddCourse />} />
+              <Route path="/dashboard/edit-course/:id" element={<EditCourse/>}/>
               <Route path="/dashboard/dashboard" element={<Dashboard />} />{" "}
               <Route path="/dashboard/my-courses" element={<MyCourses />} />{" "}
             </>
