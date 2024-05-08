@@ -19,7 +19,7 @@ import RenderSteps from "../AddCourse/RenderSteps.jsx"
     ;(async () => {
       setLoading(true)
       const result = await getFullDetailsOfCourse(id, token)
-      console.log(result);
+      console.log("course",result);
       if (result) {
         dispatch(setEditCourse(true))
         dispatch(setCourse(result))
@@ -38,11 +38,11 @@ import RenderSteps from "../AddCourse/RenderSteps.jsx"
   }
 
   return (
-    <div>
-      <h1 className="mb-14 text-3xl font-medium text-richblack-5">
-        Edit Course
+    <div className="w-full p-8 max-h-[79vh] overflow-y-scroll profile ">
+      <h1 className="mb-14 text-4xl font-semibold text-white">
+        Edit <span className="text-glod-color">Course.</span>
       </h1>
-      <div className="mx-auto max-w-[600px]">
+      <div className="mx-auto">
         {course ? (
           <RenderSteps />
         ) : (

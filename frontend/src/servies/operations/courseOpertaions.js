@@ -163,7 +163,7 @@ export const createSubSection = async (data, token) => {
         Authorization: `Bearer ${token}`,
       }
     );
-    // console.log("CREATE SUB-SECTION API RESPONSE............", response);
+    console.log("CREATE SUB-SECTION API RESPONSE............", response);
     if (!response?.data?.success) {
       throw new Error("Could Not Add Lecture");
     }

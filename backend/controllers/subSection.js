@@ -48,7 +48,7 @@ export const createSubSection = async (req,res) =>{
         return res.status(200).json({
             success:true,
             message:"SubSection Added successfully",
-            data:subsection
+            data:updateSection
         })
     } catch (error) {
         console.log(error.message);

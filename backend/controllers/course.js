@@ -9,7 +9,6 @@ export const createCourse = async (req,res) =>{
     try {
         const {courseName,courseDescription,whatYouWillLearn,price,tag,startDate,mode,instruction,category} = req.body
         const thumbnailrec = req.files.thumbnail
-        console.log("whats ", whatYouWillLearn);
         //validate the datas
         if(!courseName || !courseDescription || !whatYouWillLearn || !price || !thumbnailrec || !tag ||!startDate || !mode || !category || !instruction){
             return res.status(500).json({
@@ -206,7 +205,6 @@ export const getAllCourses = async (req,res) => {
 export const courseDetails = async (req,res) => {
     try {
         const {id} = req.body
-        console.log(id);
         const courseDetails = await course.findById(id)
         .populate("category")
         // .populate("ratingAndReviews")
@@ -217,7 +215,6 @@ export const courseDetails = async (req,res) => {
           },
         })
         .exec()
-        console.log(courseDetails);
         if(!courseDetails){
             return res.status(404).json({
                 success : false,
@@ -227,20 +224,7 @@ export const courseDetails = async (req,res) => {
         return res.status(200).json({
             success : true,
             message : "Course details fetched successfully",
-            data:{
-                courseName:courseDetails.courseName,
-                courseDescription:courseDetails.courseDescription,
-                whatYouWillLearn:courseDetails.whatYouWillLearn,
-                thumbnail:courseDetails.thumbnail,
-                tag:courseDetails.tag,
-                startDate:courseDetails.startDate,
-                mode:courseDetails.mode,
-                instructor:courseDetails.instructor,
-                ratingsAndReview:courseDetails.ratingAndReviews,
-                courseContent:courseDetails.courseContent,
-                student:courseDetails.studentsEnrolled,
-                price:courseDetails.price
-            }
+            data:courseDetails
         })
     } catch (error) {
       console.log(error);

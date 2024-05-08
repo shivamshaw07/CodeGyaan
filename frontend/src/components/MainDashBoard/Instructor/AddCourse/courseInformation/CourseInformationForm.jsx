@@ -41,6 +41,7 @@ const CourseInformationForm = () => {
         setCourseCategories(categories);
       }
       setLoading(false);
+      console.log(course);
     };
 
     if (editCourse) {
@@ -157,9 +158,9 @@ const CourseInformationForm = () => {
     formData.append("mode", data.mode);
     formData.append("whatYouWillLearn", data.whatYouWillLearn);
     formData.append("category", data.category);
-    formData.append("instruction", JSON.stringify(data.instruction));
+    formData.append("instruction", [...data.instruction]);
     formData.append("status", COURSE_STATUS.DRAFT);
-    formData.append("tag", JSON.stringify(data.tag));
+    formData.append("tag", [...data.tag]);
     formData.append("thumbnail", data.thumbnail);
     formData.append("token",localStorage.getItem("token"));
     formData.append("id", localStorage.getItem("id"));
@@ -168,10 +169,9 @@ const CourseInformationForm = () => {
     // console.log("PRINTING FORMDATAiii", formData);
 
     const result = await addCourseDetails(formData, token);
-    if (result) {
+    if (result) { 
       //console.log(setCourse(result));
       dispatch(setStep(2));
-      console.log(result);
       dispatch(setCourse(result));
     }
     setLoading(false);
@@ -286,7 +286,7 @@ const CourseInformationForm = () => {
 
           {!loading &&
             courseCategories.map((category, index) => (
-              <option key={index} value={category?._id}>
+              <option key={index} value={category?._id} >
                 {category?.name}
               </option>
             ))}

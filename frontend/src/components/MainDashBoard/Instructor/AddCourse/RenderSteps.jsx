@@ -27,7 +27,7 @@ export default function RenderSteps() {
   return (
     <>
       <div className="relative mb-2 flex w-full justify-center text-white">
-        {steps.map((item) => (
+        {steps.map((item,id) => (
           <>
             <div
               className="flex flex-col items-center "
@@ -62,7 +62,7 @@ export default function RenderSteps() {
       </div>
 
       <div className="relative mb-16 flex w-full select-none justify-between">
-        {steps.map((item) => (
+        {steps.map((item,id) => (
           <>
             <div
               className="flex min-w-[130px] flex-col items-center gap-y-2"

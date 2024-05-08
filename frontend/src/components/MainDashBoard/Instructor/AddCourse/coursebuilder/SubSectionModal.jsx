@@ -115,11 +115,10 @@ export default function SubSectionModal({
     if (result) {
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
-        section._id === modalData ? {sectionName : section.sectionName,subeSection : [...section.subSection,result],_id: section._id} : section
+        section._id === modalData ? result : section
       )
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
-      console.log("updatedCourse ", updatedCourse);
-
+      
       dispatch(setCourse(updatedCourse))
     }
     setModalData(null)
@@ -131,8 +130,8 @@ export default function SubSectionModal({
       <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800">
         {/* Modal Header */}
         <div className="flex items-center justify-between rounded-t-lg bg-richblack-700 p-5">
-          <p className="text-xl font-semibold text-richblack-5">
-            {view && "Viewing"} {add && "Adding"} {edit && "Editing"} Lecture
+          <p className="text-3xl font-semibold text-white">
+            {view && "Viewing"} {add && "Adding"} {edit && "Editing"} <span className="text-glod-color">Lecture.</span>
           </p>
           <button onClick={() => (!loading ? setModalData(null) : {})}>
             <RxCross2 className="text-2xl text-richblack-5" />
@@ -156,15 +155,15 @@ export default function SubSectionModal({
           />
           {/* Lecture Title */}
           <div className="flex flex-col space-y-2">
-            <label className="text-sm text-richblack-5" htmlFor="lectureTitle">
-              Lecture Title {!view && <sup className="text-pink-200">*</sup>}
+            <label className="text-sm text-white" htmlFor="lectureTitle">
+              Lecture Title {!view && <sup className="text-red-600">*</sup>}
             </label>
             <input
               disabled={view || loading}
               id="lectureTitle"
               placeholder="Enter Lecture Title"
               {...register("lectureTitle", { required: true })}
-              className="form-style w-full bg-richblack-700 rounded-md px-3 py-2 text-richblack-100"
+              className="form-style w-full bg-black-bg rounded-md px-3 py-2 text-richblack-100"
             />
             {errors.lectureTitle && (
               <span className="ml-2 text-xs tracking-wide text-pink-200">
@@ -174,25 +173,25 @@ export default function SubSectionModal({
           </div>
           {/* Lecture Description */}
           <div className="flex flex-col space-y-2">
-            <label className="text-sm text-richblack-5" htmlFor="lectureDesc">
+            <label className="text-sm text-white" htmlFor="lectureDesc">
               Lecture Description{" "}
-              {!view && <sup className="text-pink-200">*</sup>}
+              {!view && <sup className="text-red-600">*</sup>}
             </label>
             <textarea
               disabled={view || loading}
               id="lectureDesc"
               placeholder="Enter Lecture Description"
               {...register("lectureDesc", { required: true })}
-              className="form-style w-full bg-richblack-700 rounded-md px-3 py-2 text-richblack-100 min-h-[150px]"
+              className="form-style w-full bg-black-bg rounded-md px-3 py-2 text-richblack-100 min-h-[150px]"
             />
             {errors.lectureDesc && (
-              <span className="ml-2 text-xs tracking-wide text-pink-200">
+              <span className="ml-2 text-xs tracking-wide text-red-600">
                 Lecture Description is required
               </span>
             )}
           </div>
           {!view && (
-            <div className="flex bg-yellow-50  rounded-md w-fit px-3 py-1 justify-end">
+            <div className="flex bg-glod-color text-white  rounded-md w-fit px-3 py-1 justify-end">
               {/* <IconBtn
                 disabled={loading}
                 text={loading ? "Loading.." : edit ? "Save Changes" : "Save"}

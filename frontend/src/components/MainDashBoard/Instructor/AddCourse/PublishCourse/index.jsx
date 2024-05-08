@@ -71,7 +71,7 @@ export default function PublishCourse() {
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Checkbox */}
-        <div className="my-6 mb-8">
+        <div className="my-6 mb-8 flex justify-start items-center gap-1">
           <label htmlFor="public" className="inline-flex items-center text-lg">
             <span className="ml-2 text-richblack-400">
               Make this course as public
@@ -81,7 +81,8 @@ export default function PublishCourse() {
             type="checkbox"
             id="public"
             {...register("public")}
-            className="border-gray-300 h-4 w-4 rounded ring-black focus:ring-2 focus:ring-white"
+            className="border-gray-300 h-4 w-4 rounded focus:bg-glod-color rounded-full"
+            style={{border:"1.6px solid white"}}
           />
         </div>
 
@@ -98,7 +99,7 @@ export default function PublishCourse() {
           {/* <IconBtn disabled={loading} text="Save Changes" /> */}
           <button
             type="submit"
-            className="bg-yellow-50 font-semibold px-3 py-2 rounded-md"
+            className="bg-glod-color font-semibold px-3 py-2 rounded-md text-white"
           >
             Save Changes
           </button>

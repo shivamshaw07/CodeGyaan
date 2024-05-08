@@ -31,9 +31,7 @@ export default function CourseBuilderForm() {
   const [editSectionName, setEditSectionName] = useState(null);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    
-  },[course])
+
   // handle form submission
   const onSubmit = async (data) => {
     // console.log(data)

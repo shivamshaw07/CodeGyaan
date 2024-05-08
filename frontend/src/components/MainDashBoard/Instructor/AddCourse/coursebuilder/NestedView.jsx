@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AiFillCaretDown } from "react-icons/ai"
 import { FaPlus } from "react-icons/fa"
 import { MdEdit } from "react-icons/md"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import { RxDropdownMenu } from "react-icons/rx"
 import { useDispatch, useSelector } from "react-redux"
+import { MdSlowMotionVideo } from "react-icons/md";
 
 import {
   deleteSection,
@@ -42,7 +43,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
     if (result) {
       // update the structure of course
       const updatedCourseContent = course.courseContent.map((section) =>
-        section._id === sectionId ? {sectionName: section.sectionName,...result} : section
+        section._id === sectionId ? result : section
       )
       const updatedCourse = { ...course, courseContent: updatedCourseContent }
       dispatch(setCourse(updatedCourse))
@@ -62,8 +63,8 @@ export default function NestedView({ handleChangeEditSectionName }) {
             {/* Section Dropdown Content */}
             <summary className="flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2">
               <div className="flex items-center gap-x-3">
-                <RxDropdownMenu className="text-2xl text-richblack-50" />
-                <p className="font-semibold text-richblack-50">
+                <RxDropdownMenu className="text-2xl text-white" />
+                <p className="font-semibold text-white">
                   {section.sectionName}
                 </p>
               </div>
@@ -76,7 +77,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
                     )
                   }
                 >
-                  <MdEdit className="text-xl text-richblack-300" />
+                  <MdEdit className="text-xl text-white" />
                 </button>
                 <button
                   onClick={() =>
@@ -90,13 +91,13 @@ export default function NestedView({ handleChangeEditSectionName }) {
                     })
                   }
                 >
-                  <RiDeleteBin6Line className="text-xl text-richblack-300" />
+                  <RiDeleteBin6Line className="text-xl text-red-500" />
                 </button>
-                <span className="font-medium text-richblack-300">|</span>
-                <AiFillCaretDown className={`text-xl text-richblack-300`} />
+                <span className="font-medium text-white">|</span>
+                <AiFillCaretDown className={`text-xl text-white`} />
               </div>
             </summary>
-            <div className="px-6 pb-4">
+            <div className="px-6 pb-4 ">
               {/* Render All Sub Sections Within a Section */}
               {section?.subSection?.map((data) => (
                 <div
@@ -105,8 +106,8 @@ export default function NestedView({ handleChangeEditSectionName }) {
                   className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2"
                 >
                   <div className="flex items-center gap-x-3 py-2 ">
-                    <RxDropdownMenu className="text-2xl text-richblack-50" />
-                    <p className="font-semibold text-richblack-50">
+                    <MdSlowMotionVideo className="text-2xl text-white" />
+                    <p className="font-semibold text-white/80">
                       {data.title}
                     </p>
                   </div>
@@ -119,7 +120,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
                         setEditSubSection({ ...data, sectionId: section._id })
                       }
                     >
-                      <MdEdit className="text-xl text-richblack-300" />
+                      <MdEdit className="text-xl text-white" />
                     </button>
                     <button
                       onClick={() =>
@@ -134,7 +135,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
                         })
                       }
                     >
-                      <RiDeleteBin6Line className="text-xl text-richblack-300" />
+                      <RiDeleteBin6Line className="text-xl text-red-600 " />
                     </button>
                   </div>
                 </div>
