@@ -51,11 +51,11 @@ export const fetchInstructorCourses = async (token) => {
 // fetching the course details
 export const getFullDetailsOfCourse = async(id) =>{
     let result = null
+    let url = courseEndpoints.getCourseDetails + `/${id}`;
     try {
         const response = await apiConneector(
-            "post",
-            courseEndpoints.getCourseDetails,
-            {id},
+            "get",
+            url
           );
           if (!response?.data?.success) {
             throw new Error("Could Not Fetch Course Details");
@@ -65,6 +65,24 @@ export const getFullDetailsOfCourse = async(id) =>{
         console.log("COURSE_DETAILS_API API ERROR............", error);
         toast.error(error.message);
     }
+}
+
+//fetch all couses
+export const getAllCourses = async () => {
+  let result = null;
+  try {
+    const allCourse = await apiConneector(
+      "GET",
+      courseEndpoints.getAllCourses
+    )
+    if(!allCourse?.data?.success){
+      throw new Error("Could Not Fetch Course Details");
+    }
+    return(result = allCourse?.data?.data)
+  } catch (error) {
+    console.log("COURSE_DETAILS_API API ERROR............", error);
+  }
+  return result
 }
 
 // add the course details
@@ -87,6 +105,7 @@ export const addCourseDetails = async (data, token) => {
     }
     toast.success("Course Details Added Successfully");
     result = response?.data?.data;
+    sessionStorage.setItem("allCourses",JSON.stringify(response?.data?.data));
   } catch (error) {
     console.log("CREATE COURSE API ERROR............", error);
     toast.error(error.message);

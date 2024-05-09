@@ -4,6 +4,8 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { GrSchedules } from "react-icons/gr";
 import { RiFolderVideoFill } from "react-icons/ri";
 import { TbDiscount2 } from "react-icons/tb";
+import {Link} from 'react-router-dom'
+import { getFullDetailsOfCourse } from "../../../servies/operations/courseOpertaions";
 const CourseCard = ({
   img,
   title,
@@ -13,9 +15,15 @@ const CourseCard = ({
   original_price,
   discounted_price,
   discount_percentage,
+  id
 }) => {
+
+  const check = async() =>{
+    const courseDetail = await getFullDetailsOfCourse(id);
+    console.log(courseDetail);
+  }
   return (
-    <div className="min-w-full md:min-w-[350px] lg:min-w-[350px] xl:min-w-[350px] flex flex-col justify-start items-start bg-black-bg rounded-2xl border-[1px] border-blue-bg shadow-md shadow-black gap-3">
+    <div className="min-w-full max-w-[220px] md:min-w-[350px] lg:min-w-[350px] xl:min-w-[350px] flex flex-col justify-start items-start bg-black-bg rounded-2xl border-[1px] border-blue-bg shadow-md shadow-black gap-3">
       <img
         src={img}
         alt={img}
@@ -61,10 +69,12 @@ const CourseCard = ({
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full ">
-        <button className="py-3 bg-glod-color w-[50%] rounded-es-lg text-white hover:bg-[#b99b55]" style={{ WebkitTextStroke: ".2px #000" }}>
-          Explore
-        </button>
+      <div className="flex justify-between items-center w-full">
+        <Link to={'/course/'+title+'/'+id} className="w-[50%]">
+          <button className="py-3 bg-glod-color w-full rounded-es-lg text-white hover:bg-[#b99b55]" style={{ WebkitTextStroke: ".2px #000" }}>
+            Explore
+          </button>
+        </Link>
         <button className="py-3 text-[#cbab61] w-[50%]">Enroll Now</button>
       </div>
     </div>

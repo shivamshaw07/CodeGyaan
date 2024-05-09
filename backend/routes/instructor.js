@@ -23,7 +23,7 @@ instructorRoute.delete('/deleteCourse',auth,isInstructor,deleteCourse)
 
 //get courses details
 instructorRoute.get('/getAllCourses',getAllCourses)
-instructorRoute.post('/getCourse',courseDetails)
+instructorRoute.get('/getCourse/:id',courseDetails)
 instructorRoute.post('/getInstructorCourses',auth,isInstructor,fetchInstructorCourses)
 
 //course category

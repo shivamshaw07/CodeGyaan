@@ -107,7 +107,7 @@ const Contact = () => {
               </div>
             </div>
             <button className="bg-glod-color w-full text-center py-2 font-semibold rounded-md text-[#fff] hover:bg-[#b99b55]">
-              Login
+              Send
             </button>
           </form>
         </div>

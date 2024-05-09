@@ -174,19 +174,7 @@ export const fetchInstructorCourses = async (req,res) => {
 
 export const getAllCourses = async (req,res) => {
     try {
-        const allCourses = await course.find({},
-            {
-                instructor:true,
-                courseName:true,
-                thumbnail:true,
-                prize:true,
-                courseDescription:true,
-                ratingsAndReview:true,
-                studentsEnrolled:true
-                .populate('instructor')
-                .exec()
-            }    
-        )
+        const allCourses = await course.find({}).populate("instructor").populate("category").exec()
         return res.status(200).json({
             success : true,
             message : "All courses fetched successfully",
@@ -204,8 +192,9 @@ export const getAllCourses = async (req,res) => {
 
 export const courseDetails = async (req,res) => {
     try {
-        const {id} = req.body
+        const {id} = req.params
         const courseDetails = await course.findById(id)
+        .populate("instructor")
         .populate("category")
         // .populate("ratingAndReviews")
         .populate({

@@ -58,6 +58,8 @@ function App() {
         <Route path="/aboutus" element={<Abouts />} />
 
         <Route path="/contact-us" element={<Contacts />} />
+
+        <Route path = "/course/:courseName/:id" element={<Contacts/>} />
         <Route
           element={
             <ProtectedRoute>
