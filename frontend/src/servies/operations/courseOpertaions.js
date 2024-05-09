@@ -50,6 +50,7 @@ export const fetchInstructorCourses = async (token) => {
 
 // fetching the course details
 export const getFullDetailsOfCourse = async(id) =>{
+  
     let result = null
     let url = courseEndpoints.getCourseDetails + `/${id}`;
     try {

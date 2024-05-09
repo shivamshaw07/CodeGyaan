@@ -9,7 +9,7 @@ export default {
       colors:{
         'blue-bg' : '#5f6168',
         'black-bg' : '#2c2d30',
-        'glod-color' : '#cbab61'
+        'glod-color' : '#f9cb5e'
       }
     },
   },

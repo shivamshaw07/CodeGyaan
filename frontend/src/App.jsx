@@ -20,6 +20,7 @@ import Dashboard from "./components/MainDashBoard/Instructor/Dashboard/Dashboard
 import MyCourses from "./components/MainDashBoard/Instructor/MyCourses/MyCourses";
 import MainAddCourse from "./components/MainDashBoard/Instructor/AddCourse/MainAddCourse";
 import EditCourse from "./components/MainDashBoard/Instructor/EditCourses/EditCourse";
+import CourseOverView from "./pages/CourseOverView/CourseOverView";
 
 function App() {
   const { loading } = useSelector((state) => state.ui);
@@ -59,7 +60,7 @@ function App() {
 
         <Route path="/contact-us" element={<Contacts />} />
 
-        <Route path = "/course/:courseName/:id" element={<Contacts/>} />
+        <Route path = "/course/:courseName/:id" element={<CourseOverView/>} />
         <Route
           element={
             <ProtectedRoute>
