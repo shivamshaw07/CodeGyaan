@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TECollapse } from "tw-elements-react";
 import { IoVideocamSharp } from "react-icons/io5";
 
 export default function AccordionBasicExample({content,author}) {
   const [activeElement, setActiveElement] = useState("");
-  let lec = 0;
-  for(let i = 0; i < content.length; i++){
-    lec += content[i].subSection.length
-  }
+  const [lec, setLec] = useState(0);
+
+  useEffect(() => {
+    if (content) {
+      for(let i=0;i<content.length;i++){
+        if(content[i].subSection){
+          setLec(lec+content[i].subSection.length)
+        }
+      }
+    }
+  },[content])
+  
   const handleClick = (value) => {
     if (value === activeElement) {
       setActiveElement("");
@@ -20,7 +28,7 @@ export default function AccordionBasicExample({content,author}) {
       <h1 className="text-3xl font-bold text-white">
         Course <span className="text-glod-color">Content</span>.
       </h1>
-      <h2 className="text-sm font-semibold text-white mt-2">{content.length} Sections and {lec} Lectures</h2>
+      <h2 className="text-sm font-semibold text-white mt-2">{content ? content.length : 0} Sections and {lec} Lectures</h2>
       <div className="w-full">
         {
           content?.map((section, index) => (
@@ -84,10 +92,10 @@ export default function AccordionBasicExample({content,author}) {
         }
         
       </div>
-      <h1 className="text-3xl font-bold text-white">Author</h1>
+      <h1 className="text-4xl font-bold text-white">Author</h1>
       <div className="flex justify-start items-center gap-2">
-        <img src={author?.image} alt="img" className="h-[90px] rounded-full" />
-        <div className="text-white font-semibold">{author?.firstName + " " + author?.lastName}</div>
+        <img src={author?.image} alt="img" className="h-[60px] rounded-full" />
+        <div className="text-white font-semibold text-3xl">{author?.firstName + " " + author?.lastName}</div>
       </div>
     </div>
   );

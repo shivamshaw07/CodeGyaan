@@ -81,7 +81,7 @@ export default function PublishCourse() {
             type="checkbox"
             id="public"
             {...register("public")}
-            className="border-gray-300 h-4 w-4 rounded focus:bg-glod-color rounded-full"
+            className="border-gray-300 h-4 w-4 focus:bg-glod-color rounded-full"
             style={{border:"1.6px solid white"}}
           />
         </div>

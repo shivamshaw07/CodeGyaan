@@ -18,6 +18,7 @@ const NavBar = () => {
   const [dashboardActive, setDashboardActive] = useState(false);
   const dispatch = useDispatch();
   const {token} = useSelector(state => state.auth)
+  const {user} = useSelector(state => state.profile)
   const navigate = useNavigate();
   useEffect(() => {
     if(token){
@@ -63,16 +64,17 @@ const NavBar = () => {
         )}
         {token && (
           <div className="flex justify-center items-center gap-1 text-white py-1">
-            <NavLink to={'/dashboard/your-cart'}>
+            {user.accountType === "Student" && <NavLink to={'/dashboard/your-cart'}>
               <BsCart4 style={{ fontSize: "20px" }} />
-            </NavLink>
+            </NavLink>}
             
             <div onClick={
                   dashboardActive
                     ? () => setDashboardActive(false)
                     : () => setDashboardActive(true)
                 } className="flex justify-center items-center cursor-pointer group">
-              <div className="bg-glod-color px-2 py-1 rounded-full">SS</div>
+              {/* <div className="bg-glod-color px-2 py-1 rounded-full">{user.firstName}</div> */}
+              <img className="w-[35px] h-[35px] rounded-full" src={user.image} alt="profile" />
               <TiArrowSortedDown style={{ fontSize: "15px" }} />
               <div
                 className={dashboardActive ? "bg-[#2c2d30] absolute top-[9vh] right-[6vw] block group-hover:block hover:block  rounded-md" : "bg-[#2c2d30] absolute top-[9vh] right-[6vw] hidden group-hover:block hover:block  rounded-md"}
