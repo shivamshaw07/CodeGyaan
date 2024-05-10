@@ -19,9 +19,9 @@ const CourseOverView = () => {
     async function fetchData() {
       dispatch(setLoading(true));
       try {
-        const result = await getFullDetailsOfCourse(id);
-        setResult(result);
-        console.log(result);
+        const resultData = await getFullDetailsOfCourse(id);
+        setResult(resultData);
+        console.log(resultData);
       } catch (error) {
         console.error("Error fetching course details:", error);
         // Handle error, e.g., display error message or redirect

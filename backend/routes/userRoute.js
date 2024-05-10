@@ -11,9 +11,9 @@ userRoute.get('/user',auth,(req,res)=>{
         message : "user is authenticated"
     })
 })
-userRoute.get('/profile',auth,async(req,res)=>{
+userRoute.get('/profile/:id',auth,async(req,res)=>{
     try {
-        const userId = req.user.id;
+        const userId = req.params.id;
         const userDetail = await user.findById(userId)
         if(!userDetail){
             return res.status(404).json({
@@ -21,6 +21,7 @@ userRoute.get('/profile',auth,async(req,res)=>{
                 success: false
             })
         }
+        userDetail.password = undefined
         return res.status(200).json({
             data : userDetail,
             message : "user profile",

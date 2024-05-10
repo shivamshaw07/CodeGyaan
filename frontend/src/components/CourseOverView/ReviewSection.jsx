@@ -1,6 +1,7 @@
 import React from 'react'
 
 const ReviewSection = ({reviews}) => {
+  console.log(reviews);
   return (
     <div className='w-[100%] mx-auto border-[1px] border-white/80 p-5 flex flex-col justify-start items-start gap-5'>
       <div className='flex flex-col gap-2 '>
@@ -9,7 +10,7 @@ const ReviewSection = ({reviews}) => {
           <h1 className='text-3xl font-bold text-white'>4.8/5</h1>
           <p className='text-base font-medium text-white/80'>(5 ratings) | 16 students</p></div>
       </div>  
-      {reviews.length ?  <>
+      {reviews ?  <>
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col gap-1'>
           <div className='flex justify-start items-center gap-2'>

@@ -75,6 +75,7 @@ export default function AccordionBasicExample({content,author}) {
             {
               section?.subSection.map((sub)=>(
               <TECollapse
+                key={sub?._id}
                 show={activeElement === "element1"}
                 className="!mt-0 !rounded-b-none !shadow-none p-5 "
               >
