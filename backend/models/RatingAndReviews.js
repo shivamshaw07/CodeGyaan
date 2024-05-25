@@ -23,4 +23,4 @@ const ratingAndReviewSchema = new mongoose.Schema({
 });
 
 // Export the RatingAndReview model
-export default mongoose.model("RatingAndReviews", ratingAndReviewSchema);
+export default mongoose.model("RatingAndReviews", ratingAndReviewSchema)
