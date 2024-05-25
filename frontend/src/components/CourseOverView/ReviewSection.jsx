@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ReviewSection = ({reviews}) => {
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <div className='w-[100%] mx-auto border-[1px] border-white/80 p-5 flex flex-col justify-start items-start gap-5'>
       <div className='flex flex-col gap-2 '>

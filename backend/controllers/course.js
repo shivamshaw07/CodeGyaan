@@ -1,8 +1,10 @@
 import user from "../models/user.js";
 import Tag from "../models/tag.js";
 import { uploadImageToCloudinary } from "../utils/imageUploader.js";
-import { config as configDotenv } from "dotenv";
+import { config as configDotenv, populate } from "dotenv";
 import course from "../models/course.js";
+import courseProgess from "../models/courseProgess.js";
+import convertSecondsToDuration from "../utils/secToDuration.js";
 configDotenv();
 
 export const createCourse = async (req,res) =>{
@@ -183,7 +185,7 @@ export const getAllCourses = async (req,res) => {
     } catch (error) {
         console.log(error);
         return res.status(200).json({
-            success : fasle,
+            success : false,
             message : "All courses fetched Unsuccessfully",
         })
         
@@ -224,6 +226,78 @@ export const courseDetails = async (req,res) => {
     }
 }
 
+export const getFullCompleteCourse = async (req, res) => {
+  try {
+    
+    const { courseId } = req.body
+    const userId = req.body.id
+    const courseDetails = await course.findOne({
+      _id: courseId,
+    })
+      .populate({
+        path: "instructor",
+        populate: {
+          path: "additionalDetails",
+        },
+      })
+      .populate("category")
+      .populate("ratingAndReviews")
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+        },
+      })
+      .exec()
+
+    let courseProgressCount = await courseProgess.findOne({
+      courseID: courseId,
+      userId: userId,
+    })
+
+
+    if (!courseDetails) {
+      return res.status(400).json({
+        success: false,
+        message: `Could not find course with id: ${courseId}`,
+      })
+    }
+
+    // if (courseDetails.status === "Draft") {
+    //   return res.status(403).json({
+    //     success: false,
+    //     message: `Accessing a draft course is forbidden`,
+    //   });
+    // }
+
+    let totalDurationInSeconds = 0
+    courseDetails.courseContent.forEach((content) => {
+      content.subSection.forEach((subSection) => {
+        const timeDurationInSeconds = parseInt(subSection.timeDuration)
+        totalDurationInSeconds += timeDurationInSeconds
+      })
+    })
+
+    const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        courseDetails,
+        totalDuration,
+        completedVideos: courseProgressCount?.completedVideos
+          ? courseProgressCount?.completedVideos
+          : [],
+      },
+    })
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    })
+  }
+}
+
 export const deleteCourse = async (req,res) => {
     try {
         const {courseId} = req.body
@@ -237,6 +311,43 @@ export const deleteCourse = async (req,res) => {
         return res.status(500).json({
             success : false,
             message : "Course deleted Unsuccessfully",
+        })
+    }
+}
+
+
+//get enrolled courses
+export const getEnrolledCourses = async (req,res) => {
+    try {
+        const {id} = req.params
+        const enrolledCourses = await user.findById(id)
+        .populate({
+          path: 'enrolledCourses',
+          populate: {
+              path: 'courseContent',
+              populate: {
+                  path: 'subSection'
+              }
+              
+          }
+      }).exec()
+        if(!enrolledCourses){
+            return res.status(404).json({
+                success : false,
+                message : "Enrolled courses not found"
+            })
+        }
+        return res.status(200).json({
+            success : true,
+            message : "Enrolled courses fetched successfully",
+            data:enrolledCourses.enrolledCourses
+        })
+    } catch (error) {
+      console.log(error);
+        return res.status(500).json({
+            success : false,
+            message : "Enrolled courses fetched Unsuccessfully",
+            err : error
         })
     }
 }

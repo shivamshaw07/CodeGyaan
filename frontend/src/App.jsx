@@ -21,9 +21,13 @@ import MainAddCourse from "./components/MainDashBoard/Instructor/AddCourse/MainA
 import EditCourse from "./components/MainDashBoard/Instructor/EditCourses/EditCourse";
 import CourseOverView from "./pages/CourseOverView/CourseOverView";
 import Instructor from "./components/MainDashBoard/Instructor/Dashboard/Instructor";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./components/ViewCourse/VideoDetails";
+import { ACCOUNT_TYPE } from "./utils/constant";
 
 function App() {
   const { loading } = useSelector((state) => state.ui);
+  const { user } = useSelector((state) => state.profile);
   const { accountType } = useSelector((state) => state.profile);
 
   return (
@@ -31,7 +35,7 @@ function App() {
       {loading && <Loader />}
       <Routes>
         <Route index path="/" element={<Home />} />
-        <Route path="*" element={<Home/>} />
+        <Route path="*" element={<Home />} />
         <Route
           path="/login"
           element={
@@ -60,7 +64,7 @@ function App() {
 
         <Route path="/contact-us" element={<Contacts />} />
 
-        <Route path = "/course/:courseName/:id" element={<CourseOverView/>} />
+        <Route path="/course/:courseName/:id" element={<CourseOverView />} />
         <Route
           element={
             <ProtectedRoute>
@@ -81,10 +85,33 @@ function App() {
           )}
           {accountType === "Instructor" && (
             <>
-              <Route path="/dashboard/add-courses" element={<MainAddCourse />} />
-              <Route path="/dashboard/edit-course/:id" element={<EditCourse/>}/>
+              <Route
+                path="/dashboard/add-courses"
+                element={<MainAddCourse />}
+              />
+              <Route
+                path="/dashboard/edit-course/:id"
+                element={<EditCourse />}
+              />
               <Route path="/dashboard/dashboard" element={<Instructor />} />{" "}
               <Route path="/dashboard/my-courses" element={<MyCourses />} />{" "}
+            </>
+          )}
+        </Route>
+
+        <Route
+          element={
+            <ProtectedRoute>
+              <ViewCourse />
+            </ProtectedRoute>
+          }
+        >
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            <>
+              <Route
+                path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                element={<VideoDetails />}
+              />
             </>
           )}
         </Route>

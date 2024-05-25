@@ -10,6 +10,7 @@ export default {
         'blue-bg' : '#5f6168',
         'black-bg' : '#2c2d30',
         'glod-color' : '#f9cb5e'
+        //0078ae
       }
     },
   },

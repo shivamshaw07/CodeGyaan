@@ -1,6 +1,6 @@
 import { updatePic } from "./operations/updateProfile"
 
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "https://codegyaan.onrender.com"
 
 //authentication endpoints
 export const authEndPoints = {
@@ -8,7 +8,8 @@ export const authEndPoints = {
     login : BASE_URL + "/auth/login",
     signup : `${BASE_URL}/auth/singup`,
     resetPassword : `${BASE_URL}/auth/resetPassword`,
-    resetPassToken : `${BASE_URL}/auth/resetPassToken`
+    resetPassToken : `${BASE_URL}/auth/resetPassToken`,
+    checkToken : `${BASE_URL}/auth/checkToken`,
 }
 
 //user endpoints
@@ -23,6 +24,7 @@ export const courseEndpoints = {
     getInstructorCourses : `${BASE_URL}/instructor/getInstructorCourses`,
     getAllCourses : `${BASE_URL}/instructor/getAllCourses`,
     getCourseDetails : `${BASE_URL}/instructor/getCourse`,
+    getCompleteCourse : `${BASE_URL}/instructor/getFullCompleteCourse`,
     createCourse : `${BASE_URL}/instructor/createCourse`,
     addSection : `${BASE_URL}/instructor/createSection`,
     addSubSection : `${BASE_URL}/instructor/createSubSection`,
@@ -31,8 +33,10 @@ export const courseEndpoints = {
     updateSubSection : `${BASE_URL}/instructor/updateSubSection`,
     deleteSection : `${BASE_URL}/instructor/deleteSection`,
     deleteSubSection : `${BASE_URL}/instructor/deleteSubSection`,
-    deleteCourse : `${BASE_URL}/instructor/deleteCourse`
-
+    deleteCourse : `${BASE_URL}/instructor/deleteCourse`,
+    enrolledCourses : `${BASE_URL}/student/enrolledCourses`,
+    markLectureAsComplete : `${BASE_URL}/student/updateCourseProgress`,
+    createRating : `${BASE_URL}/student/createRating`,
 }
 
 //category endpoints

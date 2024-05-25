@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { auth, isAdmin, isInstructor } from "../middlewares/auth.js";
-import { courseDetails, createCourse, deleteCourse, editCourse, fetchInstructorCourses, getAllCourses } from "../controllers/course.js";
+import { courseDetails, createCourse, deleteCourse, editCourse, fetchInstructorCourses, getAllCourses, getFullCompleteCourse } from "../controllers/course.js";
 import { createSection, deleteSection, updateSection } from "../controllers/section.js";
 import { createSubSection, deleteSubsection, updateSubSection } from "../controllers/subSection.js";
 import { categoryPageDetails, createCategory, showAllCategories } from "../controllers/category.js";
@@ -24,6 +24,7 @@ instructorRoute.delete('/deleteCourse',auth,isInstructor,deleteCourse)
 //get courses details
 instructorRoute.get('/getAllCourses',getAllCourses)
 instructorRoute.get('/getCourse/:id',courseDetails)
+instructorRoute.post('/getFullCompleteCourse',auth,getFullCompleteCourse)
 instructorRoute.post('/getInstructorCourses',auth,isInstructor,fetchInstructorCourses)
 
 //course category

@@ -44,9 +44,11 @@ export const auth = async (req, res, next) => {
 
 export const isStudent = async (req,res,next) => {
     try {
-        const userId = req.body.id;
+        const userId = req.body.id  || req.params.id;
+        // console.log(userId);
         const userType = await user.findById(userId,'accountType');
-        if(userType !== "Student"){
+        // console.log(userType);
+        if(userType.accountType !== "Student"){
             req["user"] = userId;
             return res.status(400).json({
                 success:false,

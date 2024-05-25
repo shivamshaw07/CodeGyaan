@@ -28,6 +28,24 @@ export const login = (email, password, navigate) => {
 };
 };
 
+export const checkToken = async() => {
+  
+    try {
+      const res = await apiConneector("get", `${authEndPoints.checkToken}/${localStorage.getItem("token")}`);
+      if (res?.data?.success) {
+        toast.success(res?.data?.message);
+        return true
+      } else {
+        toast.error(res?.data?.message);
+        return false
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+      return false
+    }
+  
+}
+
 export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem("token");

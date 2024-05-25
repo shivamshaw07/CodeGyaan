@@ -7,6 +7,7 @@ import instructorRoute from './routes/instructor.js';
 import { cloudinaryset } from './config/cloudinary.js';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
+import studentRoute from './routes/student.js';
 configDotenv()
 cloudinaryset()
 
@@ -15,7 +16,7 @@ const app = express();
 
 app.use(cors(
     {
-        origin:["http://localhost:5173"],
+        origin:["https://code-gyaan.vercel.app/"],
         methods:["POST","GET","PUT","DELETE"],
         credentials: true
     }
@@ -29,6 +30,7 @@ app.use(fileUpload({
 app.use('/auth',authRoute);
 app.use('/user',userRoute);
 app.use('/instructor',instructorRoute);
+app.use('/student',studentRoute);
 
 app.use('/',(req,res)=>{
     res.send("server is running")
