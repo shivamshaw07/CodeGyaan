@@ -16,11 +16,13 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 // CORS configuration
-app.use(cors({
-    origin: ["https://code-gyaan.vercel.app"],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true
-}));
+app.use(cors(
+    {
+        origin:["https://code-gyaan.vercel.app"],
+        methods:["POST","GET","PUT"],
+        credentials:true
+    }
+));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
