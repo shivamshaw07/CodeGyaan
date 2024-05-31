@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import course from "../models/course.js";
-import RatingAndReviews from "../models/ratingAndReviews.js";
-
+import ratingAndReviews from "../models/ratingAndReviews.js";
 //createRating
 export const createRating = async (req, res) => {
     try{
@@ -23,7 +22,7 @@ export const createRating = async (req, res) => {
             });
         }
         //check if user already reviewed the course
-        const alreadyReviewed = await RatingAndReviews.findOne({
+        const alreadyReviewed = await ratingAndReviews.findOne({
                                                 user:userId,
                                                 course:courseId,
                                             });
@@ -34,7 +33,7 @@ export const createRating = async (req, res) => {
                     });
                 }
         //create rating and review
-        const ratingReview = await RatingAndReviews.create({
+        const ratingReview = await ratingAndReviews.create({
                                         rating, review, 
                                         course:courseId,
                                         user:userId,
@@ -74,7 +73,7 @@ export const getAverageRating = async (req, res) => {
             const courseId = req.body.courseId;
             //calculate avg rating
 
-            const result = await RatingAndReviews.aggregate([
+            const result = await ratingAndReviews.aggregate([
                 {
                     $match:{
                         course: new mongoose.Types.ObjectId(courseId),
@@ -119,7 +118,7 @@ export const getAverageRating = async (req, res) => {
 
 export const getAllRating = async (req, res) => {
     try{
-            const allReviews = await RatingAndReviews.find({})
+            const allReviews = await ratingAndReviews.find({})
                                     .sort({rating: "desc"})
                                     .populate({
                                         path:"user",
