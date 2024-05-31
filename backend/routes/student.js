@@ -2,7 +2,7 @@ import { Router } from "express";
 import { auth, isStudent } from "../middlewares/auth.js";
 import { getEnrolledCourses } from "../controllers/course.js";
 import { updateCourseProgress } from "../controllers/courseProgress.js";
-import { createRating, getAllRating, getAverageRating } from "../controllers/ratingAndReview.js";
+import {createRating,getAverageRating,getAllRating} from '../controllers/ratingAndReview.js';
 
 const studentRoute  = Router();
 
