@@ -18,8 +18,8 @@ const app = express();
 // CORS configuration
 app.use(cors(
     {
-        origin:["https://code-gyaan.vercel.app"],
-        methods:["POST","GET","PUT"],
+        origin:["http://localhost:5173"],
+        methods:["POST","GET","PUT","DELETE"],
         credentials:true
     }
 ));

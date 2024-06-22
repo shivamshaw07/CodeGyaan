@@ -13,7 +13,7 @@ import Settings from "./components/MainDashBoard/Settings";
 import { Toaster } from "react-hot-toast";
 import SendOTP from "./components/SendOTP/SendOTP";
 import Loader from "./components/Loader/Loader";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import OpenRoute from "./components/OpenRoute/OpenRoute";
 import MyCourses from "./components/MainDashBoard/Instructor/MyCourses/MyCourses";
@@ -24,12 +24,28 @@ import Instructor from "./components/MainDashBoard/Instructor/Dashboard/Instruct
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/ViewCourse/VideoDetails";
 import { ACCOUNT_TYPE } from "./utils/constant";
+import { useEffect, useState } from "react";
+import { checkToken, logout } from "./servies/operations/authOpertaion";
 
 function App() {
   const { loading } = useSelector((state) => state.ui);
   const { user } = useSelector((state) => state.profile);
   const { accountType } = useSelector((state) => state.profile);
-
+  const {token} = useSelector((state) => state.auth);
+  const dispatch = useDispatch();  
+  useEffect(() => {
+    const verifyToken = async () => {
+      if (!token) {
+        dispatch(logout());
+      } else {
+        let validToken = await checkToken(token);
+        if (!validToken) {
+          dispatch(logout());
+        }
+      }
+    };
+    verifyToken();
+  }, [dispatch, token]);
   return (
     <div className="max-w-[100vw] h-auto overflow-x-hidden box-border relative z-10 bg-blue-bg">
       {loading && <Loader />}

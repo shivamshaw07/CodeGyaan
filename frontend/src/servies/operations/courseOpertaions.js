@@ -2,6 +2,10 @@ import { apiConneector } from "../apiConnector";
 import { categoryEndpoints, courseEndpoints } from "../api";
 import toast from "react-hot-toast";
 import { setLoading } from "../../slices/UIslice";
+import rootReducer from "../../reducer";
+import { logout } from "./authOpertaion";
+import store from "../../main";
+import useNavigateHelper from "../../utils/coustomHooks/useNavigateHelper";
 
 // fetching the available course categories
 export const fetchCourseCategories = () => {
@@ -43,8 +47,10 @@ export const fetchInstructorCourses = async (token) => {
     }
     return (result = response?.data?.data);
   } catch (error) {
-    console.log("COURSE_DETAILS_API API ERROR............", error);
-    toast.error(error.message);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
 };
 
@@ -142,8 +148,10 @@ export const addCourseDetails = async (data, token) => {
     result = response?.data?.data;
     sessionStorage.setItem("allCourses",JSON.stringify(response?.data?.data));
   } catch (error) {
-    console.log("CREATE COURSE API ERROR............", error);
-    toast.error(error.message);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
   toast.dismiss(toastId);
   return result;
@@ -170,8 +178,10 @@ export const editCourseDetails = async (data, token) => {
     toast.success("Course Details Updated Successfully");
     result = response?.data?.data;
   } catch (error) {
-    console.log("EDIT COURSE API ERROR............", error);
-    toast.error(error.message);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
   toast.dismiss(toastId);
   return result;
@@ -197,8 +207,10 @@ export const createSection = async (data, token) => {
     toast.success("Course Section Created");
     result = response?.data?.courseData;
   } catch (error) {
-    console.log("CREATE SECTION API ERROR............", error);
-    toast.error(error.message);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
   toast.dismiss(toastId);
   return result;
@@ -224,8 +236,10 @@ export const createSubSection = async (data, token) => {
     toast.success("Lecture Added");
     result = response?.data?.data;
   } catch (error) {
-    console.log("CREATE SUB-SECTION API ERROR............", error);
-    toast.error(error.message);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
   toast.dismiss(toastId);
   return result;
@@ -251,8 +265,10 @@ export const updateSection = async (data, token) => {
     toast.success("Course Section Updated");
     result = response?.data?.data;
   } catch (error) {
-    console.log("UPDATE SECTION API ERROR............", error);
-    toast.error(error.message);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
   toast.dismiss(toastId);
   return result;
@@ -268,7 +284,7 @@ export const updateSubSection = async (data, token) => {
       courseEndpoints.updateSubSection,
       data,
       {
-        Authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       }
     );
     console.log("UPDATE SUB-SECTION API RESPONSE............", response);
@@ -278,8 +294,10 @@ export const updateSubSection = async (data, token) => {
     toast.success("Lecture Updated");
     result = response?.data?.data;
   } catch (error) {
-    console.log("UPDATE SUB-SECTION API ERROR............", error);
-    toast.error(error.message);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
   toast.dismiss(toastId);
   return result;
@@ -292,7 +310,7 @@ export const deleteCourse = async (data, token) => {
     const response = await apiConneector(
       "Delete",
       courseEndpoints.deleteCourse,
-      data,
+      {id:localStorage.getItem("id"),courseId : data.courseId},
       {
         Authorization: `Bearer ${token}`,
       }
@@ -301,11 +319,15 @@ export const deleteCourse = async (data, token) => {
     if (!response?.data?.success) {
       throw new Error("Could Not Delete Course");
     }
-  } catch {
-    return res.status(200).json({
-      success: fasle,
-      message: "Course Deleted Unsuccessfully",
-    });
+    else{
+      toast.success("Course Deleted");
+    }
+  } catch (error){
+    toast.error("Could Not Delete Course");
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
   }
   toast.dismiss(toastId);
 };
@@ -316,9 +338,9 @@ export const deleteSection = async (data, token) => {
   const toastId = toast.loading("Loading...");
   try {
     const response = await apiConneector(
-      "POST",
+      "delete",
       courseEndpoints.deleteSection,
-      data,
+      {id:localStorage.getItem("id"), ...data},
       {
         Authorization: `Bearer ${token}`,
       }
@@ -330,7 +352,10 @@ export const deleteSection = async (data, token) => {
     toast.success("Course Section Deleted");
     result = response?.data?.data;
   } catch (error) {
-    console.log("DELETE SECTION API ERROR............", error);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
     toast.error(error.message);
   }
   toast.dismiss(toastId);
@@ -356,7 +381,10 @@ export const deleteSubSection = async (data, token) => {
     toast.success("Lecture Deleted");
     result = response?.data?.data;
   } catch (error) {
-    console.log("DELETE SUB-SECTION API ERROR............", error);
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
     toast.error(error.message);
   }
   toast.dismiss(toastId);
@@ -384,7 +412,10 @@ export const markLectureAsComplete = async (data, token) => {
     toast.success("Lecture Completed")
     result = true
   } catch (error) {
-    console.log("MARK_LECTURE_AS_COMPLETE_API API ERROR............", error)
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
     toast.error(error.message)
     result = false
   }
@@ -408,7 +439,10 @@ export const createRating = async (data, token) => {
     success = true
   } catch (error) {
     success = false
-    console.log("CREATE RATING API ERROR............", error)
+    if(error?.response?.data?.message === "Token is invalid"){
+      useNavigateHelper("/login");
+      store.dispatch(logout());
+    }
     toast.error(error.message)
   }
   toast.dismiss(toastId)
