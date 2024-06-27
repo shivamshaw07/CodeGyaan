@@ -7,8 +7,8 @@ const CourseList = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     const getCategories = async () => {
-      const categories = await dispatch(fetchCourseCategories());
-      dispatch(setCategories(categories));
+      const categories = await fetchCourseCategories();
+      setCategories(categories);  
     } 
     if(!sessionStorage.getItem("category")){
       getCategories()
