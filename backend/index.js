@@ -18,7 +18,7 @@ const app = express();
 // CORS configuration
 app.use(cors(
     {
-        origin:["http://localhost:5173","https://codegyaan.vercel.app"],
+        origin:["*"],
         methods:["POST","GET","PUT","DELETE"],
         credentials:true
     }
