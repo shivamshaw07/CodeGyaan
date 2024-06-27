@@ -23,7 +23,7 @@ export const login = (email, password, navigate) => {
     } catch (error) {
         toast.error(error?.response?.data?.message);
         dispatch(setLoading(false));
-        return fasle
+        return false
     }
 };
 };
