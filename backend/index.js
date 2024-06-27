@@ -19,10 +19,9 @@ const app = express();
 app.use(cors(
     {
         origin:["http://localhost:5173","https://codegyaan.vercel.app"],
-        methods:["POST","GET","PUT","DELETE"],
-        credentials:true
     }
 ));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
