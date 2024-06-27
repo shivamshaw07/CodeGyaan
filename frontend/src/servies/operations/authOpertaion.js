@@ -11,7 +11,7 @@ export const login = (email, password, navigate) => {
     try {
         const res = await apiConneector("post", authEndPoints.login, { email, password })
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("user", res.data.user);
         localStorage.setItem("id", res.data.user._id)
         dispatch(setToken(res?.data?.token));
         dispatch(setUser(res?.data?.user));
@@ -23,7 +23,7 @@ export const login = (email, password, navigate) => {
     } catch (error) {
         toast.error(error?.response?.data?.message);
         dispatch(setLoading(false));
-        return false
+        return fasle
     }
 };
 };

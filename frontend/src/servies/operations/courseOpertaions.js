@@ -8,8 +8,9 @@ import store from "../../main";
 import useNavigateHelper from "../../utils/coustomHooks/useNavigateHelper";
 
 // fetching the available course categories
-export const fetchCourseCategories = async() => {
-  
+export const fetchCourseCategories = () => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
     let result = [];
     try {
       const response = await apiConneector(
@@ -26,8 +27,9 @@ export const fetchCourseCategories = async() => {
       // console.log("COURSE_CATEGORY_API API ERROR............", error)
       toast.error(error.message);
     }
+    dispatch(setLoading(false));
     return result;
-  
+  };
 };
 
 export const fetchInstructorCourses = async (token) => {

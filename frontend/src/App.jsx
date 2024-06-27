@@ -33,20 +33,19 @@ function App() {
   const { accountType } = useSelector((state) => state.profile);
   const {token} = useSelector((state) => state.auth);
   const dispatch = useDispatch();  
-  // useEffect(() => {
-  //   console.log("token : ", token);
-  //   const verifyToken = async () => {
-  //     if (!token) {
-  //       dispatch(logout());
-  //     } else {
-  //       let validToken = await checkToken(token);
-  //       if (!validToken) {
-  //         dispatch(logout());
-  //       }
-  //     }
-  //   };
-  //   verifyToken();
-  // }, [dispatch, token]);
+  useEffect(() => {
+    const verifyToken = async () => {
+      if (!token) {
+        dispatch(logout());
+      } else {
+        let validToken = await checkToken(token);
+        if (!validToken) {
+          dispatch(logout());
+        }
+      }
+    };
+    verifyToken();
+  }, [dispatch, token]);
   return (
     <div className="max-w-[100vw] h-auto overflow-x-hidden box-border relative z-10 bg-blue-bg">
       {loading && <Loader />}

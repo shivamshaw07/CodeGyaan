@@ -54,7 +54,7 @@ const cartSlice = createSlice({
       state.cart = [];
       state.totalItem = 0;
       state.totalPrice = 0;
-      localStorage.setItem("cart", JSON.stringify(state.cart));
+      localStorage.setItem("cart", state.cart);
       localStorage.setItem("totalPrice", state.totalPrice);
       localStorage.setItem("totalItem", state.totalItem);
       toast.success("Cart reset");
