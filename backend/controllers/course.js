@@ -301,6 +301,7 @@ export const getFullCompleteCourse = async (req, res) => {
 export const deleteCourse = async (req,res) => {
     try {
         const {courseId} = req.body
+        console.log(courseId);
         const deletedCourse = await course.findByIdAndDelete(courseId)
         return res.status(200).json({
             success : true,

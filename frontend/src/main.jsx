@@ -19,3 +19,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </Provider>
  
 )
+
+export default store

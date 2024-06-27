@@ -31,15 +31,22 @@ export const login = (email, password, navigate) => {
 export const checkToken = async() => {
   
     try {
-      const res = await apiConneector("get", `${authEndPoints.checkToken}/${localStorage.getItem("token")}`);
+      const res = await apiConneector("get", authEndPoints.checkToken,null,
+        {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      );
       if (res?.data?.success) {
-        toast.success(res?.data?.message);
+        // toast.success(res?.data?.message);
+        // console.log("true");
         return true
       } else {
         toast.error(res?.data?.message);
+        // console.log(res);
         return false
       }
     } catch (error) {
+      console.log("bhjb");
       toast.error(error?.response?.data?.message);
       return false
     }
@@ -48,13 +55,14 @@ export const checkToken = async() => {
 
 export const logout = () => {
   return (dispatch) => {
-    localStorage.removeItem("token");
-    dispatch(setToken(null));
     localStorage.removeItem("user");
     dispatch(setUser(null));
     localStorage.removeItem("accountType");
     dispatch(setAccountType(null))
-    toast.success("Logout Successful");
+    localStorage.removeItem("id");
+    dispatch(setAccountType(null))
+    localStorage.removeItem("token");
+    dispatch(setToken(null));
   };
 };
 

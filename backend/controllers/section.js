@@ -98,7 +98,7 @@ export const deleteSection = async (req, res) => {
       await SubSection.findByIdAndDelete(subsectionId);
     }
     const deleteSection = await section.findByIdAndDelete(sectionId);
-
+    deleteSection && console.log("deleted",deleteSection);
     return res.status(200).json({
       success: true,
       message: "section deleted successfully",
