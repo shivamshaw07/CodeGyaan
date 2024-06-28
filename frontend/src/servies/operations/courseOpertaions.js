@@ -47,7 +47,7 @@ export const fetchInstructorCourses = async (token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
 };
@@ -148,7 +148,7 @@ export const addCourseDetails = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
   toast.dismiss(toastId);
@@ -178,7 +178,7 @@ export const editCourseDetails = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
   toast.dismiss(toastId);
@@ -207,7 +207,7 @@ export const createSection = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
   toast.dismiss(toastId);
@@ -236,7 +236,7 @@ export const createSubSection = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
   toast.dismiss(toastId);
@@ -265,7 +265,7 @@ export const updateSection = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
   toast.dismiss(toastId);
@@ -294,7 +294,7 @@ export const updateSubSection = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
   toast.dismiss(toastId);
@@ -324,7 +324,7 @@ export const deleteCourse = async (data, token) => {
     toast.error("Could Not Delete Course");
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
   }
   toast.dismiss(toastId);
@@ -352,7 +352,7 @@ export const deleteSection = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
     toast.error(error.message);
   }
@@ -381,7 +381,7 @@ export const deleteSubSection = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
     toast.error(error.message);
   }
@@ -412,7 +412,7 @@ export const markLectureAsComplete = async (data, token) => {
   } catch (error) {
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
     toast.error(error.message)
     result = false
@@ -441,7 +441,7 @@ export const createRating = async (data, token) => {
     success = false
     if(error?.response?.data?.message === "Token is invalid"){
       useNavigateHelper("/login");
-      store.dispatch(logout());
+      // store.dispatch(logout());
     }
     toast.error(error?.response?.data?.message || error.message)
   }
