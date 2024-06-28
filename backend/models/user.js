@@ -68,12 +68,31 @@ const userSchema =  mongoose.Schema({
         type:String,
         required:true
     },
+    cart: {
+        courses: [
+          {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Course",
+          },
+        ],
+        totalPrice: {
+          type: Number,
+          default: 0,
+        },
+      },
+    
     courseProgress:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"CourseProgress"
         }
-    ]
+    ],
+    ratingAndReview:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"RatingAndReview"
+        }
+    ],
 })
 
 export default mongoose.model("User",userSchema)

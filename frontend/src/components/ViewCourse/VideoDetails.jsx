@@ -25,10 +25,10 @@ const VideoDetails = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(courseId, sectionId, subSectionId);
+    // console.log(courseId, sectionId, subSectionId);
     (async () => {
       if (!courseSectionData.length){
-        console.log("courseSectionData", courseSectionData);
+        // console.log("courseSectionData", courseSectionData);
         return;
       } 
       if (!courseId && !sectionId && !subSectionId) {

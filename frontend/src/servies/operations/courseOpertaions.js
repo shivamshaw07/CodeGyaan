@@ -56,7 +56,7 @@ export const fetchInstructorCourses = async (token) => {
 export const getFullDetailsOfCourse = async(id) =>{
   
     let result = null
-    let url = courseEndpoints.getCourseDetails + `/${id}`;
+    let url = `${courseEndpoints.getCourseDetails}/${id}`
     try {
         const response = await apiConneector(
             "get",
@@ -89,7 +89,7 @@ export const getFullCompleteCourse = async (courseId, token) => {
         Authorization: `Bearer ${token}`,
       }
     )
-    console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
+    // console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
     
     if (!response.data.success) {
       throw new Error(response.data.message)
@@ -424,6 +424,7 @@ export const markLectureAsComplete = async (data, token) => {
 // create a rating for course
 export const createRating = async (data, token) => {
   const toastId = toast.loading("Loading...")
+  // console.log("create rating data", data);
   let success = false
   try {
     const response = await apiConneector("POST", courseEndpoints.createRating, data, {
@@ -431,6 +432,7 @@ export const createRating = async (data, token) => {
     })
     console.log("CREATE RATING API RESPONSE............", response)
     if (!response?.data?.success) {
+      toast.error(response?.data?.message)
       throw new Error("Could Not Create Rating")
     }
     toast.success("Rating Created")
@@ -441,7 +443,7 @@ export const createRating = async (data, token) => {
       useNavigateHelper("/login");
       store.dispatch(logout());
     }
-    toast.error(error.message)
+    toast.error(error?.response?.data?.message || error.message)
   }
   toast.dismiss(toastId)
   return success

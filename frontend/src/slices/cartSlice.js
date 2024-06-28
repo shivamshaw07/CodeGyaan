@@ -5,10 +5,10 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("cart"))
     : [],
   totalPrice: localStorage.getItem("totalPrice")
-    ? JSON.parse(localStorage.getItem("totalPrice"))
+    ? localStorage.getItem("totalPrice")
     : 0,
   totalItem: localStorage.getItem("totalItem")
-    ? JSON.parse(localStorage.getItem("totalItem"))
+    ? localStorage.getItem("totalItem")
     : 0,
 };
 
@@ -17,24 +17,19 @@ const cartSlice = createSlice({
   name: "cart",
   reducers: {
     addToCart(state, action) {
-      const course = action.course;
-      const courseIndex = state.cart.findIndex(
-        (item) => item._id === course._id
-      );
-      if (courseIndex < 0) {
-        toast.error("Course Already Added");
-        return;
-      }
-      state.cart.push(course);
-      state.totalPrice += course.totalPrice;
-      state.totalItem++;
-      localStorage.setItem("cart", state.cart);
+      const course = action.payload.courses;
+      state.cart = [...course];
+      state.totalItem = state.cart.length ;
+      state.totalPrice = action.payload.totalPrice;
+      localStorage.setItem("cart", JSON.stringify(state.cart));
       localStorage.setItem("totalPrice", state.totalPrice);
-      localStorage.setItem("totalItem", state.totalItem);
-      toast.success("Course Added Successfully");
-    },
+      localStorage.setItem("totalItem", state.totalItem); 
+      // console.log(state.cart);
+      // console.log(state.totalItem);
+      // console.log(state.totalPrice);
+},
     removeFromCart(state, action) {
-      const course = action.course;
+      const course = action.payload;
       const courseIndex = state.cart.findIndex(
         (item) => item._id === course._id
       );

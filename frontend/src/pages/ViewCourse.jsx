@@ -28,7 +28,7 @@ export default function ViewCourse() {
   useEffect(() => {
     (async () => {
       const courseData = await getFullCompleteCourse(courseId, token);
-      console.log("Course Data here... ", courseData);
+      // console.log("Course Data here... ", courseData);
       dispatch(setCourseSectionData(courseData?.courseDetails?.courseContent));
       dispatch(setEntireCourseData(courseData));
       dispatch(setCompletedLectures(courseData.completedVideos));
@@ -40,7 +40,7 @@ export default function ViewCourse() {
       setLectures(totalLectures);
       dispatch(setTotalNoOfLectures(totalLectures));
 
-      console.log("Lectures", totalLectures);
+      // console.log("Lectures", totalLectures);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, token, dispatch]);

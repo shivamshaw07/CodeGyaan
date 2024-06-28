@@ -1,6 +1,7 @@
 import user from "../models/user.js";
 import Tag from "../models/tag.js";
 import { uploadImageToCloudinary } from "../utils/imageUploader.js";
+import RatingAndReview from "../models/ratingAndReviews.js";
 import { config as configDotenv, populate } from "dotenv";
 import course from "../models/course.js";
 import courseProgess from "../models/courseProgess.js";
@@ -126,7 +127,7 @@ export const editCourse = async (req, res) => {
           },
         })
         .populate("category")
-        // .populate("ratingAndReviews")
+        .populate("ratingAndReviews")
         .populate({
           path: "courseContent",
           populate: {
@@ -198,7 +199,7 @@ export const courseDetails = async (req,res) => {
         const courseDetails = await course.findById(id)
         .populate("instructor")
         .populate("category")
-        // .populate("ratingAndReviews")
+        .populate("ratingAndReviews")
         .populate({
           path: "courseContent",
           populate: {

@@ -32,9 +32,10 @@ export default function CourseReviewModal({ setReviewModal }) {
   const onSubmit = async (data) => {
     await createRating(
       {
-        courseId: courseEntireData._id,
+        courseId: courseEntireData.courseDetails._id,
         rating: data.courseRating,
         review: data.courseExperience,
+        id: user?._id,
       },
       token
     )
@@ -46,9 +47,9 @@ export default function CourseReviewModal({ setReviewModal }) {
       <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800">
         {/* Modal Header */}
         <div className="flex items-center justify-between rounded-t-lg bg-richblack-700 p-5">
-          <p className="text-xl font-semibold text-richblack-5">Add Review</p>
+          <p className="text-xl font-semibold text-white">Add Review</p>
           <button onClick={() => setReviewModal(false)}>
-            <RxCross2 className="text-2xl text-richblack-5" />
+            <RxCross2 className="text-2xl text-white" />
           </button>
         </div>
         {/* Modal Body */}
@@ -60,10 +61,10 @@ export default function CourseReviewModal({ setReviewModal }) {
               className="aspect-square w-[50px] rounded-full object-cover"
             />
             <div className="">
-              <p className="font-semibold text-richblack-5">
+              <p className="font-semibold text-white">
                 {user?.firstName} {user?.lastName}
               </p>
-              <p className="text-sm text-richblack-5">Posting Publicly</p>
+              <p className="text-sm text-white">Posting Publicly</p>
             </div>
           </div>
           <form
@@ -78,10 +79,10 @@ export default function CourseReviewModal({ setReviewModal }) {
             />
             <div className="flex w-11/12 flex-col space-y-2">
               <label
-                className="text-sm text-richblack-5"
+                className="text-sm text-white"
                 htmlFor="courseExperience"
               >
-                Add Your Experience <sup className="text-pink-200">*</sup>
+                Add Your Experience <sup className="text-pink-400">*</sup>
               </label>
               <textarea
                 id="courseExperience"
@@ -102,7 +103,7 @@ export default function CourseReviewModal({ setReviewModal }) {
               >
                 Cancel
               </button>
-               <button className="bg-yellow-50 rounded-md px-4 py-1 font-semibold">
+               <button type="submit" className="bg-yellow-50 rounded-md px-4 py-1 font-semibold">
                 Save
                </button>
             </div>

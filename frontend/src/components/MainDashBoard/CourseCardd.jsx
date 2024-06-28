@@ -1,13 +1,26 @@
 import React from 'react'
-import {BsFillHeartFill} from 'react-icons/bs'
+import { IoBookmarks } from "react-icons/io5";
+import { removeFromCart } from '../../servies/operations/cartOperation';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../../slices/UIslice';
+import toast from 'react-hot-toast';
+const CourseCardd = ({image,title,price,id}) => {
+  const dispatch = useDispatch();
+  const removeFromCartHandler = async() => {
+    removeFromCart(dispatch, setLoading, id, toast); 
 
-const CourseCardd = ({image,title}) => {
+  }
   return (
-    <div className='flex flex-col rounded-md cursor-pointer relative '>
-        <img src={image} alt="image" className='max-w-[250px] min-w-[300px] h-[160px] rounded-md'/>
-        <div className='text-white/90 font-semibold'>{title}</div>
-        <div className='flex justify-center items-center absolute text-red-500 text-sm bg-white rounded-full w-[25px] h-[25px] right-2 top-2'>
-            <BsFillHeartFill/>
+    <div className='flex flex-col justify-between items-start rounded-md relative bg-black-bg pb-3 w-full'>
+        <img src={image} alt="image" className='w-full h-[160px] rounded-md'/>
+        <div className='flex justify-between items-center w-full px-2'>
+          <div>
+            <div className='text-white/90 font-semibold pt-2 '>{title}</div>
+            <div className='text-white/90 font-semibold text-glod-color'>Rs. {price}</div>
+          </div>
+          <div onClick={removeFromCartHandler} className='text-white text-2xl cursor-pointer'>
+            <IoBookmarks/>
+          </div>
         </div>
     </div>
   )

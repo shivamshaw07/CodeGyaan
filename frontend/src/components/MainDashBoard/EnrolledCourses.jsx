@@ -43,7 +43,7 @@ export default function EnrolledCourses() {
           </div>
           {/* Course Names */}
           {enrolledCourses.map((course, i, arr) => (
-            console.log(course),
+            // console.log(course),
             <div
               className={`flex items-center border  ${
                 i === arr.length - 1 ? "rounded-lg" : "rounded-none"

@@ -13,12 +13,17 @@ import { useDispatch } from "react-redux";
 import {useSelector} from 'react-redux'
 import { setToken } from "../../slices/authSlice";
 import { logout } from "../../servies/operations/authOpertaion";
+import { setLoading } from "../../slices/UIslice";
+import { getCart } from "../../servies/operations/cartOperation";
+import toast from "react-hot-toast";
 
 const NavBar = () => {
   const [dashboardActive, setDashboardActive] = useState(false);
   const dispatch = useDispatch();
   const {token} = useSelector(state => state.auth)
   const {user} = useSelector(state => state.profile)
+  const {totalItem} = useSelector(state => state.cart)
+  const {cart} = useSelector(state => state.cart)
   const navigate = useNavigate();
   useEffect(() => {
     if(token){
@@ -30,6 +35,14 @@ const NavBar = () => {
     dispatch(logout());
     navigate('/login');
   }
+
+  const getCartHandler = async() => {
+    dispatch(setLoading(true));
+    await getCart(dispatch,setLoading,toast);
+    dispatch(setLoading(false));
+    console.log(cart);
+    navigate("/dashboard/your-cart");
+  };
   return (
     <div className="h-[19vh] max-w-[100vw] overflow-x-hidden py-4 flex flex-col gap-4 shadow-md shadow-black">
       <div className="flex justify-between items-center w-[85%] mx-auto">
@@ -64,9 +77,10 @@ const NavBar = () => {
         )}
         {token && (
           <div className="flex justify-center items-center gap-1 text-white py-1">
-            {user.accountType === "Student" && <NavLink to={'/dashboard/your-cart'}>
+            {user?.accountType === "Student" && <div onClick={getCartHandler} className={"flex justify-center items-center cursor-pointer group relative"}>
               <BsCart4 style={{ fontSize: "20px" }} />
-            </NavLink>}
+              <div className="absolute bg-yellow-300 w-[14px] h-[14px] text-[10px] text-center -top-1 -right-1 text-black/50 font-bold rounded-full">{totalItem}</div>
+            </div>}
             
             <div onClick={
                   dashboardActive
@@ -74,7 +88,7 @@ const NavBar = () => {
                     : () => setDashboardActive(true)
                 } className="flex justify-center items-center cursor-pointer group">
               {/* <div className="bg-glod-color px-2 py-1 rounded-full">{user.firstName}</div> */}
-              <img className="w-[35px] h-[35px] rounded-full" src={user.image} alt="profile" />
+              <img className="w-[35px] h-[35px] rounded-full" src={user?.image} alt="profile" />
               <TiArrowSortedDown style={{ fontSize: "15px" }} />
               <div
                 className={dashboardActive ? "bg-[#2c2d30] absolute top-[9vh] right-[6vw] block group-hover:block hover:block  rounded-md" : "bg-[#2c2d30] absolute top-[9vh] right-[6vw] hidden group-hover:block hover:block  rounded-md"}
