@@ -12,6 +12,13 @@ export const authEndPoints = {
     checkToken : `${BASE_URL}/auth/checkToken`,
 }
 
+//cart endpoints
+export const cartEndPoints = {
+    addToCart : `${BASE_URL}/student/addToCart`,
+    removeFromCart : `${BASE_URL}/student/removeFromCart`,
+    getCart : `${BASE_URL}/student/getCart`,
+}
+
 //user endpoints
 export const profileEndPoints = {
     profile : `${BASE_URL}/user/profile`,
