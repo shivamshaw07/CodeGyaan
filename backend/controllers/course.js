@@ -126,7 +126,7 @@ export const editCourse = async (req, res) => {
             path: "additionalDetails",
           },
         })
-        .populate("category")
+        // .populate("category")
         .populate("ratingAndReviews")
         .populate({
           path: "courseContent",
@@ -176,8 +176,10 @@ export const fetchInstructorCourses = async (req,res) => {
 }
 
 export const getAllCourses = async (req,res) => {
+  console.log(req.body);
     try {
-        const allCourses = await course.find({}).populate("instructor").populate("category").exec()
+        const allCourses = await course.find({}).populate("instructor")
+        console.log(allCourses);
         return res.status(200).json({
             success : true,
             message : "All courses fetched successfully",
@@ -198,7 +200,7 @@ export const courseDetails = async (req,res) => {
         const {id} = req.params
         const courseDetails = await course.findById(id)
         .populate("instructor")
-        .populate("category")
+        // .populate("category")
         .populate("ratingAndReviews")
         .populate({
           path: "courseContent",
@@ -241,7 +243,7 @@ export const getFullCompleteCourse = async (req, res) => {
           path: "additionalDetails",
         },
       })
-      .populate("category")
+      // .populate("category")
       .populate("ratingAndReviews")
       .populate({
         path: "courseContent",

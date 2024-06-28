@@ -28,8 +28,8 @@ instructorRoute.post('/getFullCompleteCourse',auth,getFullCompleteCourse)
 instructorRoute.post('/getInstructorCourses',auth,isInstructor,fetchInstructorCourses)
 
 //course category
-instructorRoute.post("/createCategory", auth, isAdmin, createCategory)
+// instructorRoute.post("/createCategory", auth, isAdmin, createCategory)
 instructorRoute.get("/showAllCategories", showAllCategories)
-instructorRoute.post("/getCategoryPageDetails", categoryPageDetails)
+// instructorRoute.post("/getCategoryPageDetails", categoryPageDetails)
 
 export default instructorRoute
